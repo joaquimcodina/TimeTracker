@@ -1,0 +1,39 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title "Time Tracker"
+
+abstract class user {
+# usage : temps
+}
+
+class Task extends user {
+- intervals : ArrayList<Interval>
+
++ initTask()
++ endTask()
+}
+
+class Project extends user {
+- objects : ArrayList<user>
+
++ addObject(obj : Task) //CHANGE TO TASK IN CLASS
++ addProject(obj : Project) //TODO
+}
+
+class Interval {
+- first : LocalDateTime
+- second : LocalDateTime
+
++ Interval()
++ setSecond()
++ getIntervalTime() : int
++ getInitialDate() : LocalDateTime
++ getFinalDate() : LocalDateTime
+}
+
+Project o--> "*" user
+Task o--> "*" Interval
+
+
+@enduml
