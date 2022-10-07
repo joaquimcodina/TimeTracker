@@ -3,26 +3,26 @@ skinparam classAttributeIconSize 0
 
 title "Time Tracker"
 
-abstract class user {
+class User {
 # usage : temps
++{static} main()
 }
 
-class Task{
-- intervals : ArrayList<Interval>
+class Task extends CompositeClass{
+ intervals : ArrayList<Interval>
 
 + initTask()
 + endTask()
 }
 
-class Project {
-- objects : ArrayList<user>
-
+class Project extends CompositeClass {
+- objects : ArrayList<User>
 + addObject(obj : Task) //CHANGE TO TASK IN CLASS
 + addProject(obj : Project) //TODO
 }
 
 package "Observer_Pattern" #DDDDDD{
-    Observable o--|> Observer : observers *
+    Observable o--> Observer : observers *
 }
 
 abstract class Observable{
@@ -37,10 +37,15 @@ interface Observer{
 }
 
 class ClockTimer{
-- tiemr: ClockTimer
+- timer : ClockTimer
 - dateTime : DateTime
 + startTimer()
 + tick()
+}
+
+abstract class CompositeClass{
+- name : String
++ getName() : String
 }
 
 class Interval {
@@ -55,12 +60,11 @@ class Interval {
 }
 
 
-Task "1..*"-up-"1" Project
-Project "1..*"-up-"1" user
-Project "1"-left-"1..*" Project
-Task "1"*--"1..*" Interval
+User *--> CompositeClass
+'Project "1"-left-"0..*" Project
+CompositeClass <--* Project
+Task "1"--"0..*" Interval
 ClockTimer --|> "*" Observable
 Interval ..|> Observer
-
 
 @enduml
