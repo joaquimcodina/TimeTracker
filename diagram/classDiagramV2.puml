@@ -4,21 +4,23 @@ skinparam classAttributeIconSize 0
 title "Time Tracker"
 
 class User {
-# usage : temps
-+{static} main()
++{static} main(args : String[])
 }
 
-class Task extends CompositeClass{
- intervals : ArrayList<Interval>
-
+class Task extends Component{
+- intervals : ArrayList<Interval>
++ Task()
++ getIntervals() : ArrayList<Interval>
 + initTask()
 + endTask()
 }
 
-class Project extends CompositeClass {
-- objects : ArrayList<User>
-+ addObject(obj : Task) //CHANGE TO TASK IN CLASS
-+ addProject(obj : Project) //TODO
+class Project extends Component {
+- Components : ArrayList<Components>
++ Project()
++ getSubComponents() : ArrayList<Components>
++ addComponent(obj : Component)
++ removeComponent(obj : Component)
 }
 
 package "Observer_Pattern" #DDDDDD{
@@ -43,26 +45,32 @@ class ClockTimer{
 + tick()
 }
 
-abstract class CompositeClass{
-- name : String
+abstract class Component{
+# name : String
+# durationTime : int
+# initialDate : DateTime
+# lastDate : DateTime
 + getName() : String
++ getTimeWasted() : int
++ getInitialDate() : DateTime
++ getLastDate() : DateTime
 }
 
 class Interval {
-- first : LocalDateTime
-- second : LocalDateTime
-
+- dateTimeInit : LocalDateTime
+- dateTimeFin : LocalDateTime
+- duration : int
 + Interval()
-+ setSecond()
-+ getIntervalTime() : int
++ setSecond(duration : int)
++ getSeconds() : int
 + getInitialDate() : LocalDateTime
 + getFinalDate() : LocalDateTime
 }
 
 
-User *--> CompositeClass
+User *--> Component
 'Project "1"-left-"0..*" Project
-CompositeClass <--* Project
+Component <--* Project : "children"
 Task "1"--"0..*" Interval
 ClockTimer --|> "*" Observable
 Interval ..|> Observer
