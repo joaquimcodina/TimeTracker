@@ -10,6 +10,7 @@ class User {
 class Task extends Component{
 - intervals : ArrayList<Interval>
 + Task()
++ updateDates()
 + getIntervals() : ArrayList<Interval>
 + initTask()
 + endTask()
@@ -18,6 +19,7 @@ class Task extends Component{
 class Project extends Component {
 - Components : ArrayList<Components>
 + Project()
++ updateDates()
 + getSubComponents() : ArrayList<Components>
 + addComponent(obj : Component)
 + removeComponent(obj : Component)
@@ -50,6 +52,8 @@ abstract class Component{
 # durationTime : int
 # initialDate : DateTime
 # lastDate : DateTime
++ Component(name : String)
++ {abstract} updateDates()
 + getName() : String
 + getTimeWasted() : int
 + getInitialDate() : DateTime
