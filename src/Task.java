@@ -4,9 +4,12 @@ import java.util.Date;
 public class Task extends Component {
   private ArrayList<Interval> Intervals;
 
-  public Task(String name) {
-    super(name);
+  public Task(String name, Project father) {
+    super(name, father);
     Intervals = new ArrayList<Interval>();
+    try {
+      father.addComponent(this);
+    } catch(NullPointerException e) { }
   }
 
   @Override
@@ -31,6 +34,7 @@ public class Task extends Component {
   public void initTask() {
     Interval newInterval = new Interval();
     this.Intervals.add(newInterval);
+    //TODO: To update clockTimer and start couting time.
   }
   //This function creates a new Interval, which has a initialDate set to the actual System's Date.
 
