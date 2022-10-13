@@ -11,6 +11,8 @@ public class Task extends Component {
       father.addComponent(this);
     } catch(NullPointerException e) { }
   }
+  //NOTE: father may be a Component, but as it is always going to be a Project (Only a Project can have sub-Tasks&sub-Project) we forced the parameter to be a Project.
+  // the try-catch statement is that in case of having a null father (Project or Task Root) control the Exception.
 
   @Override
   public void updateDates() {
