@@ -23,11 +23,11 @@ public class Interval implements Observer {
   }
 
   public Date getInitialDate() {
-    return dateTimeInit;
+    return this.dateTimeInit;
   }
 
   public Date getFinalDate() {
-    return dateTimeEnd;
+    return this.dateTimeEnd;
   }
 
   @Override
