@@ -1,34 +1,34 @@
-import java.util.Date;
+import java.util.ArrayList;
 
-public abstract  class Component {
-  protected String name;
-  protected int durationTime;
-  protected Date initialDate;
-  protected Date finalDate;
-  protected Component father;
+public class Project extends Component {
+  private ArrayList<Component> Components;
+  //Components: This ArrayList will contain the sub-Tasks and Sub-Projects of a Project object.
 
-  public String getName() { return this.name; }
-  public int getWastedTime() { return this.durationTime; }
-  public Date getInitialDate() {
-    updateDates();
-    return this.initialDate;
+  public Project(String name, Project father) {
+    super(name, father);
+    Components = new ArrayList<Component>();
+    try {
+      father.addComponent(this);
+    }catch(NullPointerException e) { }
   }
-  public Date getFinalDate() {
-    updateDates();
-    return this.finalDate;
-  }
+  //Constructor: This initiates the Project with a name and sets the Components attribute to NOT NULL.
+  //NOTE: father may be a Component, but as it is always going to be a Project (Only a Project can have sub-Tasks&sub-Project) we forced the parameter to be a Project.
+  // the try-catch statement is that in case of having a null father (Project or Task Root) control the Exception.
 
-  public abstract void updateDates();
-
-  public Component(String name, Component father) {
-    this.name = name;
-    initialDate = null;
-    finalDate = null;
-    durationTime = 0;
-    this.father = father;
+  @Override
+  public void updateDates() {
+    int duration = 0;
+    for (int i = 0; i < Components.size(); i++) {
+      Components.get(i).updateDates();
+      duration += Components.get(i).getWastedTime();
+    }
+    notifyFather();
+    this.durationTime = duration;
   }
+  //This function updates the initialDate and finalDate of a project, including the same attributes from each of its sub-Project and sub-Tasks.
+  // It also updates its durationTime attribute and notifies its father about this change, if exists.
 
-  public Component getFather() {
-    return this.father;
-  }
+  public ArrayList<Component> getSubComponents() { return this.Components; }
+
+  public void addComponent(Component obj) { Components.add(obj); } //check if it does not already exists
 }
