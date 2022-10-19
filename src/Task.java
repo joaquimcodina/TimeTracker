@@ -16,20 +16,26 @@ public class Task extends Component {
 
   @Override
   public void updateDates() {
-    if (!Intervals.isEmpty()) {
-      this.initialDate = Intervals.get(0).getInitialDate();
-      Date aux = null;
-      for (int i = 0; i < Intervals.size(); i++) {
-        Date actual = Intervals.get(i).getFinalDate();
-        if (actual != null) {
-          if (aux == null || actual.compareTo(aux) > 0) //si trobar una finalDate més vella que les altres ja trobades
-            aux = actual;
-        }
+    this.durationTime = 0;
+    for (int i = 0; i < Intervals.size(); i++) {
+      Date initialDate = Intervals.get(i).getInitialDate();
+      Date finalDate = Intervals.get(i).getFinalDate();
+      int duration = Intervals.get(i).getDuration();
+
+      if (initialDate != null) {
+        if (this.initialDate == null || initialDate.compareTo(this.initialDate) < 0)
+          this.initialDate = initialDate;
       }
-      this.finalDate = aux;
+      if (finalDate != null) {
+        if (this.finalDate == null || finalDate.compareTo(this.finalDate) > 0)
+          this.finalDate = finalDate;
+      }
+      this.durationTime += Intervals.get(i).getDuration();
     }
+    notifyFather();
   }
-  //This method updates the initalDate and finalDate attributes iterating every son it has and looking for the initial and final Dates of the intervals.
+  //This method updates the initalDate, finalDate and durationTime attributes iterating every son it has and looking for the initial and final Dates of the intervals.
+  //It also notifies its father about this change, if exists.
 
   public ArrayList<Interval> getIntervals() { return Intervals; }
 
