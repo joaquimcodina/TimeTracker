@@ -1,34 +1,62 @@
-import java.util.ArrayList;
+import java.util.Date;
 
-public class Project extends Component {
-  private ArrayList<Component> Components;
-  //Components: This ArrayList will contain the sub-Tasks and Sub-Projects of a Project object.
+public abstract  class Component {
+  protected String name;
+  protected int durationTime;
+  protected Date initialDate;
+  protected Date finalDate;
 
-  public Project(String name, Project father) {
-    super(name, father);
-    Components = new ArrayList<Component>();
-    try {
-      father.addComponent(this);
-    }catch(NullPointerException e) { }
+  protected Component father;
+
+  public String getName() {
+    return this.name;
   }
-  //Constructor: This initiates the Project with a name and sets the Components attribute to NOT NULL.
-  //NOTE: father may be a Component, but as it is always going to be a Project (Only a Project can have sub-Tasks&sub-Project) we forced the parameter to be a Project.
-  // the try-catch statement is that in case of having a null father (Project or Task Root) control the Exception.
+  public int getWastedTime() {
+    return this.durationTime;
+  }
+  public Date getInitialDate() {
+    return this.initialDate;
+  }
+  public Date getFinalDate() {
+    return this.finalDate;
+  }
 
-  @Override
-  public void updateDates() {
-    int duration = 0;
-    for (int i = 0; i < Components.size(); i++) {
-      Components.get(i).updateDates();
-      duration += Components.get(i).getWastedTime();
+  public Component getFather() {
+    return this.father;
+  }
+
+  protected void updateInitialDate(Date dt) {
+    this.initialDate = dt;
+  }
+  protected void updateFinalDate(Date dt) {
+    this.finalDate = dt;
+  }
+
+  public abstract void updateDates();
+
+  public Component(String name, Component father) {
+    this.name = name;
+    initialDate = null;
+    finalDate = null;
+    durationTime = 0;
+    this.father = father;
+  }
+
+  protected void notifyFather() {
+    if (this.father != null) {
+      if (this.initialDate != null) {
+        if (this.father.getInitialDate() == null || this.initialDate.compareTo(this.father.getInitialDate()) < 0)
+          this.father.updateInitialDate(this.initialDate);
+      }
+      if (this.finalDate != null) {
+        if (this.father.getFinalDate() == null || this.finalDate.compareTo(this.father.getFinalDate()) > 0)
+          this.father.updateFinalDate(this.finalDate);
+      }
     }
-    notifyFather();
-    this.durationTime = duration;
   }
-  //This function updates the initialDate and finalDate of a project, including the same attributes from each of its sub-Project and sub-Tasks.
-  // It also updates its durationTime attribute and notifies its father about this change, if exists.
-
-  public ArrayList<Component> getSubComponents() { return this.Components; }
-
-  public void addComponent(Component obj) { Components.add(obj); } //check if it does not already exists
+  /*This function updates its father's:
+  *   - initialDate: if father's initialDate is newer than object's one.
+  *   - finalDate: if father's finalDate is older that object's one.
+  * Duration attribute cannot be updated with this function. It is updated manually in <<updateDates>>
+  * */
 }
