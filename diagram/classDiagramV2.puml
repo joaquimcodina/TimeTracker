@@ -22,7 +22,6 @@ class Project extends Component {
 + updateDates()
 + getSubComponents() : ArrayList<Components>
 + addComponent(obj : Component)
-+ removeComponent(obj : Component)
 }
 
 package "Observer_Pattern" #DDDDDD{
@@ -56,9 +55,13 @@ abstract class Component{
 + Component(name : String, obj : Component)
 + {abstract} updateDates()
 + getName() : String
-+ getTimeWasted() : int
++ getWastedTime() : int
 + getInitialDate() : DateTime
 + getLastDate() : DateTime
++ getFather() : Component
+# updateInitialDate()
+# updateFinalDate()
+# notifyFather()
 }
 
 class Interval {
@@ -73,11 +76,14 @@ class Interval {
 }
 
 
+
+
 User *--> Component
 'Project "1"-left-"0..*" Project
 Component <--* Project : "children"
 Task "1"--"0..*" Interval
 ClockTimer --|> "*" Observable
 Interval ..|> Observer
+
 
 @enduml
