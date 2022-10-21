@@ -1,62 +1,63 @@
-import java.util.Date;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
-public abstract  class Component {
-  protected String name;
-  protected int durationTime;
-  protected Date initialDate;
-  protected Date finalDate;
+public abstract class Component {
+  private String name;
+  private Duration elapsedTime = Duration.ZERO;
+  private LocalDateTime startDate;
+  private LocalDateTime finalDate;
+  private Project father;
 
-  protected Component father;
-
-  public String getName() {
-    return this.name;
-  }
-  public int getWastedTime() {
-    return this.durationTime;
-  }
-  public Date getInitialDate() {
-    return this.initialDate;
-  }
-  public Date getFinalDate() {
-    return this.finalDate;
-  }
-
-  public Component getFather() {
-    return this.father;
-  }
-
-  protected void updateInitialDate(Date dt) {
-    this.initialDate = dt;
-  }
-  protected void updateFinalDate(Date dt) {
-    this.finalDate = dt;
-  }
-
-  public abstract void updateDates();
-
-  public Component(String name, Component father) {
+  public Component(String name){
     this.name = name;
-    initialDate = null;
-    finalDate = null;
-    durationTime = 0;
+    this.father = null;
+  }
+
+  public Component(String name, Project father){
+    this.name = name;
     this.father = father;
   }
 
-  protected void notifyFather() {
-    if (this.father != null) {
-      if (this.initialDate != null) {
-        if (this.father.getInitialDate() == null || this.initialDate.compareTo(this.father.getInitialDate()) < 0)
-          this.father.updateInitialDate(this.initialDate);
-      }
-      if (this.finalDate != null) {
-        if (this.father.getFinalDate() == null || this.finalDate.compareTo(this.father.getFinalDate()) > 0)
-          this.father.updateFinalDate(this.finalDate);
-      }
+  public String getName() {
+    return name;
+  }
+
+  public LocalDateTime getStartDate() {
+    return startDate;
+  }
+
+  public LocalDateTime getFinalDate() {
+    return finalDate;
+  }
+
+  public Duration getElapsedTime() {
+    return elapsedTime;
+  }
+
+  public Project getFather() {
+    return father;
+  }
+
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
+    if (father != null && father.getStartDate() == null) {
+      father.setStartDate(startDate);
     }
   }
-  /*This function updates its father's:
-  *   - initialDate: if father's initialDate is newer than object's one.
-  *   - finalDate: if father's finalDate is older that object's one.
-  * Duration attribute cannot be updated with this function. It is updated manually in <<updateDates>>
-  * */
+
+  public void setFinalDate(LocalDateTime finalDate) {
+    this.finalDate = finalDate;
+    if (father != null) {
+      father.setFinalDate(finalDate);
+    }
+  }
+
+  abstract void accept(Visitor v);
+
+  public void updateElapsedTime(LocalDateTime finalDate) {
+    this.elapsedTime = getElapsedTime().plusSeconds(ClockTimer.getFreq());
+    if (this.getFather() != null) {
+      this.getFather().updateElapsedTime(finalDate);
+    }
+  }
 }
