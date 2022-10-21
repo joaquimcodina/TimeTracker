@@ -3,8 +3,20 @@ skinparam classAttributeIconSize 0
 
 title "Time Tracker"
 
-class User {
+class User{
 +{static} main(args : String[])
+}
+
+interface Visitor {
+visitProject()
+visitTask()
+}
+
+class Printer implements Visitor{
+- project : Project
++ Printer(project : Project)
++ visitProject(project : Project)
++ visitTask(task : Task)
 }
 
 class Task extends Component{
@@ -78,9 +90,9 @@ class Interval {
 
 
 
-User *--> Component
+User *-right-> Component
 'Project "1"-left-"0..*" Project
-Component <--* Project : "children"
+Printer -right-> User
 Task "1"--"0..*" Interval
 ClockTimer --|> "*" Observable
 Interval ..|> Observer
