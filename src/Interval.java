@@ -1,37 +1,35 @@
-import java.time.Instant;
-import java.util.Date;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Interval implements Observer {
-  private Date dateTimeInit;
-  private Date dateTimeEnd;
-  private int duration;
-
-  public Interval() {
-    dateTimeInit = new Date(); //This sets the dateTimeInit value to the current Date of System.
-    dateTimeEnd = null;
-    duration = 0;
+  private LocalDateTime start;
+  private LocalDateTime end;
+  private Task father;
+  private Duration elapsedTime = Duration.ZERO;
+  public Interval(LocalDateTime now, Task father) {
+    this.start = now;
+    this.father = father;
+  }
+  public void update(Observable o, Object arg) {
+    this.elapsedTime = getElapsedTime().plusSeconds(ClockTimer.getFreq());
+    this.end = ClockTimer.getInstance().getNow();
+    this.father.updateElapsedTime(getEnd());
+    //this.father.updateElapsedTime(getElapsedTime());
   }
 
-  public void setDuration(int duration) {
-    this.duration = duration;
+  public void stopClock() { ClockTimer.getInstance().deleteObserver(this); }
+  public LocalDateTime getStart(){ return this.start; }
+  public LocalDateTime getEnd(){ return this.end; }
+  public Task getFather() {
+    return father;
   }
-
-  public int getDuration() {
-    return this.duration;
-  }
-
-  public Date getInitialDate() {
-    return this.dateTimeInit;
-  }
-
-  public Date getFinalDate() {
-    return this.dateTimeEnd;
-  }
+  public Duration getElapsedTime(){ return this.elapsedTime; }
 
   @Override
-  public void update(Observable clockTimer, Object arg) {
-    //CHANGE TO ANOTHER OBSERVABLE - OBSERVER CLASSES
+  public String toString() {
+    return "Interval         child of " + getFather().getName() + "      " +getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "       " + getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "       " + getElapsedTime().getSeconds();
   }
 }
