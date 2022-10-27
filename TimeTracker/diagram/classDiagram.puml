@@ -1,0 +1,101 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title "Time Tracker"
+
+class User{
++{static} main(args : String[])
+}
+
+interface Visitor {
+visitProject()
+visitTask()
+}
+
+class Printer implements Visitor{
+- project : Project
++ Printer(project : Project)
++ visitProject(project : Project)
++ visitTask(task : Task)
+}
+
+class Task extends Component{
+- intervals : List<Interval>
++ Task(name : String, father : Component)
++ updateDates()
++ getIntervals() : ArrayList<Interval>
++ initTask()
++ endTask()
+}
+
+class Project extends Component {
+- Components : ArrayList<Components>
++ Project(name : String, father : Component)
++ updateDates()
++ getSubComponents() : ArrayList<Components>
++ addComponent(obj : Component)
+}
+
+package "Observer_Pattern" #DDDDDD{
+    Observable o--> Observer : observers *
+}
+
+abstract class Observable{
++ addObserver(ob: Observer)
++ deleteObserver(ob: Observer)
++setChanged()
++notifyObservers(arg0: Observable, arg1: Object)
+}
+
+interface Observer{
++update(arg0: Observable, arg1: Object)
+}
+
+class ClockTimer{
+- timer : ClockTimer
+- dateTime : DateTime
++ startTimer()
++ tick()
+}
+
+abstract class Component{
+# name : String
+# durationTime : int
+# initialDate : DateTime
+# lastDate : DateTime
+# father: Component
++ Component(name : String, obj : Component)
++ {abstract} updateDates()
++ getName() : String
++ getWastedTime() : int
++ getInitialDate() : DateTime
++ getLastDate() : DateTime
++ getFather() : Component
+# updateInitialDate()
+# updateFinalDate()
+# notifyFather()
+}
+
+class Interval {
+- dateTimeInit : LocalDateTime
+- dateTimeFin : LocalDateTime
+- duration : int
++ Interval()
++ setSecond(duration : int)
++ getSeconds() : int
++ getInitialDate() : LocalDateTime
++ getFinalDate() : LocalDateTime
+}
+
+
+
+
+User *-right-> Component
+'Project "1"-left-"0..*" Project
+Visitor -right-> User
+Task "1"--"0..*" Interval
+Interval ..|> Observer
+ClockTimer --|> "*" Observable
+
+
+@enduml
