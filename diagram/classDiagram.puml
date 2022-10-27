@@ -20,7 +20,7 @@ class Printer implements Visitor{
 }
 
 class Task extends Component{
-- intervals : ArrayList<Interval>
+- intervals : List<Interval>
 + Task(name : String, father : Component)
 + updateDates()
 + getIntervals() : ArrayList<Interval>
@@ -92,10 +92,10 @@ class Interval {
 
 User *-right-> Component
 'Project "1"-left-"0..*" Project
-Printer -right-> User
+Visitor -right-> User
 Task "1"--"0..*" Interval
-ClockTimer --|> "*" Observable
 Interval ..|> Observer
+ClockTimer --|> "*" Observable
 
 
 @enduml
