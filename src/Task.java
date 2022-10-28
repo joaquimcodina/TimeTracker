@@ -25,8 +25,9 @@ public class Task extends Component {
     }
 
     public void stop() {
-        this.setFinalDate(LocalDateTime.now());
-        this.getFather().setFinalDate(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        this.setFinalDate(now);
+        this.getFather().setFinalDate(now);
     }
 
     public void accept(Visitor v) {

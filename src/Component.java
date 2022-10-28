@@ -55,7 +55,7 @@ public abstract class Component {
   abstract void accept(Visitor v);
 
   public void updateElapsedTime(LocalDateTime finalDate) {
-    this.elapsedTime = getElapsedTime().plusSeconds(ClockTimer.getFreq());
+    this.elapsedTime = Duration.ofSeconds(Duration.between(startDate,finalDate).toSeconds());
     if (this.getFather() != null) {
       this.getFather().updateElapsedTime(finalDate);
     }
