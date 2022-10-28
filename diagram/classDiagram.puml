@@ -92,6 +92,7 @@ class Interval {
 
 User *-right-> Component
 'Project "1"-left-"0..*" Project
+Project "1" o- "*" Component
 Visitor -right-> User
 Task "1"--"0..*" Interval
 Interval ..|> Observer
