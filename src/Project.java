@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class Project extends Component {
@@ -20,13 +21,20 @@ public class Project extends Component {
         this.componentList.add(task);
     }
 
-    public ArrayList<Component> getComponentList() {
-        return this.componentList;
+    @Override
+    public void updateDates(){
+        Duration duration = Duration.ZERO;
+        for (Component component : componentList) {
+            duration = duration.plus(component.getElapsedTime());
+            notifyFather();
+        }
+        this.elapsedTime = duration;
+
     }
 
-    public void accept(Visitor v) {
-        v.visitProject(this);
-    }
+    public ArrayList<Component> getComponentList() { return this.componentList; }
+
+    public void accept(Visitor v) { v.visitProject(this); }
 
     public String toString() {
         return this.getFather() != null ? this.getName() + "       child of " + this.getFather().getName() + "    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds() : this.getName() + "     child of null    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds();
