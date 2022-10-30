@@ -3,8 +3,6 @@
 // (powered by FernFlower decompiler)
 //
 
-import java.util.Iterator;
-
 public class Printer implements Visitor {
     private Project project;
 
@@ -14,11 +12,9 @@ public class Printer implements Visitor {
 
     public void visitProject(Project project) {
         System.out.println("Project " + project);
-
         for (Component component : project.getComponentList()) {
             component.accept(this);
         }
-
     }
 
     public void visitTask(Task task) {
@@ -27,6 +23,4 @@ public class Printer implements Visitor {
             System.out.println("   " + task.getIntervals());
         }
     }
-
-
 }

@@ -1,0 +1,9 @@
+- Canviar format de les dates Projectes, Tasques i Intervals YYYY-MM-DD hh:mm:ss
+
+- Acabar persistencia de dades (Cridar als fills dels projectes fills del root...)
+
+- Recuperar dades del fitxer JSON
+
+- Aplicar tests del apèndix B
+
+- Realitzar comentaris per cada mètode (en àngles)
