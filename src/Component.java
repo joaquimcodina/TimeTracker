@@ -52,10 +52,12 @@ public abstract class Component {
 
   public void updateElapsedTime(LocalDateTime finalDate) {
     this.elapsedTime = Duration.ofSeconds(Duration.between(this.startDate,finalDate).toSeconds());
-    if (this.getFather() != null) {
-      this.getFather().updateElapsedTime(finalDate);
+    Component actual = this;
+    while (actual.getFather() != null) {
+      actual.getFather().updateElapsedTime(finalDate);
+      actual = actual.getFather();
     }
-    this.updateDates();
+    actual.updateDates();
   }
   abstract void accept(Visitor v);
 

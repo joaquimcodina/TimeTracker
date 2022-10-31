@@ -40,6 +40,8 @@ public class Task extends Component {
         return this.intervals;
     }
 
+    public Interval getIntervalPos(int pos) {return this.intervals.get(pos); }
+
     @Override
     public void updateDates() {
         this.elapsedTime = Duration.ZERO;

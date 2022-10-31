@@ -1,11 +1,8 @@
 import java.io.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.json.*;
 
 public class User {
-    public User() {
-    }
 
     public static void jsonSafe(Project project, File file) throws IOException {
       //JSON PART
@@ -21,7 +18,8 @@ public class User {
           obj.put("father", "null");
         else
           obj.put("father", project.getComponentList().get(i).getFather().getName());
-        obj.put("type", Component.class);
+
+        obj.put("type", project.getComponentList().get(i).getClass());
         obj.put("start_date", project.getComponentList().get(i).getStartDate());
         obj.put("final_date", project.getComponentList().get(i).getFinalDate());
         obj.put("elapsed_time", project.getComponentList().get(i).getElapsedTime().toSeconds());
@@ -30,7 +28,7 @@ public class User {
       obj = new JSONObject(); //father object
       obj.put("name", project.getName());
       obj.put("father", "null");
-      obj.put("type", Component.class); //tipus projecte, tasca o interval
+      obj.put("type", project.getClass()); //tipus projecte, tasca o interval
       obj.put("start_date", project.getStartDate());
       obj.put("final_date", project.getFinalDate());
       obj.put("elapsed_time", project.getElapsedTime().toSeconds());
@@ -46,18 +44,45 @@ public class User {
         Project softwareDesign = new Project("Software Design", root);
         new Project("Software Testing", root);
         new Project("Database", root);
-        new Project("Transportation", root);
+        Task transportation = new Task("Transportation", root);
         Project problems = new Project("Problems", softwareDesign);
         Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
         Task task1 = new Task("First List", problems);
         Task task2 = new Task("Second List", problems);
         new Task("Read Handout", projectTimeTracker);
         new Task("First Milestone", projectTimeTracker);
+        //Printer printer = new Printer(root);
+        //LocalDateTime now = LocalDateTime.now();
+        //System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now));
+        //root.accept(printer);
+
         Printer printer = new Printer(root);
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now));
+        transportation.start(LocalDateTime.now());
+        Thread.sleep(4000L);
+        transportation.stop();
         root.accept(printer);
-        task1.start(now);
+        Thread.sleep(2000L);
+        System.out.println("\n");
+
+        task1.start(LocalDateTime.now());
+        Thread.sleep(6000L);
+        task2.start(LocalDateTime.now());
+        Thread.sleep(4000L);
+        task1.stop();
+        root.accept(printer);
+        Thread.sleep(2000L);
+        task2.stop();
+        root.accept(printer);
+        Thread.sleep(2000L);
+        System.out.println("\n");
+
+        transportation.start(LocalDateTime.now());
+        Thread.sleep(4000L);
+        transportation.stop();
+        root.accept(printer);
+        System.out.println("\n");
+
+        /*task1.start(now);
         Thread.sleep(2000L);
         task1.stop();
         System.out.println("\n");
@@ -77,7 +102,7 @@ public class User {
         System.out.println("\n");
         now = LocalDateTime.now();
         System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now));
-        root.accept(printer);
+        root.accept(printer);*/
         System.out.println("\n");
         ClockTimer.getInstance().stopClock();
         return root;

@@ -30,6 +30,12 @@ public class Interval implements Observer {
 
   @Override
   public String toString() {
-    return "Interval         child of " + getFather().getName() + "      " +getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "       " + getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "       " + getElapsedTime().getSeconds();
+    if(getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals("null"))
+      return "Interval         child of " + getFather().getName() + "      " + getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+          + "       null" + getElapsedTime().getSeconds();
+
+    else
+      return "Interval         child of " + getFather().getName() + "      " +getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+      + "       " + getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "     " + getElapsedTime().getSeconds();
   }
 }

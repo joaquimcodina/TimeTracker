@@ -20,7 +20,9 @@ public class Printer implements Visitor {
     public void visitTask(Task task) {
         System.out.println("Task " + task);
         if (task.getIntervals().size() != 0) {
-            System.out.println("   " + task.getIntervals());
+            for (int pos = 0; pos < task.getIntervals().size(); pos++){
+                System.out.println("   " + task.getIntervalPos(pos));
+            }
         }
     }
 }
