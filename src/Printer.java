@@ -29,7 +29,4 @@ public class Printer implements Visitor {
     }
   }
   //this method prints the information of a tasj and its intervals.
-
-  public void visitInterval(Interval interval) {
-  }
 }
