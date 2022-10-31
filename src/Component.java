@@ -33,32 +33,33 @@ public abstract class Component {
   public LocalDateTime getFinalDate() { return finalDate; }
   public Duration getElapsedTime() { return elapsedTime; }
   public Project getFather() {
-    return father;
+    return this.father;
+  }
+
+  protected void setElapsedTime(Duration elapsedTime) {
+    this.elapsedTime = elapsedTime;
+  }
+
+  protected void sumElapsedTime(Duration elapsedTime) {
+    this.elapsedTime = this.elapsedTime.plus(elapsedTime);
   }
 
   public void setStartDate(LocalDateTime startDate) {
-    this.startDate = startDate;
-    if (father != null && father.getStartDate() == null) {
+    if (this.getStartDate() == null)
+      this.startDate = startDate;
+    if (this.father != null)
       father.setStartDate(startDate);
-    }
   }
+  //This method updates the startDate of a component recursively.
 
   public void setFinalDate(LocalDateTime finalDate) {
-    this.finalDate = finalDate;
-    if (father != null) {
+    if (this.finalDate == null || this.finalDate.compareTo(finalDate) < 0)
+      this.finalDate = finalDate;
+    if (father != null)
       father.setFinalDate(finalDate);
-    }
   }
+  //This method updates the finalDate of a component recursively.
 
-  public void updateElapsedTime(LocalDateTime finalDate) {
-    this.elapsedTime = Duration.ofSeconds(Duration.between(this.startDate,finalDate).toSeconds());
-    Component actual = this;
-    while (actual.getFather() != null) {
-      actual.getFather().updateElapsedTime(finalDate);
-      actual = actual.getFather();
-    }
-    actual.updateDates();
-  }
   abstract void accept(Visitor v);
 
   protected void updateInitialDate(LocalDateTime dt) {
@@ -67,26 +68,5 @@ public abstract class Component {
   protected void updateFinalDate(LocalDateTime dt) {
     this.finalDate = dt;
   }
-
-  abstract void updateDates();
-
-  protected void notifyFather() {
-    if (this.father != null) {
-      if (this.startDate != null) {
-        if (this.father.getStartDate() == null || this.startDate.compareTo(this.father.getStartDate()) < 0)
-          this.father.updateInitialDate(this.startDate);
-      }
-      if (this.finalDate != null) {
-        if (this.father.getFinalDate() == null || this.finalDate.compareTo(this.father.getFinalDate()) > 0)
-          this.father.updateFinalDate(this.finalDate);
-      }
-      this.father.notifyFather();
-    }
-  }
-  /*This function updates its father's:
-   *   - initialDate: if father's initialDate is newer than object's one.
-   *   - finalDate: if father's finalDate is older that object's one.
-   * Duration attribute cannot be updated with this function. It is updated manually in <<updateDates>>
-   * */
 
 }
