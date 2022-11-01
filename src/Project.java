@@ -1,5 +1,6 @@
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Project extends Component {
   private ArrayList<Component> componentList = new ArrayList();
@@ -12,6 +13,7 @@ public class Project extends Component {
   Project(String name) {
     super(name);
   }
+
 
   public void updateElapsedTime() {
     this.setElapsedTime(Duration.ZERO);
@@ -28,8 +30,13 @@ public class Project extends Component {
     this.componentList.add(comp);
   }
 
+  @Override
   public ArrayList<Component> getComponentList() {
     return this.componentList;
+  }
+  @Override
+  public List<Interval> getIntervals() {
+    return null;
   }
 
   public void accept(Visitor v) {

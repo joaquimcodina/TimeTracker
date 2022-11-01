@@ -1,5 +1,7 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Component {
   private String name;
@@ -23,6 +25,9 @@ public abstract class Component {
     this.startDate = null;
     this.finalDate = null;
   }
+
+  public abstract ArrayList<Component> getComponentList();
+  public abstract List<Interval> getIntervals();
 
   public String getName() {
     return name;

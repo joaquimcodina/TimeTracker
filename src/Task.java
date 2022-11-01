@@ -1,5 +1,6 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +10,11 @@ public class Task extends Component {
   public Task(String name, Project father) {
     super(name, father);
     father.addComponent(this);
+  }
+
+  @Override
+  public ArrayList<Component> getComponentList() {
+    return null;
   }
 
   public void start() {
@@ -39,6 +45,7 @@ public class Task extends Component {
     v.visitTask(this);
   }
 
+  @Override
   public List<Interval> getIntervals() {
     return this.intervals;
   }
