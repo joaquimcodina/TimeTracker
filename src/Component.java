@@ -1,6 +1,6 @@
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Component {
@@ -26,7 +26,7 @@ public abstract class Component {
     this.finalDate = null;
   }
 
-  public abstract ArrayList<Component> getComponentList();
+  public abstract List<Component> getComponentList();
   public abstract List<Interval> getIntervals();
 
   public String getName() {

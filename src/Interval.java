@@ -52,8 +52,8 @@ public class Interval implements Observer {
 
   @Override
   public String toString() {
-      return "Interval         child of " + getFather().getName() + "      " + getStart() + "      "
-          + getEnd() + "      " + getElapsedTime().getSeconds();
+    return "Interval         child of " + getFather().getName() + "      " + (getStart() == null ? "null" : getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "      "
+        + (getEnd() == null ? "null" : getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "      " + getElapsedTime().getSeconds();
   }
   //This method is used to print the information of an Interval.
 }

@@ -1,11 +1,11 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Task extends Component {
-  private List<Interval> intervals = new LinkedList();
+  private List<Interval> intervals = new LinkedList<>();
 
   public Task(String name, Project father) {
     super(name, father);
@@ -13,7 +13,7 @@ public class Task extends Component {
   }
 
   @Override
-  public ArrayList<Component> getComponentList() {
+  public List<Component> getComponentList() {
     return null;
   }
 
@@ -70,9 +70,8 @@ public class Task extends Component {
   }
   //This method updates the initalDate, finalDate and durationTime attributes iterating every son it has and looking for the initial and final Dates of the intervals.
   //It also notifies its father about this change, if exists.
-
   public String toString() {
-    return this.getName() + "          child of " + this.getFather().getName() + "      " + this.getStartDate() + "       " + this.getFinalDate() + "     " + this.getElapsedTime().getSeconds();
+    return this.getName() + "          child of " + this.getFather().getName() + "      " + (this.getStartDate() == null ? "null" : this.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "       " + (this.getFinalDate() == null ? "null" : this.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "     " + this.getElapsedTime().getSeconds();
   }
   //This method is used to print the information of a Task.
 }

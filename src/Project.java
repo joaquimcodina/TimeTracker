@@ -1,9 +1,11 @@
+import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Project extends Component {
-  private ArrayList<Component> componentList = new ArrayList();
+  private List<Component> componentList = new LinkedList<>();
 
   Project(String name, Project father) {
     super(name, father);
@@ -31,7 +33,7 @@ public class Project extends Component {
   }
 
   @Override
-  public ArrayList<Component> getComponentList() {
+  public List<Component> getComponentList() {
     return this.componentList;
   }
   @Override
@@ -44,7 +46,8 @@ public class Project extends Component {
   }
 
   public String toString() {
-    return this.getFather() != null ? this.getName() + "       child of " + this.getFather().getName() + "    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds() : this.getName() + "     child of null    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds();
+    return this.getFather() != null ? this.getName() + "       child of " + this.getFather().getName() + "    " + (this.getStartDate() == null ? "null" : this.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "       " + (this.getFinalDate() == null ? "null" : this.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "      " + this.getElapsedTime().getSeconds() :
+        this.getName() + "     child of null    " + (this.getStartDate() == null ? "null" : this.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "       " + (this.getFinalDate() == null ? "null" : this.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "      " + this.getElapsedTime().getSeconds();
   }
   //This method is used to print the information of a Project.
 }

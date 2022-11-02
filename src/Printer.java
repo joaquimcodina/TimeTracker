@@ -3,6 +3,8 @@
 // (powered by FernFlower decompiler)
 //
 
+import java.io.IOException;
+
 public class Printer implements Visitor {
   private Project project;
 
@@ -10,16 +12,18 @@ public class Printer implements Visitor {
     this.project = project;
   }
 
+  @Override
   public void visitProject(Project project) {
     System.out.println("Project " + project);
     for (Component component : project.getComponentList()) {
       component.accept(this);
     }
-    if (project.getName() == "root")
+    if (project.getName().equals("root"))
       System.out.println();
   }
   //this method prints the information of a project and its sub-components.
 
+  @Override
   public void visitTask(Task task) {
     System.out.println("Task " + task);
     if (task.getIntervals().size() != 0) {
