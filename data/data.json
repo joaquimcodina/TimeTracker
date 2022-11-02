@@ -1,17 +1,33 @@
-{"final_date":"2022-11-01T13:41:53.395458400","father":"null","name":"root",
-  "elapsed_time":18,"type":"class Project","start_date":"2022-11-01T13:41:28.932487200"}
-{"final_date":"2022-11-01T13:41:47.395496100","father":"root","name":"Software Design",
-  "elapsed_time":12,"type":"class Project","start_date":"2022-11-01T13:41:36.937520"}
-{"final_date":"2022-11-01T13:41:47.395496100","father":"Software Design","name":"Problems",
-  "elapsed_time":12,"type":"class Project","start_date":"2022-11-01T13:41:36.937520"}
-{"final_date":"2022-11-01T13:41:45.394725600","father":"Problems","name":"First List",
-  "elapsed_time":8,"type":"class Task","start_date":"2022-11-01T13:41:36.937520"}
-{"final_date":"2022-11-01T13:41:47.395496100","father":"Problems","name":"Second List",
-  "elapsed_time":4,"type":"class Task","start_date":"2022-11-01T13:41:42.939407100"}
-{"father":"Software Design","name":"Project Time Tracker","elapsed_time":0,"type":"class Project"}
-{"father":"Project Time Tracker","name":"Read Handout","elapsed_time":0,"type":"class Task"}
-{"father":"Project Time Tracker","name":"First Milestone","elapsed_time":0,"type":"class Task"}
-{"father":"root","name":"Software Testing","elapsed_time":0,"type":"class Project"}
-{"father":"root","name":"Database","elapsed_time":0,"type":"class Project"}
-{"final_date":"2022-11-01T13:41:53.395458400","father":"root","name":"Transportation",
-  "elapsed_time":6,"type":"class Task","start_date":"2022-11-01T13:41:28.932487200"}
+{
+  "final_date" : "2022-11-01 17:00:37",
+  "children" : [ {
+    "final_date" : "2022-11-01 17:00:31",
+    "father" : "root",
+    "name" : "Software Design",
+    "elapsed_time" : 12,
+    "type" : "class Project",
+    "start_date" : "2022-11-01 17:00:20"
+  }, {
+    "father" : "root",
+    "name" : "Software Testing",
+    "elapsed_time" : 0,
+    "type" : "class Project"
+  }, {
+    "father" : "root",
+    "name" : "Database",
+    "elapsed_time" : 0,
+    "type" : "class Project"
+  }, {
+    "final_date" : "2022-11-01 17:00:37",
+    "father" : "root",
+    "name" : "Transportation",
+    "elapsed_time" : 6,
+    "type" : "class Task",
+    "start_date" : "2022-11-01 17:00:12"
+  } ],
+  "father" : "null",
+  "name" : "root",
+  "elapsed_time" : 18,
+  "type" : "class Project",
+  "start_date" : "2022-11-01 17:00:12"
+}
