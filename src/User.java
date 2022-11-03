@@ -34,7 +34,7 @@ public class User {
         fileData.write(obj.toString());
 
         for (Component component : project.getComponentList()){
-            if (component.getClass().getName() == "Project") {
+            if (component.getClass().getName().equals("Project")) {
                 jsonSafe(component, fileData);
             }
             else{ //en cas de que sigui una task
@@ -99,18 +99,22 @@ public class User {
         Task rh = new Task("Read Handout", projectTimeTracker);
         Task fm = new Task("First Milestone", projectTimeTracker);
         System.out.println("\nBegin of Test B\n");
+        PrinterTestB printertestB = new PrinterTestB();
 
         //Point 1:
-        ClockTimer.getInstance().startClock();
+        //ClockTimer.getInstance().startClock();
         Thread.sleep(1500L);
         //Point 1:
 
         //Point 2:
+        System.out.println("\t \t \t initial date \t final date \t duration");
+        System.out.println("Start test");
+        System.out.println("transportation starts");
         transportation.start();
-        PrinterTestB printertestB = new PrinterTestB(ClockTimer.getInstance().getObservers().get(0));
         ClockTimer.getInstance().addObserver(printertestB);
         Thread.sleep(6000L);
         transportation.stop();
+        System.out.println("transportation stops");
         //Point 2:
 
         //Point 3:
@@ -119,22 +123,26 @@ public class User {
         //Point 3:
 
         //Point 4:
+        System.out.println("first list starts");
         task1.start();
         Thread.sleep(6000L);
         //Point 4:
 
         //Point 5:
+        System.out.println("second list starts");
         task2.start();
         Thread.sleep(4000L);
         //Point 5:
 
         //Point 6:
         task1.stop();
+        System.out.println("first list stops");
         //Point 6:
 
         //Point 7:
         Thread.sleep(2000L);
         task2.stop();
+        System.out.println("second list stops");
         //Point 7:
 
         //Point 8:
@@ -144,15 +152,15 @@ public class User {
 
         //Point 9:
         transportation.start();
+        System.out.println("transportation starts");
         Thread.sleep(4000L);
         transportation.stop();
-        System.out.println("\n");
+        System.out.println("transportation stops");
         //Point 9:
 
-        System.out.println("\n");
         ClockTimer.getInstance().stopClock();
 
-        System.out.println("\nEnd of Test B\n");
+        System.out.println("End of Test B");
 
         return root;
     }

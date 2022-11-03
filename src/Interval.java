@@ -16,8 +16,9 @@ public class Interval implements Observer {
   }
 
   public void update(Observable o, Object arg) {
-    //this.end = ClockTimer.getInstance().getNow();
-    //this.elapsedTime = Duration.ofSeconds(Duration.between(this.start,this.end).toSeconds());
+    this.end = ClockTimer.getInstance().getNow();
+    this.elapsedTime = Duration.ofSeconds(Duration.between(this.start,this.end).toSeconds());
+
   }
 
   public void update() {

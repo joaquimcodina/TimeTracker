@@ -65,6 +65,14 @@ public abstract class Component {
   }
   //This method updates the finalDate of a component recursively.
 
+  public LocalDateTime getActualDate(){
+    return LocalDateTime.now();
+  }
+
+  public Duration getActualElapsedTime(){
+    return Duration.ofSeconds(Duration.between(this.startDate, LocalDateTime.now()).toSeconds());
+  }
+  
   abstract void accept(Visitor v);
 
   protected void updateInitialDate(LocalDateTime dt) {

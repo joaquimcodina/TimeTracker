@@ -34,6 +34,7 @@ public class Project extends Component {
   public ArrayList<Component> getComponentList() {
     return this.componentList;
   }
+
   @Override
   public List<Interval> getIntervals() {
     return null;
@@ -44,7 +45,8 @@ public class Project extends Component {
   }
 
   public String toString() {
-    return this.getFather() != null ? this.getName() + "       child of " + this.getFather().getName() + "    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds() : this.getName() + "     child of null    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds();
+    return this.getFather() != null ? this.getName() + "       child of " + this.getFather().getName() + "    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds()
+            : this.getName() + "     child of null    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds();
   }
   //This method is used to print the information of a Project.
 }

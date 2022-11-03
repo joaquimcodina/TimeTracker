@@ -9,7 +9,7 @@ public class ClockTimer extends Observable {
   private List<Interval>observers = new LinkedList<Interval>();
   private LocalDateTime now;
   private static final ClockTimer instance = new ClockTimer();
-  private static final double freq = 2.5;
+  private static final double freq = 2.75;
   private ClockTimer(){
     this.timer = new Timer();
     startClock();
@@ -22,9 +22,10 @@ public class ClockTimer extends Observable {
         now = LocalDateTime.now();
         setChanged();
         notifyObservers(now);
+
       }
     };
-    this.timer.scheduleAtFixedRate(cycle_task, (long) 0.0, (long) (1000.0 * freq));
+    this.timer.scheduleAtFixedRate(cycle_task, 0, (long) (2000.0));
   }
   public void stopClock(){
     this.timer.cancel();
@@ -48,7 +49,5 @@ public class ClockTimer extends Observable {
   public void notifyObservers() {
     super.notifyObservers();
   }
-
-
 
 }
