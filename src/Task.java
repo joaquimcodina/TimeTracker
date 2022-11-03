@@ -71,7 +71,21 @@ public class Task extends Component {
   //This method updates the initalDate, finalDate and durationTime attributes iterating every son it has and looking for the initial and final Dates of the intervals.
   //It also notifies its father about this change, if exists.
   public String toString() {
-    return this.getName() + "          child of " + this.getFather().getName() + "      " + (this.getStartDate() == null ? "null" : this.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "       " + (this.getFinalDate() == null ? "null" : this.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) + "     " + this.getElapsedTime().getSeconds();
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String stringToReturn = "";
+    if (this.getFather() == null)
+      stringToReturn = this.getName() + "       child of null       ";
+    else
+      stringToReturn = this.getName() + "       child of " + this.getFather().getName() + "       ";
+    if (this.getStartDate() == null)
+      stringToReturn += "null     ";
+    else
+      stringToReturn += this.getStartDate().format(format) + "    ";
+    if (this.getFinalDate() == null)
+      stringToReturn += "null       " + this.getElapsedTime().getSeconds();
+    else
+      stringToReturn += this.getFinalDate().format(format) + "       " + this.getElapsedTime().getSeconds();
+    return stringToReturn;
   }
   //This method is used to print the information of a Task.
 }
