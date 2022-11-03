@@ -73,5 +73,9 @@ public abstract class Component {
   protected void updateFinalDate(LocalDateTime dt) {
     this.finalDate = dt;
   }
+  
+   public String getFatherName() {
+    return this.father.getName();
+  }
 
 }
