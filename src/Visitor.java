@@ -3,4 +3,6 @@ public interface Visitor {
 
     void visitTask(Task var1);
 
+    void visitInterval(Interval interval);
+
 }

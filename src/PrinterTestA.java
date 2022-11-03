@@ -3,10 +3,10 @@
 // (powered by FernFlower decompiler)
 //
 
-public class Printer implements Visitor {
+public class PrinterTestA implements Visitor {
   private Project project;
 
-  public Printer(Project project) {
+  public PrinterTestA(Project project) {
     this.project = project;
   }
 
@@ -27,6 +27,10 @@ public class Printer implements Visitor {
         System.out.println("   " + task.getIntervalPos(pos));
       }
     }
+  }
+
+  public void visitInterval(Interval interval){
+    return;
   }
   //this method prints the information of a tasj and its intervals.
 }

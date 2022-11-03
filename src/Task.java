@@ -20,6 +20,7 @@ public class Task extends Component {
   public void start() {
     Interval interval = new Interval(this);
     ClockTimer.getInstance().addObserver(interval);
+    ClockTimer.getInstance().addInterval(interval);
 
     this.setStartDate(interval.getStart());
 

@@ -46,6 +46,10 @@ public class Interval implements Observer {
     return this.elapsedTime;
   }
 
+  public void accept(Visitor v) {
+    v.visitInterval(this);
+  }
+
   public void setEndDate(LocalDateTime end) {
     this.end = end;
   }
