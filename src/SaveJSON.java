@@ -1,6 +1,9 @@
 import java.io.IOException;
 
 public class SaveJSON implements Visitor {
+  //This class saves a hierarchy when declared. You can save a tree doing SaveJSON a = new SaveJSON(root);
+  
+  
 
   //private JSONArray jsonArray = new JSONArray();
   //private FileWriter fileData = new FileWriter(file, false);
