@@ -47,6 +47,14 @@ public class Interval implements Observer {
     return this.elapsedTime;
   }
 
+  public LocalDateTime getActualDate(){
+    return LocalDateTime.now();
+  }
+
+  public Duration getActualElapsedTime(){
+    return Duration.ofSeconds(Duration.between(this.start, LocalDateTime.now()).toSeconds());
+  }
+
   public void accept(Visitor v) {
     v.visitInterval(this);
   }
@@ -57,8 +65,8 @@ public class Interval implements Observer {
 
   @Override
   public String toString() {
-      return "Interval         child of " + getFather().getName() + "      " + getStart() + "      "
-          + getEnd() + "      " + getElapsedTime().getSeconds();
+    return "Interval         child of " + getFather().getName() + "      " + getStart() + "      "
+            + getEnd() + "      " + getElapsedTime().getSeconds();
   }
   //This method is used to print the information of an Interval.
 }

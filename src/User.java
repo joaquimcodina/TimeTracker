@@ -107,7 +107,7 @@ public class User {
         //Point 1:
 
         //Point 2:
-        System.out.println("\t \t \t initial date \t final date \t duration");
+        System.out.println("\t\t\t\t\t\t\t\t initial date \t\t\t\t final date \t\t\t\t duration");
         System.out.println("Start test");
         System.out.println("transportation starts");
         transportation.start();

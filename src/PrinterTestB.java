@@ -1,9 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
 public class PrinterTestB implements Visitor , Observer{
 
     private Interval interval;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /*public PrinterTestB(Interval interval) {
         this.interval = interval;
@@ -15,21 +19,30 @@ public class PrinterTestB implements Visitor , Observer{
 
     @Override
     public void visitProject(Project project) {
-        System.out.println("activity: \t\t\t" + project.getName() +"\t" + project.getStartDate()+ "\t" + project.getActualDate() + "\t" + project.getActualElapsedTime().toSeconds());
+        System.out.println("activity: \t\t" + project.getName() +"\t\t\t\t" + project.getStartDate().format(formatter)+
+                "\t\t\t" + project.getActualDate().format(formatter) + "\t\t" + project.getActualElapsedTime().toSeconds());
         if (project.getFather() != null)
             project.getFather().accept(this);
+        else
+            System.out.println();
     }
 
     @Override
     public void visitTask(Task task) {
-        System.out.println("activity: \t\t\t" + task.getName() +"\t" + task.getStartDate()+ "\t" + task.getActualDate() + "\t" + task.getActualElapsedTime().toSeconds());
+        System.out.println("activity: \t\t" + task.getName() +"\t\t\t" + task.getStartDate().format(formatter)+
+                "\t\t\t" + task.getActualDate().format(formatter) + "\t\t" + task.getActualElapsedTime().toSeconds());
         if (task.getFather() != null)
             task.getFather().accept(this);
     }
 
     @Override
     public void visitInterval(Interval interval){
-        System.out.println("interval:  \t\t\t" + interval.getStart()+ "\t" + interval.getEnd() + "\t" + interval.getElapsedTime().toSeconds());
+        if(interval.getEnd() == null)
+            System.out.println("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)+
+                    "\t\t\t" + interval.getActualDate().format(formatter) + "\t\t" + interval.getActualElapsedTime().toSeconds());
+        else
+            System.out.println("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)+
+                    "\t\t\t" + interval.getActualDate().format(formatter) + "\t\t" + interval.getActualElapsedTime().toSeconds());
         interval.getFather().accept(this);
     }
 
