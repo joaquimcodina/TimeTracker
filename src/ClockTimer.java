@@ -5,8 +5,7 @@ import java.util.*;
 
 public class ClockTimer extends Observable {
   private Timer timer;
-
-  private List<Interval>observers = new LinkedList<Interval>();
+  private List<Interval> observers = new LinkedList<Interval>();
   private LocalDateTime now;
   private static final ClockTimer instance = new ClockTimer();
   private static final double freq = 2.75;

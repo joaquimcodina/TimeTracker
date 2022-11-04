@@ -1,11 +1,4 @@
 import java.io.*;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.*;
-
 public class User {
 
     /*    public static void createFile(Component project, File file) throws IOException {
@@ -204,26 +197,12 @@ public class User {
 
         ClockTimer.getInstance().stopClock();
 
-        System.out.println("End of Test B");
+        System.out.println("End of Test B\n");
 
         return root;
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        //read file
-        //String resourceName = "data/data.json";
-        //File file = new File(resourceName);
-        //JSONArray jsonArray = new JSONArray();
-        //JSONObject obj;
-        //if (file.exists()) {
-        /*InputStream is = Files.newInputStream(file.toPath());
-        if (is.available() > 0) {
-          JSONTokener tokener = new JSONTokener(is);
-          obj = new JSONObject(tokener);
-        }*/
-        //}
-        //String resourceName = "data/data.json";
-        //File file = new File(resourceName);
         testApendixA();  //nice and correct
         Component root = testApendixB(); //nice and correct
 

@@ -7,16 +7,12 @@ import java.util.List;
 
 public class Task extends Component {
     private List<Interval> intervals = new LinkedList();
-    private boolean stoped;  //task parada o no
-
-    public Interval getLastInterval(){
-        return intervals.get(intervals.size()-1);
-    }
+    private boolean stopped;  //task parada o no
 
     public Task(String name, Project father) {
         super(name, father);
         father.addComponent(this);
-        stoped = false;
+        stopped = false;
     }
 
     @Override
@@ -30,7 +26,7 @@ public class Task extends Component {
         ClockTimer.getInstance().addInterval(interval);
 
         this.setStartDate(interval.getStart());
-        this.stoped = false;
+        this.stopped = false;
         this.intervals.add(interval);
     }
     //This method Creates a new Interval and stores it into the this.intervals attribute, and,
@@ -45,7 +41,8 @@ public class Task extends Component {
     public void stop() {
         stopIntervals();
         this.updateDates();
-        this.stoped = true;
+        this.stopped = true;
+        this.setFinalDate(getActualDate());
     }
     //This method stops every interval of a task and updates itself's finalDate and elapsedTime.
 
@@ -79,7 +76,7 @@ public class Task extends Component {
     //This method updates the initalDate, finalDate and durationTime attributes iterating every son it has and looking for the initial and final Dates of the intervals.
     //It also notifies its father about this change, if exists.
 
-    public boolean isStoped() {return stoped;}
+    public boolean isStopped() {return stopped;}
 
     public String toString() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

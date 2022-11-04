@@ -42,14 +42,14 @@ public class SaveJSON implements Visitor {
         //fileData.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(obj.toString())));
     }
 
-  private void inputData(Component var1) {
+    private void inputData(Component var1) {
     JSONObject obj = new JSONObject();
     obj.put("name", var1.getName());
     if (var1.getFather() == null)
       obj.put("father", "null");
     else
       obj.put("father", var1.getFatherName());
-    obj.put("type", var1.getClass());
+    obj.put("type", var1.getClass().getName());
 
       if (var1.getStartDate() == null)
           obj.put("start_date", "null");
@@ -90,9 +90,9 @@ public class SaveJSON implements Visitor {
     if (interval.getEnd() == null)
         obj.put("end_date", "null");
     else
-        obj.put("end_date", interval.getEnd());
-    obj.put("elapsed_time", interval.getElapsedTime().getSeconds());
-    obj.put("type", interval.getClass());
+        obj.put("final_date", interval.getEnd());
+    obj.put("elapsed_time", interval.getElapsedTime());
+    obj.put("type", interval.getClass().getName());
     this.jsonArray.put(obj);
 
     }

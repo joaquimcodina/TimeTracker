@@ -26,6 +26,14 @@ public abstract class Component {
         this.finalDate = null;
     }
 
+    public Component(String name, Project father, Duration elapsedTime, LocalDateTime startDate, LocalDateTime finalDate){
+        this.name = name;
+        this.father = father;
+        this.elapsedTime = elapsedTime;
+        this.startDate = startDate;
+        this.finalDate = finalDate;
+    }
+
     public abstract ArrayList<Component> getComponentList();
     public abstract List<Interval> getIntervals();
 
@@ -87,13 +95,6 @@ public abstract class Component {
     }
 
     abstract void accept(Visitor v);
-
-    protected void updateInitialDate(LocalDateTime dt) {
-        this.startDate = dt;
-    }
-    protected void updateFinalDate(LocalDateTime dt) {
-        this.finalDate = dt;
-    }
 
     public String getFatherName() {
         return this.father.getName();

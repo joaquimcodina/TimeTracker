@@ -1,4 +1,5 @@
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,12 @@ public class Project extends Component {
 
   Project(String name) {
     super(name);
+  }
+
+  public Project(String name, Project father, Duration elapsedTime, LocalDateTime startDate, LocalDateTime finalDate){
+    super(name, father, elapsedTime, startDate, finalDate);
+    if (father != null)
+      father.addComponent(this);
   }
 
 

@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
@@ -38,7 +37,7 @@ public class PrinterTestB implements Visitor , Observer{
 
     @Override
     public void visitInterval(Interval interval){
-        if(interval.getFather().isStoped())
+        if(interval.getFather().isStopped())
             return;
 
         System.out.println("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)+
