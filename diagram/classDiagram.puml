@@ -163,10 +163,10 @@ class ReadJSON {
 - searchFatherByName(name : String, componentList List<Component>) : Object
 }
 
-User -right-> Component : creates
+User .right.> Component : creates
 'Project "1"-left-"0..*" Project
 Project "1" o-- "*" Component
-Visitor -right-> User
+Visitor <.right. User : creates
 Task "1"--"0..*" Interval
 Interval .left.|> Observer
 ClockTimer --|> "*" Observable

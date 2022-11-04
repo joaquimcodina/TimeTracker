@@ -110,10 +110,10 @@ public class User {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        testApendixA();  //nice and correct
+        /*testApendixA();  //nice and correct
         Component root = testApendixB(); //nice and correct
 
-        new SaveJSON(root);//nice and correct
+        new SaveJSON(root);//nice and correct*/
         ReadJSON a = new ReadJSON();
         Component newRoot = a.getRoot();
         PrinterTestA printerTestA = new PrinterTestA((Project)newRoot);
