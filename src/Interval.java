@@ -1,65 +1,81 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Interval implements Observer {
-  private LocalDateTime start;
-  private LocalDateTime end;
-  private Task father;
-  private Duration elapsedTime = Duration.ZERO;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private Task father;
+    private Duration elapsedTime = Duration.ZERO;
+    private boolean actiu = true;
 
-  public Interval(Task father) {
-    this.start = LocalDateTime.now();
-    this.father = father;
-  }
+    public Interval(Task father) {
+        this.start = LocalDateTime.now();
+        this.father = father;
+    }
 
-  public void update(Observable o, Object arg) {
-    //this.end = ClockTimer.getInstance().getNow();
-    //this.elapsedTime = Duration.ofSeconds(Duration.between(this.start,this.end).toSeconds());
-  }
+    public Interval(LocalDateTime start, LocalDateTime end, Task father, Duration elapsedTime) {
+        this.start = start;
+        this.end = end;
+        this.father = father;
+        this.elapsedTime = elapsedTime;
+        father.addInterval(this);
+    }
 
-  public void update() {
-    this.end = ClockTimer.getInstance().getNow();
-    this.elapsedTime = Duration.ofSeconds(Duration.between(this.start, this.end).toSeconds());
-  }
-  //This method is called when an Interval is ended. It updates its information such as the elapsedTime and the endDate.
+    public void update(Observable o, Object arg) {
+        //this.end = ClockTimer.getInstance().getNow();
+        this.elapsedTime = Duration.ofSeconds(Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
+        //update();
+    }
 
-  public void stopClock() {
-    ClockTimer.getInstance().deleteObserver(this);
-  }
+    public boolean getActiu(){
+        return actiu;
+    }
 
-  public LocalDateTime getStart() {
-    return this.start;
-  }
+    public void setNotActive(){
+        this.actiu = false;
+    }
 
-  public LocalDateTime getEnd() {
-    return this.end;
-  }
 
-  public Task getFather() {
-    return father;
-  }
+    public void update() {
+        //this.end = ClockTimer.getInstance().getNow();
+        this.father.updateDates();
+    }
+    //This method is called when an Interval is ended. It updates its information such as the elapsedTime and the endDate.
 
-  public Duration getElapsedTime() {
-    return this.elapsedTime;
-  }
+    public LocalDateTime getStart() {
+        return this.start;
+    }
 
-  public void setEndDate(LocalDateTime end) {
-    this.end = end;
-  }
+    public LocalDateTime getEnd() {
+        return this.end;
+    }
 
-  @Override
-  public String toString() {
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String stringToReturn = "Interval         child of " + getFather().getName() + "      " + getStart().format(format) + "      ";
-    if (this.getEnd() == null)
-      stringToReturn += "null";
-    else
-      stringToReturn += this.getEnd().format(format);
-    stringToReturn += "      " + getElapsedTime().getSeconds();
-      return stringToReturn;
-  }
-  //This method is used to print the information of an Interval.
+    public Task getFather() {
+        return father;
+    }
+
+    public Duration getElapsedTime() {
+        return this.elapsedTime;
+    }
+
+    public LocalDateTime getActualDate(){
+        return LocalDateTime.now();
+    }
+
+    public Duration getActualElapsedTime(){
+        return Duration.ofSeconds(Duration.between(this.start, LocalDateTime.now()).toSeconds());
+    }
+
+    public void accept(Visitor v) {
+        v.visitInterval(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Interval \t\t\t\t\t child of " + getFather().getName() + "\t\t\t" + getStart() + "\t\t\t"
+                + getEnd() + "\t\t\t" + getElapsedTime().getSeconds();
+    }
+    //This method is used to print the information of an Interval.
 }

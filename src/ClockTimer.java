@@ -1,14 +1,14 @@
+import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
+
 import java.time.LocalDateTime;
-import java.util.Observable;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ClockTimer extends Observable {
   private Timer timer;
+  private List<Interval> observers = new LinkedList<Interval>();
   private LocalDateTime now;
   private static final ClockTimer instance = new ClockTimer();
-  private static final int freq = 2;
-
+  private static final double freq = 2.75;
   private ClockTimer(){
     this.timer = new Timer();
     startClock();
@@ -21,14 +21,32 @@ public class ClockTimer extends Observable {
         now = LocalDateTime.now();
         setChanged();
         notifyObservers(now);
+
       }
     };
-    this.timer.scheduleAtFixedRate(cycle_task, 0, 1000 * freq);
+    this.timer.scheduleAtFixedRate(cycle_task, 0, (long) (2000.0));
   }
   public void stopClock(){
     this.timer.cancel();
   }
   public static ClockTimer getInstance() { return instance; }
-  public static int getFreq() { return freq; }
+  public static double getFreq() { return freq; }
   public LocalDateTime getNow() { return now; }
+
+  @Override
+  public synchronized void addObserver(Observer o) {
+    super.addObserver(o);
+  }
+
+  public void addInterval(Interval inter){
+    observers.add(inter);
+  }
+  public List<Interval> getObservers(){
+    return observers;
+  }
+  @Override
+  public void notifyObservers() {
+    super.notifyObservers();
+  }
+
 }
