@@ -43,7 +43,7 @@ public abstract class Component {
     public LocalDateTime getStartDate() {
         return startDate;
     }
-    public LocalDateTime getFinalDate() { return finalDate; }
+    public LocalDateTime getFinalDate() { return finalDate; } //inalDate
     public Duration getElapsedTime() { return elapsedTime; }
     public Project getFather() {
         return this.father;
@@ -63,21 +63,21 @@ public abstract class Component {
         if (this.father != null)
             father.setStartDate(startDate);
     }
-    //This method updates the startDate of a component recursively.
 
+    //This method updates the startDate of a component recursively.
     public void setFinalDate(LocalDateTime finalDate) {
         if (this.finalDate == null || this.finalDate.compareTo(finalDate) < 0)
             this.finalDate = finalDate;
         if (father != null)
             father.setFinalDate(finalDate);
     }
-    //This method updates the finalDate of a component recursively.
 
+    //This method updates the finalDate of a component recursively.
     public LocalDateTime getActualDate(){
         return LocalDateTime.now();
     }
 
-    public Duration getActualElapsedTime(){
+    public Duration getActualElapsedTime() {
         Duration duration = this.elapsedTime;
         if(this.getIntervals() == null)
             return Duration.ofSeconds(Duration.between(this.startDate, LocalDateTime.now()).toSeconds());
@@ -89,11 +89,10 @@ public abstract class Component {
             }
         }
 
-        //duration = duration.plus(getIntervals().get(getIntervals().size()-1).getActualElapsedTime());
         return Duration.ofSeconds(duration.toSeconds());
-        //return Duration.ofSeconds(Duration.between(this.startDate, LocalDateTime.now()).toSeconds());
     }
 
+    //This function updates the current elapsed time based from the sub-trees of a node.
     abstract void accept(Visitor v);
 
     public String getFatherName() {

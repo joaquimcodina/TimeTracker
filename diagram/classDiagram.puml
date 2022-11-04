@@ -23,6 +23,27 @@ class PrinterTestA implements Visitor{
 + visitInterval(interval : Interval)
 }
 
+class PrinterTestB implements Visitor, Observer{
+- interval : Interval
+- final formatter : DateTimeFormatter
++ Printer(project : Project)
++ visitProject(project : Project)
++ visitTask(task : Task)
++ visitInterval(interval : Interval)
++ update(o : Observable, arg : Object)
+}
+
+class SaveJSON implements Visitor{
+- jsonArray : JSONArray
+- obj : JSONObject
+- fileData : FileWriter
++ SaveJSON(root : Component)
+- inputData(component : Component)
++ visitProject(project : Project)
++ visitTask(task : Task)
++ visitInterval(interval : Interval)
+}
+
 class Task extends Component{
 - intervals : List<Interval>
 - stopped : boolean

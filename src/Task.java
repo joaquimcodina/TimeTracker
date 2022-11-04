@@ -15,6 +15,16 @@ public class Task extends Component {
         stopped = false;
     }
 
+    public Task(String name, Project father, Duration elapsedTime, LocalDateTime startDate, LocalDateTime finalDate){
+        super(name, father, elapsedTime, startDate, finalDate);
+        if (father != null)
+            father.addComponent(this);
+    }
+
+    public void addInterval(Interval interval) {
+        this.intervals.add(interval);
+    }
+
     @Override
     public ArrayList<Component> getComponentList() {
         return null;
@@ -35,6 +45,8 @@ public class Task extends Component {
     private void stopIntervals() {
         for (Interval interval : this.intervals) {
                 interval.update();
+                interval.setNotActive();
+                this.setFinalDate(getActualDate());
         }
     }
 
@@ -71,7 +83,8 @@ public class Task extends Component {
 
             this.elapsedTime = this.elapsedTime.plus(duration);
         }
-        this.getFather().updateElapsedTime();
+        if (this.getFather() != null)
+            this.getFather().updateElapsedTime();
     }
     //This method updates the initalDate, finalDate and durationTime attributes iterating every son it has and looking for the initial and final Dates of the intervals.
     //It also notifies its father about this change, if exists.

@@ -15,6 +15,14 @@ public class Interval implements Observer {
     this.father = father;
   }
 
+  public Interval(LocalDateTime start, LocalDateTime end, Task father, Duration elapsedTime) {
+    this.start = start;
+    this.end = end;
+    this.father = father;
+    this.elapsedTime = elapsedTime;
+    father.addInterval(this);
+  }
+
   public void update(Observable o, Object arg) {
     //this.end = ClockTimer.getInstance().getNow();
     this.elapsedTime = Duration.ofSeconds(Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
@@ -66,7 +74,7 @@ public class Interval implements Observer {
 
   @Override
   public String toString() {
-    return "Interval \t\\t\t\t\t\t child of " + getFather().getName() + "\t\t\t" + getStart() + "\t\t\t"
+    return "Interval \t\t\t\t\t child of " + getFather().getName() + "\t\t\t" + getStart() + "\t\t\t"
             + getEnd() + "\t\t\t" + getElapsedTime().getSeconds();
   }
   //This method is used to print the information of an Interval.

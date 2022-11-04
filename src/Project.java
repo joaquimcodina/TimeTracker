@@ -2,10 +2,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Project extends Component {
-  private ArrayList<Component> componentList = new ArrayList();
+  private ArrayList<Component> componentList = new ArrayList<>();
 
   Project(String name, Project father) {
     super(name, father);
@@ -32,8 +33,8 @@ public class Project extends Component {
     if (this.getFather() != null)
       this.getFather().updateElapsedTime();
   }
-  //Updates the elapsed time of itself and its fathers recursively.
 
+  //Updates the elapsed time of itself and its fathers recursively.
   protected void addComponent(Component comp) {
     this.componentList.add(comp);
   }

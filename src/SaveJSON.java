@@ -2,10 +2,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.time.format.DateTimeFormatter;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.*;
 
 public class SaveJSON implements Visitor {
@@ -26,20 +22,22 @@ public class SaveJSON implements Visitor {
         if (root != null)
             root.accept(this); //recursive
         try {
-            this.fileData.write(this.jsonArray.toString());
+            this.obj = new JSONObject();
+            this.obj.put("components", jsonArray);
+            this.fileData.write(this.obj.toString());
             this.fileData.close();
         } catch(IOException err) {
             throw new RuntimeException(err);
         }
         System.out.println(".json file succesfully created!");
     }
+    //This method saves as a JSON object the hierarchy of the root node in a tree structure.
 
     @Override
     public void visitProject(Project var1) {
         inputData(var1);
         for (Component component : var1.getComponentList())
             component.accept(this);
-        //fileData.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(obj.toString())));
     }
 
     private void inputData(Component var1) {
@@ -55,22 +53,22 @@ public class SaveJSON implements Visitor {
           obj.put("start_date", "null");
       else
           obj.put("start_date", var1.getStartDate());
-
+    
       if (var1.getFinalDate() == null)
           obj.put("final_date", "null");
       else
-          obj.put("final_date", var1.getFinalDate());
+          obj.put("final_date", var1.getActualDate());
 
-    if (var1.getFinalDate() == null)
+    /*if (var1.getFinalDate() == null)
       obj.put("final_date", "null");
     else
-      obj.put("final_date", var1.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+      obj.put("final_date", var1.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));*/
 
-    obj.put("elapsed_time", var1.getElapsedTime().getSeconds());
+    obj.put("elapsed_time", var1.getElapsedTime());
 
     this.jsonArray.put(obj);
-
   }
+  //This method saves in a JSON Object the information to be written in a .json file.
 
     @Override
     public void visitTask(Task var1) {
@@ -88,7 +86,7 @@ public class SaveJSON implements Visitor {
         obj.put("start_date", interval.getStart());
     
     if (interval.getEnd() == null)
-        obj.put("end_date", "null");
+        obj.put("final_date", "null");
     else
         obj.put("final_date", interval.getEnd());
     obj.put("elapsed_time", interval.getElapsedTime());
