@@ -19,8 +19,9 @@ public class PrinterTestB implements Visitor , Observer{
 
     @Override
     public void visitProject(Project project) {
+
         System.out.println("activity: \t\t" + project.getName() +"\t\t\t\t" + project.getStartDate().format(formatter)+
-                "\t\t\t" + project.getActualDate().format(formatter) + "\t\t" + project.getActualElapsedTime().toSeconds());
+                "\t\t\t" + project.getActualDate().format(formatter) + "\t\t\t" + project.getActualElapsedTime().toSeconds());
         if (project.getFather() != null)
             project.getFather().accept(this);
         else
@@ -30,19 +31,19 @@ public class PrinterTestB implements Visitor , Observer{
     @Override
     public void visitTask(Task task) {
         System.out.println("activity: \t\t" + task.getName() +"\t\t\t" + task.getStartDate().format(formatter)+
-                "\t\t\t" + task.getActualDate().format(formatter) + "\t\t" + task.getActualElapsedTime().toSeconds());
+                "\t\t\t" + task.getActualDate().format(formatter) + "\t\t\t" + task.getActualElapsedTime().toSeconds());
         if (task.getFather() != null)
             task.getFather().accept(this);
     }
 
     @Override
     public void visitInterval(Interval interval){
-        if(interval.getEnd() == null)
-            System.out.println("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)+
-                    "\t\t\t" + interval.getActualDate().format(formatter) + "\t\t" + interval.getActualElapsedTime().toSeconds());
-        else
-            System.out.println("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)+
-                    "\t\t\t" + interval.getActualDate().format(formatter) + "\t\t" + interval.getActualElapsedTime().toSeconds());
+        if(interval.getFather().isStoped())
+            return;
+
+        System.out.println("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)+
+                "\t\t\t" + interval.getActualDate().format(formatter) + "\t\t\t\t" + interval.getActualElapsedTime().toSeconds());
+
         interval.getFather().accept(this);
     }
 

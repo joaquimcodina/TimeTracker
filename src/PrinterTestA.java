@@ -15,7 +15,7 @@ public class PrinterTestA implements Visitor {
     for (Component component : project.getComponentList()) {
       component.accept(this);
     }
-    if (project.getName() == "root")
+    if (project.getName().equals("root"))
       System.out.println();
   }
   //this method prints the information of a project and its sub-components.

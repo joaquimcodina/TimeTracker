@@ -1,12 +1,14 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.time.Clock;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.*;
 
 public class User {
 
-    public static void createFile(Component project, File file) throws IOException {
+    /*    public static void createFile(Component project, File file) throws IOException {
         FileWriter fileData = new FileWriter(file, false);
         jsonSafe(project, fileData);
         fileData.flush();
@@ -55,9 +57,51 @@ public class User {
                 fileData.write(obj.toString());
             }
         }
-    }
+    }*/
 
-    public static Project testA() throws InterruptedException {
+    /*public static void saveData(Component project, File file) {
+        try{
+            JSONArray jsonArray = new JSONArray();
+            JSONObject obj;
+            FileWriter fileData = new FileWriter(file, false);
+            //ObjectMapper mapper = new ObjectMapper();
+
+            //JSONObject dels projectes, tasques filles
+            for(int i=0 ; i < project.getComponentList().size(); i++){
+                obj = new JSONObject();
+                obj.put("name", project.getComponentList().get(i).getName());
+                if(project.getComponentList().get(i).getFather() == null)
+                    obj.put("father", "null");
+                else
+                    obj.put("father", project.getComponentList().get(i).getFather().getName());
+
+                obj.put("type", project.getComponentList().get(i).getClass());
+                obj.put("start_date", (project.getComponentList().get(i).getStartDate() == null ? null : project.getComponentList().get(i).getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                obj.put("final_date", (project.getComponentList().get(i).getFinalDate() == null ? null : project.getComponentList().get(i).getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                obj.put("elapsed_time", project.getComponentList().get(i).getElapsedTime().toSeconds());
+                jsonArray.put(obj);
+            }
+            obj = new JSONObject(); //father object
+            obj.put("name", project.getName());
+            obj.put("father", "null");
+            obj.put("type", project.getClass()); //tipus projecte, tasca o interval
+            obj.put("start_date", (project.getStartDate() == null ? null : project.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+            obj.put("final_date", (project.getFinalDate() == null ? null : project.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+            obj.put("elapsed_time", project.getElapsedTime().toSeconds());
+            obj.put("children", jsonArray); //add list father
+
+            fileData.write(obj.toString());
+            //fileData.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(obj.toString())));
+            fileData.flush();
+            fileData.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        //project.accept(new DataPersistence(project, file)); //començar proces de persistencia de dades, a partir de Visitor
+    }*/
+
+    public static Component testApendixA() throws InterruptedException {
 
         System.out.println("\nBegin of Test A\n");
 
@@ -77,12 +121,14 @@ public class User {
         Task rh = new Task("Read Handout", projectTimeTracker);
         Task fm = new Task("First Milestone", projectTimeTracker);
 
+        PrinterTestA printerTestA = new PrinterTestA(root);
+        root.accept(printerTestA);
         System.out.println("\nEnd of Test A\n");
 
         return root;
     }
 
-    public static Component testB() throws InterruptedException {
+    public static Component testApendixB() throws InterruptedException {
         Project root = new Project("root");
 
         Project softwareDesign = new Project("Software Design", root);
@@ -119,7 +165,6 @@ public class User {
 
         //Point 3:
         Thread.sleep(2000L);
-        System.out.println("\n");
         //Point 3:
 
         //Point 4:
@@ -147,7 +192,6 @@ public class User {
 
         //Point 8:
         Thread.sleep(2000L);
-        System.out.println("\n");
         //Point 8:
 
         //Point 9:
@@ -178,11 +222,12 @@ public class User {
           obj = new JSONObject(tokener);
         }*/
         //}
+        //String resourceName = "data/data.json";
+        //File file = new File(resourceName);
+        testApendixA();  //nice and correct
+        Component root = testApendixB(); //nice and correct
 
-        testA();  //nice and correct
-        Component m = testB(); //nice and correct
-
-        String resourceName = "data/data.json";
+        /*        String resourceName = "data/data.json";
         File file = new File(resourceName);
         JSONArray jsonArray = new JSONArray();
         JSONObject obj;
@@ -192,8 +237,8 @@ public class User {
               JSONTokener tokener = new JSONTokener(is);
               obj = new JSONObject(tokener);
             }
-        }
-        createFile(m, file);
-
+        }*/
+        new SaveJSON(root);
+        //JsonNode rootNode = mapper.readTree(jsonString);
     }
 }

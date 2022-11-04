@@ -1,6 +1,5 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -9,6 +8,7 @@ public class Interval implements Observer {
   private LocalDateTime end;
   private Task father;
   private Duration elapsedTime = Duration.ZERO;
+  private boolean actiu = true;
 
   public Interval(Task father) {
     this.start = LocalDateTime.now();
@@ -16,20 +16,25 @@ public class Interval implements Observer {
   }
 
   public void update(Observable o, Object arg) {
-    this.end = ClockTimer.getInstance().getNow();
-    this.elapsedTime = Duration.ofSeconds(Duration.between(this.start,this.end).toSeconds());
-
+    //this.end = ClockTimer.getInstance().getNow();
+    this.elapsedTime = Duration.ofSeconds(Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
+    //update();
   }
+
+  public boolean getActiu(){
+    return actiu;
+  }
+
+  public void setNotActive(){
+    this.actiu = false;
+  }
+
 
   public void update() {
-    this.end = ClockTimer.getInstance().getNow();
-    this.elapsedTime = Duration.ofSeconds(Duration.between(this.start, this.end).toSeconds());
+    //this.end = ClockTimer.getInstance().getNow();
+    this.father.updateDates();
   }
   //This method is called when an Interval is ended. It updates its information such as the elapsedTime and the endDate.
-
-  public void stopClock() {
-    ClockTimer.getInstance().deleteObserver(this);
-  }
 
   public LocalDateTime getStart() {
     return this.start;
@@ -59,14 +64,10 @@ public class Interval implements Observer {
     v.visitInterval(this);
   }
 
-  public void setEndDate(LocalDateTime end) {
-    this.end = end;
-  }
-
   @Override
   public String toString() {
-    return "Interval         child of " + getFather().getName() + "      " + getStart() + "      "
-            + getEnd() + "      " + getElapsedTime().getSeconds();
+    return "Interval \t\\t\t\t\t\t child of " + getFather().getName() + "\t\t\t" + getStart() + "\t\t\t"
+            + getEnd() + "\t\t\t" + getElapsedTime().getSeconds();
   }
   //This method is used to print the information of an Interval.
 }

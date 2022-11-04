@@ -1,4 +1,5 @@
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +46,21 @@ public class Project extends Component {
   }
 
   public String toString() {
-    return this.getFather() != null ? this.getName() + "       child of " + this.getFather().getName() + "    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds()
-            : this.getName() + "     child of null    " + this.getStartDate() + "       " + this.getFinalDate() + "      " + this.getElapsedTime().getSeconds();
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String stringToReturn = "";
+    if (this.getFather() == null)
+      stringToReturn = this.getName() + "\t\t\t\t\t\tchild of null\t\t\t";
+    else
+      stringToReturn = this.getName() + "\t\t\t\t\t\tchild of \t\t\t" + this.getFather().getName() + "\t\t\t";
+    if (this.getStartDate() == null)
+      stringToReturn += "null\t\t\t";
+    else
+      stringToReturn += this.getStartDate().format(format) + "\t\t\t";
+    if (this.getFinalDate() == null)
+      stringToReturn += "null\t\t\t" + this.getElapsedTime().getSeconds();
+    else
+      stringToReturn += this.getFinalDate().format(format) + "\t\t\t" + this.getElapsedTime().getSeconds();
+    return stringToReturn;
   }
   //This method is used to print the information of a Project.
 }

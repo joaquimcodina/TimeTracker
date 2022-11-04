@@ -1,11 +1,13 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Task extends Component {
     private List<Interval> intervals = new LinkedList();
+    private boolean stoped;  //task parada o no
 
     public Interval getLastInterval(){
         return intervals.get(intervals.size()-1);
@@ -14,6 +16,7 @@ public class Task extends Component {
     public Task(String name, Project father) {
         super(name, father);
         father.addComponent(this);
+        stoped = false;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class Task extends Component {
         ClockTimer.getInstance().addInterval(interval);
 
         this.setStartDate(interval.getStart());
-
+        this.stoped = false;
         this.intervals.add(interval);
     }
     //This method Creates a new Interval and stores it into the this.intervals attribute, and,
@@ -35,7 +38,6 @@ public class Task extends Component {
 
     private void stopIntervals() {
         for (Interval interval : this.intervals) {
-            if (interval.getEnd() == null)
                 interval.update();
         }
     }
@@ -43,6 +45,7 @@ public class Task extends Component {
     public void stop() {
         stopIntervals();
         this.updateDates();
+        this.stoped = true;
     }
     //This method stops every interval of a task and updates itself's finalDate and elapsedTime.
 
@@ -76,8 +79,24 @@ public class Task extends Component {
     //This method updates the initalDate, finalDate and durationTime attributes iterating every son it has and looking for the initial and final Dates of the intervals.
     //It also notifies its father about this change, if exists.
 
+    public boolean isStoped() {return stoped;}
+
     public String toString() {
-        return this.getName() + "          child of " + this.getFather().getName() + "      " + this.getStartDate() + "       " + this.getFinalDate() + "     " + this.getElapsedTime().getSeconds();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String stringToReturn = "";
+        if (this.getFather() == null)
+            stringToReturn = this.getName() + "\t\t\t\t\t\tchild of null\t\t\t";
+        else
+            stringToReturn = this.getName() + "\t\t\t\t\t\tchild of \t\t\t" + this.getFather().getName() + "\t\t\t";
+        if (this.getStartDate() == null)
+            stringToReturn += "null\t\t\t";
+        else
+            stringToReturn += this.getStartDate().format(format) + "\t\t\t";
+        if (this.getFinalDate() == null)
+            stringToReturn += "null\t\t\t" + this.getElapsedTime().getSeconds();
+        else
+            stringToReturn += this.getFinalDate().format(format) + "\t\t\t" + this.getElapsedTime().getSeconds();
+        return stringToReturn;
     }
     //This method is used to print the information of a Task.
 }
