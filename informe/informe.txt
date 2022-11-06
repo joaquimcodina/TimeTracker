@@ -1,0 +1,29 @@
+                                =======================================
+                                =====INFORME TIME TRACKER (FITA 1)=====
+                                =======================================
+=================================
+=======INTEGRANTS DEL GRUP=======
+=================================
+- Joaquim Codina (1566940)
+- Aleix Casas (1604174)
+- Eric Subirana (1603465)
+- Miguel Vallina (1596941)
+
+=================================
+=======TASQUES REALITZADES=======
+=================================
+- Diagrama Jerarquia: Joaquim Codina
+
+- Diagrama de Classes en format plantUML: Tots
+
+- Crea la jerarquia de projectes i tasques del apéndix A i mostrar les seves dates i duració en temps real: Tots
+
+- Sense prolemes d'acoblament, cohesió ni responsabilitats: Tots
+
+- Utilitzar els patrons mínims (Observer, Visitor, Singleton, Composite): Tots
+
+- Pasa el test de l'apendíx B i mostrar dates i duracions correctes en temps real: Tots
+
+- Implementa la funcionalitat de persistència guardant l'arbre d'activitats en format JSON en un arxiu de text: Tots
+
+- Comentaris complets, informatius i suficients: Miguel Vallina
