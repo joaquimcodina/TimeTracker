@@ -2,6 +2,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
+/*
+    This class implements the Visitor Design Pattern and the Observer Design Pattern.
+     It is used to print the hierarchy of the Time Tracker and its changes.
+
+    @version 2.0
+    @since 2022-11-06
+ */
 public class PrinterTestB implements Visitor , Observer{
 
     private Interval interval;

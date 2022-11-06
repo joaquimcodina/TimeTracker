@@ -4,16 +4,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import org.json.*;
 
-public class SaveJSON implements Visitor {
-    //This class saves a hierarchy when declared. You can save a tree doing SaveJSON a = new SaveJSON(root);
+/*
+    This class implements the Visitor (Visitor.java) class, which implements the Visitor Design Pattern.
+    It is used to create a file and save the Time Tracker application's data into a .JSON file, which
+    will be called "./data/data.json".
 
+    @version 2.0
+    @since 2022-11-06
+ */
+
+public class SaveJSON implements Visitor {
     private JSONArray jsonArray = new JSONArray();
     private JSONObject obj = null;
-    //private ObjectMapper mapper = new ObjectMapper();
     private FileWriter fileData = null;
     private InputStream is = null;
     private File file = null;
 
+  /*
+  This constructor directly initializes the saving process of the application into a .JSON file by calling other
+  methods of this class.
+
+  @param root : must be a Component object.
+
+  @return SaveJSON
+
+  @usage: new SaveJSON(Component);
+*/
     public SaveJSON(Component root) throws IOException {
         System.out.println("Saving data in a .json file...");
         String path = "data/data.json";
@@ -31,7 +47,6 @@ public class SaveJSON implements Visitor {
         }
         System.out.println(".json file succesfully created!");
     }
-    //This method saves as a JSON object the hierarchy of the root node in a tree structure.
 
     @Override
     public void visitProject(Project var1) {
@@ -40,6 +55,10 @@ public class SaveJSON implements Visitor {
             component.accept(this);
     }
 
+  /*
+  This method puts the information of a hierarchy's node into a JSON object, which is put into a
+  JSON array, which will be written into the file.
+*/
     private void inputData(Component var1) {
     JSONObject obj = new JSONObject();
     obj.put("name", var1.getName());
@@ -58,11 +77,6 @@ public class SaveJSON implements Visitor {
           obj.put("final_date", "null");
       else
           obj.put("final_date", var1.getActualDate());
-
-    /*if (var1.getFinalDate() == null)
-      obj.put("final_date", "null");
-    else
-      obj.put("final_date", var1.getFinalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));*/
 
     obj.put("elapsed_time", var1.getElapsedTime());
 
@@ -92,6 +106,5 @@ public class SaveJSON implements Visitor {
     obj.put("elapsed_time", interval.getElapsedTime());
     obj.put("type", interval.getClass().getName());
     this.jsonArray.put(obj);
-
     }
 }

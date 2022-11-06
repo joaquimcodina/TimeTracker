@@ -3,6 +3,14 @@ import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/*
+    This class implements the Observable Design Pattern. It basically has a Clock that will be
+    updating its observers every "freq" seconds.
+
+    @version 5.0
+    @since 2022-11-06
+ */
+
 public class ClockTimer extends Observable {
   private Timer timer;
   private List<Interval> observers = new LinkedList<Interval>();
@@ -13,6 +21,10 @@ public class ClockTimer extends Observable {
     this.timer = new Timer();
     startClock();
   }
+
+  /*
+This method starts the clock of the ClockTimer's class.
+*/
   public void startClock(){
     // Get current date time init
     TimerTask cycle_task = new TimerTask() {

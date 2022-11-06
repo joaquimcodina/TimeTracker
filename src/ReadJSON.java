@@ -9,14 +9,32 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+    This class reads a .JSON file, parses its information and saves it into the Project in order to recover the
+    data and maintain the persistence.
+
+    @version 1.0
+    @since 2022-11-06
+ */
 public class ReadJSON {
     private List<Component> hierarchy = new LinkedList<>();
-    private List<Interval> intervals = new LinkedList<>();
 
-    public Component getRoot() { return hierarchy.get(0); }
+    public Component getRoot() {
+        return hierarchy.get(0);
+    }
+
+    /*
+  This constructor directly initializes the file reading process. It reads the "./data/data.json" file and stores its
+  information into the this.hierarchy attribute.
+
+  @return ReadJSON
+
+  @usage: new ReadJSON(Component);
+    If you want to get the first element of the hierarchy, in order to use it for anything (like printing it into console):
+        ReadJSON hierarchy = new ReadJSON();
+        Component comp = hierarchy.getRoot();
+*/
     public ReadJSON() {
-        //String path = 'data/data.json";
-        //InputStream is = ReadJSON.class.getResourceAsStream("data/data.json");
         String path = "./data/data.json";
         System.out.println("Loading json file: from " + path);
         InputStream is = null;
@@ -40,6 +58,16 @@ public class ReadJSON {
         System.out.println("File " + path + " successfully loaded \n");
 
     }
+
+    /*
+  This method creates a certain object depending on the parsed information of the .JSON file.
+
+  @param component : The JSON component parsed.
+
+  @param createdObjects : A List of the createdObjects, in order to create new ones from these.
+
+  @return List<Component> It returns the createdObject list plus the new created Object, if created.
+*/
     private List<Component> createObject(JSONObject component, List<Component> createdObjects) {
         LocalDateTime startDate = null, finalDate = null;
         String type = component.getString("type");
@@ -53,7 +81,6 @@ public class ReadJSON {
 
         if (type.equals("Interval")) {
             Interval interval = new Interval(startDate, finalDate, (Task)searchFatherByName(fatherName, createdObjects),elapsedTime);  //search father by name
-            intervals.add(interval);
         }
         else {  //Component
             String name = component.getString("name");
@@ -69,8 +96,16 @@ public class ReadJSON {
         }
         return createdObjects;
     }
-    //This method creates a certain object from a parsed .JSON object.
 
+    /*
+This method searches in the parameter componentList the name of a Component in order to create it.
+
+@param name : The name of the father's object to be searched.
+
+@param createdObjects : A List of the createdObjects, in order to create new ones from these.
+
+@return Object. It really returns a Task, an Interval or a Project.
+*/
     private Object searchFatherByName(String name, List<Component> componentList) {
         for (Component component : componentList) {
             String nameVar = component.getName();
@@ -79,5 +114,4 @@ public class ReadJSON {
         }
         return null;
     }
-    //This method search which is the father by his name
 }

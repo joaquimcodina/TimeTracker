@@ -5,24 +5,59 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+    This class is a subclass of a Component (Component.java) class, and, therefore, it implements
+    what the superclass forces to implement.
+    As a Project can have 0 or more Components, we have an ArrayList of Components.
+
+    @version 4.0
+    @since 2022-11-06
+ */
 public class Project extends Component {
     private ArrayList<Component> componentList = new ArrayList<>();
 
+    /*
+    This Constructor calls to the superclass constructor (super statement), and finally we notify
+    the father (that cannot be null) of this object's creation in order to this object be in its decendents.
+
+    @param name : Must be a String. This will be the name of the task.
+    @param father : Must be a Project. This param must not be null.
+
+    @return Project
+ */
     Project(String name, Project father) {
         super(name, father);
         father.addComponent(this);
     }
 
+    /*
+This Constructor calls to the superclass constructor (super statement), and, finally, forces the
+father to be null, which means that this node is the root (or one of the roots) of the hierarchy.
+
+@param name : Must be a String. This will be the name of the task.
+
+@return Project
+*/
     Project(String name) {
         super(name);
     }
 
+    /*
+This Constructor is used by the ReadJSON.java class in order to rebuild the hierarchy. It will be not be
+able to the Users. It basically initializes every single attribute a Project (and Component) has.
+
+@return Project
+*/
     public Project(String name, Project father, Duration elapsedTime, LocalDateTime startDate, LocalDateTime finalDate){
         super(name, father, elapsedTime, startDate, finalDate);
         if (father != null)
             father.addComponent(this);
     }
 
+    /*
+    This method updates the elapsed time of this project and, if it has father, recursively through
+    the method "setElapsedTime()", it updates the elapsed time of every node above it connected to it.
+*/
     public void updateElapsedTime() {
         this.setElapsedTime(Duration.ZERO);
 
@@ -32,7 +67,6 @@ public class Project extends Component {
         if (this.getFather() != null)
             this.getFather().updateElapsedTime();
     }
-    //Updates the elapsed time of itself and its fathers recursively.
     protected void addComponent(Component comp) {
         this.componentList.add(comp);
     }
@@ -51,6 +85,9 @@ public class Project extends Component {
         v.visitProject(this);
     }
 
+    /*
+    This method is used to print the information of a Project into console.
+*/
     public String toString() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String stringToReturn = "";
@@ -68,5 +105,4 @@ public class Project extends Component {
             stringToReturn += this.getFinalDate().format(format) + "\t\t\t" + this.getElapsedTime().getSeconds();
         return stringToReturn;
     }
-    //This method is used to print the information of a Project.
 }
