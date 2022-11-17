@@ -38,7 +38,7 @@ public abstract class Component {
   }
 
   /*
-This Constructor is used by the ReadJSON.java class in order to rebuild the hierarchy.
+This Constructor is used by the ReadJson.java class in order to rebuild the hierarchy.
 It will be not be able to the Users.
 It basically initializes every single attribute a Component has.
 @return Component
