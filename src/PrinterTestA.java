@@ -4,17 +4,13 @@
 //
 
 /*
-    This class implements the Visitor Design Pattern. It is used to print the hierarchy of the Time Tracker.
+    This class implements the Visitor Design Pattern.
+    It is used to print the hierarchy of the Time Tracker.
 
     @version 1.0
     @since 2022-11-06
  */
 public class PrinterTestA implements Visitor {
-  private Project project;
-
-  public PrinterTestA(Project project) {
-    this.project = project;
-  }
 
 
   public void visitProject(Project project) {
@@ -22,20 +18,21 @@ public class PrinterTestA implements Visitor {
     for (Component component : project.getComponentList()) {
       component.accept(this);
     }
-    if (project.getName().equals("root"))
+    if (project.getName().equals("root")) {
       System.out.println();
+    }
   }
 
   public void visitTask(Task task) {
     System.out.println("Task " + task);
     if (task.getIntervals().size() != 0) {
-      for (int pos = 0; pos < task.getIntervals().size(); pos++){
+      for (int pos = 0; pos < task.getIntervals().size(); pos++) {
         System.out.println("   " + task.getIntervalPos(pos));
       }
     }
   }
 
-  public void visitInterval(Interval interval){
-    return;
+  public void visitInterval(Interval interval) {
+    System.out.print("");
   }
 }
