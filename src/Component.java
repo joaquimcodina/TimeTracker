@@ -15,11 +15,11 @@ import java.util.List;
     @since 2022-11-06
  */
 public abstract class Component {
-  private final String name;
+  private String name;
   protected Duration elapsedTime;
   private LocalDateTime startDate;
   private LocalDateTime finalDate;
-  private final Project father;
+  private Project father;
 
   public Component(String name) {
     this.name = name;

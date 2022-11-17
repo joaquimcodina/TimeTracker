@@ -14,9 +14,9 @@ import java.util.Observer;
     @since 2022-11-06
  */
 public class Interval implements Observer {
-  private final LocalDateTime start;
+  private LocalDateTime start;
   private LocalDateTime end;
-  private final Task father;
+  private Task father;
   private Duration elapsedTime = Duration.ZERO;
   private boolean active = true;
 

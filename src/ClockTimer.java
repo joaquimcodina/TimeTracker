@@ -15,8 +15,8 @@ import java.util.TimerTask;
  */
 
 public class ClockTimer extends Observable {
-  private final Timer timer;
-  private final List<Interval> observers = new LinkedList<>();
+  private Timer timer;
+  private List<Interval> observers = new LinkedList<>();
   private LocalDateTime now;
   private static final ClockTimer instance = new ClockTimer();
 
