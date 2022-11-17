@@ -60,7 +60,7 @@ This method updates the elapsedTime every time it receives an update of Observab
 This method expands the inner changes into the father Task, and then,
 if exists, recursively into the upper nodes.
 */
-  public void update() {
+  public void updateDates() {
     this.father.updateDates();
   }
 

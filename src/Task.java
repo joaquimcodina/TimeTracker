@@ -90,7 +90,7 @@ public class Task extends Component {
 
     private void stopIntervals() {
         for (Interval interval : this.intervals) {
-                interval.update();
+                interval.updateDates();
                 interval.setNotActive();
                 this.setFinalDate(getActualDate());
         }
