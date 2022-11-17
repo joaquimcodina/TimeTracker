@@ -124,7 +124,7 @@ upper nodes in the hierarchy, if exists.
 
     if (getIntervals() != null) {
       for (Interval inter : getIntervals()) {
-        if (inter.getActiu()) {
+        if (inter.getActive()) {
           duration = duration.plus(inter.getActualElapsedTime());
         }
       }
