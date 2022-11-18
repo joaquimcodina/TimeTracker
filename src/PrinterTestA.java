@@ -12,7 +12,6 @@
  */
 public class PrinterTestA implements Visitor {
 
-
   public void visitProject(Project project) {
     System.out.println("Project " + project);
     for (Component component : project.getComponentList()) {

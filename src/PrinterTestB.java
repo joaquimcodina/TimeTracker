@@ -11,8 +11,6 @@ import java.util.Observer;
  */
 public class PrinterTestB implements Visitor, Observer {
 
-  private Interval interval;
-
   private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
   public PrinterTestB() {
@@ -60,7 +58,7 @@ public class PrinterTestB implements Visitor, Observer {
 
   @Override
   public void update(Observable o, Object arg) { //print latest active interval
-    interval = ClockTimer.getInstance().getObservers()
+    Interval interval = ClockTimer.getInstance().getObservers()
         .get(ClockTimer.getInstance().getObservers().size() - 1);
     interval.accept(this);
   }
