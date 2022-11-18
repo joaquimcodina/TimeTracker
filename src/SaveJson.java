@@ -16,8 +16,6 @@ import org.json.JSONObject;
 
 public class SaveJson implements Visitor {
   private JSONArray jsonArray = new JSONArray();
-  private JSONObject obj;
-  private FileWriter fileData;
 
   /*
   This constructor directly initializes the saving process
@@ -31,18 +29,20 @@ public class SaveJson implements Visitor {
   @usage: new SaveJSON(Component);
 */
   public SaveJson(Component root) throws IOException {
+    JSONObject obj;
+    FileWriter fileData;
     System.out.println("Saving data in a .json file...");
     String path = "data/data.json";
     File file = new File(path);
-    this.fileData = new FileWriter(file, false);
+    fileData = new FileWriter(file, false);
     if (root != null) {
       root.accept(this); //recursive
     }
     try {
-      this.obj = new JSONObject();
-      this.obj.put("components", jsonArray);
-      this.fileData.write(this.obj.toString());
-      this.fileData.close();
+      obj = new JSONObject();
+      obj.put("components", jsonArray);
+      fileData.write(obj.toString());
+      fileData.close();
 
     } catch (IOException err) {
       throw new RuntimeException(err);
