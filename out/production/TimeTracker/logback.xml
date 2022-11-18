@@ -1,0 +1,79 @@
+<configuration>
+    <!-- CONSOLE -->
+    <!-- INFO -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder> <pattern>
+            %d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+        </pattern> </encoder>
+    </appender>
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+    <logger name="myPackage.Heater" level="warn"/>
+
+    <!---
+       - debug(): s'utilitza per escriure missatges de depuracio.
+
+       - info(): missatges d'estil verbose. Purament informatius de determinada accio.
+
+       - warm(): per alertar d'esdeveniments dels que es volen deixar constancia però que no afecten al funcionament
+                 de l'aplicacio.
+
+       - error(): utilitzat per els missatges d'esdeveniments que afecten al programa però el deixen seguir funcionant,
+                  algun parametre no es correcte pero es carrega el parametre per defecte, per exemple.
+
+       - fatal(): utilitzat per errors crítics. Normalment després de guardar el missatge, el programa finalitzara. -->
+
+    <!--- ROOT LOGGER -->
+    <!--- https://stackoverflow.com/questions/3837801/how-to-change-root-logging-level-programmatically-for-logback -->
+
+    <!-- HTML -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.html.HTMLLayout">
+                <pattern>%relative%thread%mdc%level%logger%msg</pattern>
+            </layout>
+        </encoder>
+        <file>test.html</file>
+    </appender>
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+    <!---
+          Rollover Files (Fitxers de desplaçament): inicieu sessió en un fitxer i, sota una determinada condició,
+          canvieu l'objectiu a un fitxer de sortida nou.
+
+          TimeBasedRollingPolicy: canvieu a un fitxer nou cada mes, setmana, dia o hores.
+
+          LevelFilter filtra els registres que no coincideixen exactament amb el nivell especificat.
+
+          ThresholdFilter filtra els registres per sota d'algun nivell
+
+          EvaluatorFilter filtra els registres dels quals la cadena de missatge en conté expressió regular com enunciat -->
+
+    <appender name="log-file" class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+    <file>my-application.log</file>
+    <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!-- rotate every day for log collection and archiving -->
+        <fileNamePattern>my-application.%d{yyyyMMdd}.log</fileNamePattern>
+    </rollingPolicy>
+
+    <!--- WARNING -->
+    <appender name="warnings" class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+    <file>warnings.log</file>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <!-- only log warnings -->
+        <level>WARN</level>
+    </filter>
+
+    <!--- DEBUG -->
+    <appender name="problems" class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+    <file>problems.log</file>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <!-- only log problems, not debugging info -->
+        <level>DEBUG</level>
+    </filter>
+</configuration>
