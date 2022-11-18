@@ -1,6 +1,5 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -74,11 +73,6 @@ public class Task extends Component {
 
   public void addInterval(Interval interval) {
     this.intervals.add(interval);
-  }
-
-  @Override
-  public ArrayList<Component> getComponentList() {
-    return null;
   }
 
   /*

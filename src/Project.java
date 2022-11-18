@@ -61,7 +61,7 @@ It basically initializes every single attribute a Project (and Component) has.
   the method "setElapsedTime()", it updates the elapsed time of every node above it connected to it.
 */
   public void updateElapsedTime() {
-    this.setElapsedTime(Duration.ZERO);
+    this.setElapsedTime();
 
     for (Component component : this.componentList) {
       this.sumElapsedTime(component.getElapsedTime());
@@ -76,7 +76,6 @@ It basically initializes every single attribute a Project (and Component) has.
     this.componentList.add(comp);
   }
 
-  @Override
   public ArrayList<Component> getComponentList() {
     return this.componentList;
   }

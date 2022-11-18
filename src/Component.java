@@ -1,7 +1,6 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -53,8 +52,6 @@ It basically initializes every single attribute a Component has.
     this.finalDate = finalDate;
   }
 
-  public abstract ArrayList<Component> getComponentList();
-
   public abstract List<Interval> getIntervals();
 
   public String getName() {
@@ -78,8 +75,8 @@ It basically initializes every single attribute a Component has.
     return this.father;
   }
 
-  protected void setElapsedTime(Duration elapsedTime) {
-    this.elapsedTime = elapsedTime;
+  protected void setElapsedTime() {
+    this.elapsedTime = Duration.ZERO;
   }
 
   protected void sumElapsedTime(Duration elapsedTime) {
