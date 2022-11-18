@@ -1,6 +1,5 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -164,31 +163,5 @@ public class Task extends Component {
 
   public boolean isStopped() {
     return this.stopped;
-  }
-
-  /*
-      This method is used to print the information of a Task into console.
-*/
-  public String toString() {
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String stringToReturn;
-    if (this.getFather() == null) {
-      stringToReturn = this.getName() + "\t\t\t\t\t\tchild of null\t\t\t";
-    } else {
-      stringToReturn = this.getName()
-        + "\t\t\t\t\t\tchild of \t\t\t" + this.getFather().getName() + "\t\t\t";
-    }
-    if (this.getStartDate() == null) {
-      stringToReturn += "null\t\t\t";
-    } else {
-      stringToReturn += this.getStartDate().format(format) + "\t\t\t";
-    }
-    if (this.getFinalDate() == null) {
-      stringToReturn += "null\t\t\t" + this.getElapsedTime().getSeconds();
-    } else {
-      stringToReturn += this.getFinalDate().format(format)
-        + "\t\t\t" + this.getElapsedTime().getSeconds();
-    }
-    return stringToReturn;
   }
 }

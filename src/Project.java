@@ -1,6 +1,5 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,35 +88,5 @@ It basically initializes every single attribute a Project (and Component) has.
 
   public void accept(Visitor v) {
     v.visitProject(this);
-  }
-
-  /*
-  This method is used to print the information of a Project into console.
-*/
-  public String toString() {
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String stringToReturn;
-    if (this.getFather() == null) {
-      stringToReturn = this.getName()
-          + "\t\t\t\t\t\tchild of null\t\t\t";
-    } else {
-      stringToReturn = this.getName()
-          + "\t\t\t\t\t\tchild of \t\t\t"
-          + this.getFather().getName() + "\t\t\t";
-    }
-    if (this.getStartDate() == null) {
-      stringToReturn += "null\t\t\t";
-    } else {
-      stringToReturn += this.getStartDate().format(format) + "\t\t\t";
-    }
-    if (this.getFinalDate() == null) {
-      stringToReturn += "null\t\t\t" + this.getElapsedTime().getSeconds();
-    } else {
-      stringToReturn
-          += this.getFinalDate().format(format)
-          + "\t\t\t"
-          + this.getElapsedTime().getSeconds();
-    }
-    return stringToReturn;
   }
 }
