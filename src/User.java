@@ -115,6 +115,7 @@ public class User {
     // It basically returns the top of the hierarchy.
     return root;
   }
+
   public static void testSearchByTag() {
 
     System.out.println("\nBegin of Test SearchByTag\n");
@@ -141,15 +142,16 @@ public class User {
 
     Project problems = new Project("Problems", softwareDesign);
 
-    Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
-
     tagList = new LinkedList<>();
     tagList.add("java");
     new Task("First List", problems, tagList);
 
+
     tagList = new LinkedList<>();
     tagList.add("Dart");
     new Task("Second List", problems, tagList);
+
+    Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
 
     new Task("Read Handout", projectTimeTracker);
 
