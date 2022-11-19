@@ -1,6 +1,5 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +19,6 @@ public class Project extends Component {
     //to this object be in its descendents.
     father.addComponent(this);
   }
-
 
   // This Constructor calls to the superclass constructor (super statement),
   // and, finally, forces the
