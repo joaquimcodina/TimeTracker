@@ -6,14 +6,12 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/*
-    This class implements the Observable Design Pattern. It basically has a Clock that will be
-    updating its observers every "freq" seconds.
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
-    @version 5.0
-    @since 2022-11-06
- */
-
+// This class implements the Observable Design Pattern. It basically has a Clock that will be
+// updating its observers every "freq" seconds.
 public class ClockTimer extends Observable {
   private Timer timer;
   private List<Interval> observers = new LinkedList<>();
@@ -25,9 +23,6 @@ public class ClockTimer extends Observable {
     startClock();
   }
 
-  /*
-This method starts the clock of the ClockTimer's class.
-*/
   public void startClock() {
     // Get current date time init
     TimerTask cycleTask = new TimerTask() {

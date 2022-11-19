@@ -3,17 +3,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-/*
-    This class is a superclass. It has the following attributes:
-        · startDate : LocalDateTime
-        · finalDate : LocalDateTime
-        · name : String
-        · elapsedTime : Duration
-        · father : Project
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
-    @version 3.0
-    @since 2022-11-06
- */
 public abstract class Component {
   private String name;
   protected Duration elapsedTime;
@@ -37,12 +30,6 @@ public abstract class Component {
     this.finalDate = null;
   }
 
-  /*
-This Constructor is used by the ReadJson.java class in order to rebuild the hierarchy.
-It will be not be able to the Users.
-It basically initializes every single attribute a Component has.
-@return Component
-*/
   public Component(String name, Project father, Duration elapsedTime,
                    LocalDateTime startDate, LocalDateTime finalDate) {
     this.name = name;
@@ -83,10 +70,8 @@ It basically initializes every single attribute a Component has.
     this.elapsedTime = this.elapsedTime.plus(elapsedTime);
   }
 
-  /*
-This function updates its own startDate and expands recursively the inner changes to the
-upper nodes in the hierarchy, if exists.
-*/
+  // This function updates its own startDate and expands recursively the inner changes to the
+  // upper nodes in the hierarchy, if exists.
   public void setStartDate(LocalDateTime startDate) {
     if (this.getStartDate() == null) {
       this.startDate = startDate;
@@ -96,10 +81,8 @@ upper nodes in the hierarchy, if exists.
     }
   }
 
-  /*
-This function updates its own finalDate and expands recursively the inner changes to the
-upper nodes in the hierarchy, if exists.
-*/
+  // This function updates its own finalDate and expands recursively the inner changes to the
+  // upper nodes in the hierarchy, if exists.
   public void setFinalDate(LocalDateTime finalDate) {
     if (this.finalDate == null || this.finalDate.compareTo(finalDate) < 0) {
       this.finalDate = finalDate;
@@ -138,9 +121,6 @@ upper nodes in the hierarchy, if exists.
     return this.father.getName();
   }
 
-  /*
-  This method is used to print the information of a Project into console.
-*/
   public String toString() {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String stringProject;

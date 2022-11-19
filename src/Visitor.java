@@ -1,16 +1,7 @@
-//============================================================
-// Class Visitor.java
-//============================================================
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
-/*
-    This superclass Implements the Visitor Design Pattern. It has three uses in this project:
-        1. PrinterTestA.
-        2. PrinterTestB.
-        3. SaveJSON.
-
-    @version 2.0
-    @since 2022-11-06
-*/
 public interface Visitor {
   void visitProject(Project var1);
 

@@ -3,65 +3,28 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-/*
-    This class is a subclass of a
-    Component (Component.java) class, and, therefore,
-    it implements
-    what the superclass forces to implement.
-
-    As a Task can have 0 or more Intervals
-    (Interval.java), we have a List of Intervals, which is
-    initially empty.
-    This class also haves a boolean attribute that indicates
-    if the task has any active Interval in it.
-
-    @version 5.0
-    @since 2022-11-06
- */
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
 public class Task extends Component {
   private List<Interval> intervals = new LinkedList<>();
   private boolean stopped;
 
-  /*
-      This Constructor calls to the superclass constructor (super statement),
-      forces the stopped flag to false
-      and, finally, we notify the father (that cannot be null)
-      of this object's creation in order to this object
-      be in its descendents.
-
-      @param name : Must be a String. This will be the name of the task.
-      @param father : Must be a Project. This param must not be null.
-
-      @return Task
-   */
 
   public Task(String name, Project father) {
     super(name, father);
+
+    // we notify the father (that cannot be null) of this object's creation in order
+    // to this object be in its descendents.
     father.addComponent(this);
     this.stopped = false;
   }
 
-  /*
-  This Constructor calls to the superclass constructor
-  (super statement), forces the stopped flag to false
-  and, finally, forces the father to be null,
-  which means that this node is the root (or one of the roots)
-  of the hierarchy.
-
-  @param name : Must be a String.
-  This will be the name of the task.
-
-  @return Task
-
-  /*
-  This Constructor is used by the ReadJson.java class in
-  order to rebuild the hierarchy. It will be not be
-  able to the Users. It basically initializes every single
-  attribute a Task (and Component) has.
-
-  @return Task
-*/
+  // This Constructor is used by the ReadJson.java class in
+  // order to rebuild the hierarchy. It will be not be
+  // able to the Users. It basically initializes every single
+  // attribute a Task (and Component) has.
   public Task(String name, Project father, Duration elapsedTime,
               LocalDateTime startDate, LocalDateTime finalDate) {
     super(name, father, elapsedTime, startDate, finalDate);
@@ -75,16 +38,14 @@ public class Task extends Component {
     this.intervals.add(interval);
   }
 
-  /*
-      This method is set to be called from a User class by the User or in tests.
-      This method creates a new Interval and updates itself initialDate, if it is
-      the first Interval to be created (which means the oldest Date).
-*/
+  // This method is set to be called from a User class by the User or in tests.
   public void start() {
     Interval interval = new Interval(this);
     ClockTimer.getInstance().addObserver(interval);
     ClockTimer.getInstance().addInterval(interval);
 
+    // Updates the start date of the task,
+    // if it is the first Range that is created (which means the oldest Date).
     this.setStartDate(interval.getStart());
     this.stopped = false;
     this.intervals.add(interval);
@@ -98,15 +59,13 @@ public class Task extends Component {
     }
   }
 
-  /*
-      This method stops every Interval of a Task and
-      updates the attributes of its own, such as:
-          · initialDate
-          · finalDate
-          · Elapsed Time
-      After updating this attributes, it expands the changes
-      to every node above him in the hierarchy.
-*/
+  // This method stops every Interval of a Task and
+  // updates the attributes of its own, such as:
+  // - initialDate
+  // - finalDate
+  // - Elapsed Time
+  // After updating this attributes, it expands the changes to every node above him
+  // in the hierarchy.
   public void stop() {
     stopIntervals();
     this.updateDates();
@@ -127,16 +86,9 @@ public class Task extends Component {
     return this.intervals.get(pos);
   }
 
-  /*
-      This method is used to update its own attributes
-      initialDate, finalDate and elapsedTime.
-      It calls the following interesting functions:
-          · setFinalDate(): This method recursively updates
-          the finalDate of every node above connected to this task.
 
-          · updateElapsedTime(): This method recursively updates
-          the ElapsedTime of every node above connected to this task.
-*/
+  // This method is used to update its own attributes
+  // initialDate, finalDate and elapsedTime.
   public void updateDates() {
     this.elapsedTime = Duration.ZERO;
 

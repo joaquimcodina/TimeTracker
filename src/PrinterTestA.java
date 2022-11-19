@@ -1,15 +1,9 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
-/*
-    This class implements the Visitor Design Pattern.
-    It is used to print the hierarchy of the Time Tracker.
-
-    @version 1.0
-    @since 2022-11-06
- */
+// This class implements the Visitor Design Pattern.
+// It is used to print the hierarchy of the Time Tracker.
 public class PrinterTestA implements Visitor {
 
   public void visitProject(Project project) {

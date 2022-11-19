@@ -3,16 +3,11 @@ import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
 
-/*
-    This class Implements the Observer Design Pattern and, it is connected to the ClockTimer.
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
-    It basically has a start and end LocalDateTime attributes, which will be expanded above
-    in the hierarchy every update, and an elapsedTime attribute of type Duration which
-    will be expanded too.
-
-    @version 3.0
-    @since 2022-11-06
- */
+// This class Implements the Observer Design Pattern and, it is connected to the ClockTimer.
 public class Interval implements Observer {
   private LocalDateTime start;
   private LocalDateTime end;
@@ -20,13 +15,6 @@ public class Interval implements Observer {
   private Duration elapsedTime = Duration.ZERO;
   private boolean active = true;
 
-  /*
-This Constructor initializes the initialDate of the Interval to the actual System Date.
-
-@param Father : A Task. It will be used to expand the updates.
-
-@return Interval
-*/
   public Interval(Task father) {
     this.start = LocalDateTime.now();
     this.father = father;
@@ -40,9 +28,8 @@ This Constructor initializes the initialDate of the Interval to the actual Syste
     father.addInterval(this);
   }
 
-  /*
-This method updates the elapsedTime every time it receives an update of Observable.
-*/
+
+  // This method updates the elapsedTime every time it receives an update of Observable.
   public void update(Observable o, Object arg) {
     this.elapsedTime = Duration.ofSeconds(
         Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
@@ -56,10 +43,8 @@ This method updates the elapsedTime every time it receives an update of Observab
     this.active = false;
   }
 
-  /*
-This method expands the inner changes into the father Task, and then,
-if exists, recursively into the upper nodes.
-*/
+  // This method expands the inner changes into the father Task, and then,
+  // if exists, recursively into the upper nodes.
   public void updateDates() {
     this.father.updateDates();
   }
@@ -92,9 +77,6 @@ if exists, recursively into the upper nodes.
     v.visitInterval(this);
   }
 
-  /*
- This method is used to print the information of an Interval into console.
-*/
   @Override
   public String toString() {
     return "Interval \t\t\t\t\t child of " + getFather().getName() + "\t\t\t"

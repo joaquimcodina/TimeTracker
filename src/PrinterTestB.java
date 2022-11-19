@@ -2,13 +2,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
-/*
-    This class implements the Visitor Design Pattern and the Observer Design Pattern.
-     It is used to print the hierarchy of the Time Tracker and its changes.
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
-    @version 2.0
-    @since 2022-11-06
- */
+// This class implements the Visitor Design Pattern and the Observer Design Pattern.
+// It is used to print the hierarchy of the Time Tracker and its changes.
 public class PrinterTestB implements Visitor, Observer {
 
   private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -57,7 +56,7 @@ public class PrinterTestB implements Visitor, Observer {
   }
 
   @Override
-  public void update(Observable o, Object arg) { //print latest active interval
+  public void update(Observable o, Object arg) { // print latest active interval
     Interval interval = ClockTimer.getInstance().getObservers()
         .get(ClockTimer.getInstance().getObservers().size() - 1);
     interval.accept(this);

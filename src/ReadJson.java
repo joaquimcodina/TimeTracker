@@ -10,31 +10,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-/*
-    This class reads a .JSON file, parses its information and saves it into the
-    Project in order to recover the data and maintain the persistence.
-    @version 1.0
-    @since 2022-11-06
- */
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
+
+//This class reads a .JSON file, parses its information and saves it into the
+//Project in order to recover the data and maintain the persistence.
 public class ReadJson {
   private List<Component> hierarchy;
 
-  public Component getRoot() {
-    return hierarchy.get(0);
-  }
-
-  /*
-This constructor directly initializes the file reading process.
-It reads the "./data/data.json" file and stores its
-information into the this.hierarchy attribute.
-@return ReadJSON
-@usage: new ReadJSON(Component);
-  If you want to get the first element of the hierarchy, in order to use it for anything
-  (like printing it into console):
-      ReadJSON hierarchy = new ReadJSON();
-      Component comp = hierarchy.getRoot();
-*/
   public ReadJson() throws FileNotFoundException {
+    // If you want to get the first element of the hierarchy, in order to use it for anything
+    // (like printing it into console):
+    // - ReadJSON hierarchy = new ReadJSON();
+    // - Component comp = hierarchy.getRoot();
+
     String path = "./data/data.json";
     System.out.println("Loading json file: from " + path);
     InputStream is;
@@ -52,12 +42,11 @@ information into the this.hierarchy attribute.
 
   }
 
-  /*
-This method creates a certain object depending on the parsed information of the .JSON file.
-@param component : The JSON component parsed.
-@param createdObjects : A List of the createdObjects, in order to create new ones from these.
-@return List<Component> It returns the createdObject list plus the new created Object, if created.
-*/
+  public Component getRoot() {
+    return hierarchy.get(0);
+  }
+
+  //This method creates a certain object depending on the parsed information of the .JSON file.
   private List<Component> createObject(JSONObject component, List<Component> createdObjects) {
     LocalDateTime startDate = null;
     LocalDateTime finalDate = null;
@@ -66,7 +55,6 @@ This method creates a certain object depending on the parsed information of the 
 
     if (!component.getString("start_date").equals("null")) {
       startDate = LocalDateTime.parse(component.getString("start_date"));
-      //pass the string to a LocalDateTime with parse
     }
     if (!component.getString("final_date").equals("null")) {
       finalDate = LocalDateTime.parse(component.getString("final_date"));
@@ -76,8 +64,8 @@ This method creates a certain object depending on the parsed information of the 
     if (type.equals("Interval")) {
       new Interval(startDate, finalDate,
           (Task) Objects.requireNonNull(searchFatherByName(fatherName,
-          createdObjects)), elapsedTime);  //search father by name
-    } else {  //Component
+          createdObjects)), elapsedTime);
+    } else {
       String name = component.getString("name");
 
       if (type.equals("Project")) {
@@ -92,15 +80,14 @@ This method creates a certain object depending on the parsed information of the 
         createdObjects.add(task);
       }
     }
+
+    //It returns the createdObject list plus the new created Object, if created.
     return createdObjects;
   }
 
-  /*
-This method searches in the parameter componentList the name of a Component in order to create it.
-@param name : The name of the father's object to be searched.
-@param createdObjects : A List of the createdObjects, in order to create new ones from these.
-@return Object. It really returns a Task, an Interval or a Project.
-*/
+
+  // This method searches the componentList parameter for the name of a Component,
+  // starting from its parent Component.
   private Object searchFatherByName(String name, List<Component> componentList) {
     for (Component component : componentList) {
       String nameVar = component.getName();

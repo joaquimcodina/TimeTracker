@@ -3,31 +3,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-/*
-    This class implements the Visitor (Visitor.java) class,
-    which implements the Visitor Design Pattern.
-    It is used to create a file and save the Time Tracker
-    application's data into a .JSON file, which
-    will be called "./data/data.json".
 
-    @version 2.0
-    @since 2022-11-06
- */
+// Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
+// rights reserved.
+// Released under the terms of the GNU General Public License version 2 or later.
 
+// This class implements the Visitor (Visitor.java) class,
+// which implements the Visitor Design Pattern.
+// It is used to create a file and save the Time Tracker
+// application's data into a .JSON file, which
+// will be called "./data/data.json".
 public class SaveJson implements Visitor {
   private JSONArray jsonArray = new JSONArray();
 
-  /*
-  This constructor directly initializes the saving process
-  of the application into a .JSON file by calling other
-  methods of this class.
-
-  @param root : must be a Component object.
-
-  @return SaveJSON
-
-  @usage: new SaveJSON(Component);
-*/
+  // This constructor directly initializes the saving process
+  // of the application into a .JSON file by calling other methods of this class.
   public SaveJson(Component root) throws IOException {
     JSONObject obj;
     FileWriter fileData;
@@ -36,7 +26,7 @@ public class SaveJson implements Visitor {
     File file = new File(path);
     fileData = new FileWriter(file, false);
     if (root != null) {
-      root.accept(this); //recursive
+      root.accept(this); // recursive method
     }
     try {
       obj = new JSONObject();
@@ -58,10 +48,8 @@ public class SaveJson implements Visitor {
     }
   }
 
-  /*
-  This method puts the information of a hierarchy's node into a JSON object, which is put into a
-  JSON array, which will be written into the file.
-*/
+  // This method puts the information of a hierarchy's node into a JSON object, which is put into a
+  // JSON array, which will be written into the file.
   private void inputData(Component var1) {
     JSONObject obj = new JSONObject();
     obj.put("name", var1.getName());
@@ -88,8 +76,8 @@ public class SaveJson implements Visitor {
 
     this.jsonArray.put(obj);
   }
-  //This method saves in a JSON Object the information to be written in a .json file.
 
+  // This method saves in a JSON Object the information to be written in a .json file.
   @Override
   public void visitTask(Task var1) {
     inputData(var1);
@@ -100,7 +88,7 @@ public class SaveJson implements Visitor {
 
   public void visitInterval(Interval interval) {
     JSONObject obj = new JSONObject();
-    obj.put("father", interval.getFather().getName()); //don't talk to strangers?
+    obj.put("father", interval.getFather().getName());
     if (interval.getStart() == null) {
       obj.put("start_date", "null");
     } else {
