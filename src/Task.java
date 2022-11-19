@@ -9,11 +9,23 @@ import java.util.List;
 
 public class Task extends Component {
   private List<Interval> intervals = new LinkedList<>();
+
+  private List<String> tagList = new LinkedList<>();
   private boolean stopped;
 
 
   public Task(String name, Project father) {
     super(name, father);
+
+    // we notify the father (that cannot be null) of this object's creation in order
+    // to this object be in its descendents.
+    father.addComponent(this);
+    this.stopped = false;
+  }
+
+  public Task(String name, Project father, List<String> tagList) {
+    super(name, father);
+    this.tagList = tagList;
 
     // we notify the father (that cannot be null) of this object's creation in order
     // to this object be in its descendents.
@@ -84,6 +96,10 @@ public class Task extends Component {
 
   public Interval getIntervalPos(int pos) {
     return this.intervals.get(pos);
+  }
+
+  public List<String> getTagList() {
+    return tagList;
   }
 
 

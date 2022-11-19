@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -113,6 +115,56 @@ public class User {
     // It basically returns the top of the hierarchy.
     return root;
   }
+  public static void testSearchByTag() {
+
+    System.out.println("\nBegin of Test SearchByTag\n");
+
+    Project root = new Project("root");
+
+    List<String> tagList = new LinkedList<>();
+    tagList.add("Java");
+    tagList.add("python");
+    new Project("Software Testing", root, tagList);
+
+    tagList = new LinkedList<>();
+    tagList.add("SQL");
+    tagList.add("python");
+    tagList.add("C++");
+    new Project("Database", root, tagList);
+
+    new Task("Transportation", root);
+
+    tagList = new LinkedList<>();
+    tagList.add("java");
+    tagList.add("flutter");
+    Project softwareDesign = new Project("Software Design", root, tagList);
+
+    Project problems = new Project("Problems", softwareDesign);
+
+    Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
+
+    tagList = new LinkedList<>();
+    tagList.add("java");
+    new Task("First List", problems, tagList);
+
+    tagList = new LinkedList<>();
+    tagList.add("Dart");
+    new Task("Second List", problems, tagList);
+
+    new Task("Read Handout", projectTimeTracker);
+
+    tagList = new LinkedList<>();
+    tagList.add("Java");
+    tagList.add("IntelliJ");
+    new Task("First Milestone", projectTimeTracker, tagList);
+
+    System.out.println("Tag: java");
+    SearchByTag searchByTag = new SearchByTag("java");
+    root.accept(searchByTag);
+    System.out.println(searchByTag.getResults());
+
+    System.out.println("\nEnd of Test SearchByTag\n");
+  }
 
   public static void main(String[] args) throws InterruptedException, IOException {
     testA();
@@ -128,5 +180,7 @@ public class User {
     PrinterTestA printerTestA = new PrinterTestA();
     System.out.println("Printing tree loaded from json file: \n");
     newRoot.accept(printerTestA);
+
+    testSearchByTag();
   }
 }

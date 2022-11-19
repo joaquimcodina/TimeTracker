@@ -6,6 +6,7 @@ title "Time Tracker"
 class User{
 +{static} testA()
 +{static} testB() : Component
++{static} testSearchByTag()
 +{static} main(args : String[])
 }
 
@@ -23,11 +24,21 @@ class PrinterTestA implements Visitor{
 
 class PrinterTestB implements Visitor, Observer{
 - formatter : DateTimeFormatter
-+ Printer()
++ PrinterTestB()
 + visitProject(project : Project)
 + visitTask(task : Task)
 + visitInterval(interval : Interval)
 + update(o : Observable, arg : Object)
+}
+
+class SearchByTag implements Visitor{
+- tag : String
+- results : List<String>
++ SearchByTag()
++ getResults() : List<String>
++ visitProject(project : Project)
++ visitTask(task : Task)
++ visitInterval(interval : Interval)
 }
 
 class SaveJson implements Visitor{
@@ -43,6 +54,7 @@ class Task extends Component{
 - intervals : List<Interval>
 - stopped : boolean
 + Task(name : String, father : Project)
++ Task(name : String, father : Project, tagList : List<String>)
 + Task(name : String, father : Project, elapsedTime : Duration, startDate : LocalDateTime, finalDate : LocalDateTime)
 + addInterval(interval : Interval)
 + start()
@@ -51,6 +63,7 @@ class Task extends Component{
 + accept(v : Visitor)
 + getIntervals() : List<Interval>
 + getIntervalPos(pos : int) : Interval
++ getTagList() : List<String>
 + updateDates()
 + isStopped() : boolean
 }
@@ -58,6 +71,7 @@ class Task extends Component{
 class Project extends Component {
 - componentList : List<Components>
 + Project(name : String, father : Project)
++ Project(name : String, father : Project, tagList : List<String>)
 + Project(name : String)
 + Project(name : String, father : Project, elapsedTime : Duration,
         startDate : LocalDateTime, finalDate : LocalDateTime)
@@ -65,6 +79,7 @@ class Project extends Component {
 # addComponent(comp : Component)
 + getComponentList() : List<Component>
 + getIntervals() : List<Interval>
++ getTagList() : List<String>
 + accept(v : Visitor)
 }
 

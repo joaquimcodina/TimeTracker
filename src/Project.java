@@ -12,8 +12,19 @@ import java.util.List;
 public class Project extends Component {
   private List<Component> componentList = new LinkedList<>();
 
+  private List<String> tagList = new LinkedList<>();
+
   Project(String name, Project father) {
     super(name, father);
+
+    //we notify the father (that cannot be null) of this object's creation in order
+    //to this object be in its descendents.
+    father.addComponent(this);
+  }
+
+  Project(String name, Project father, List<String> tagList) {
+    super(name, father);
+    this.tagList = tagList;
 
     //we notify the father (that cannot be null) of this object's creation in order
     //to this object be in its descendents.
@@ -59,6 +70,10 @@ public class Project extends Component {
   @Override
   public List<Interval> getIntervals() {
     return null;
+  }
+
+  public List<String> getTagList() {
+    return tagList;
   }
 
   public void accept(Visitor v) {
