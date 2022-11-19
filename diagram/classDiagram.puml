@@ -1,11 +1,11 @@
 @startuml
-skinparam classAttributeIconSize 12
+skinparam classAttributeIconSize 0
 
 title "Time Tracker"
 
 class User{
-+{static} testApendixA() : Component
-+{static} testApendixB() : Component
++{static} testA()
++{static} testB() : Component
 +{static} main(args : String[])
 }
 
@@ -16,30 +16,25 @@ visitInterval(interval : Interval)
 }
 
 class PrinterTestA implements Visitor{
-- project : Project
-+ Printer(project : Project)
 + visitProject(project : Project)
 + visitTask(task : Task)
 + visitInterval(interval : Interval)
 }
 
 class PrinterTestB implements Visitor, Observer{
-- interval : Interval
-- final formatter : DateTimeFormatter
-+ Printer(project : Project)
+- formatter : DateTimeFormatter
++ Printer()
 + visitProject(project : Project)
 + visitTask(task : Task)
 + visitInterval(interval : Interval)
 + update(o : Observable, arg : Object)
 }
 
-class SaveJSON implements Visitor{
+class SaveJson implements Visitor{
 - jsonArray : JSONArray
-- obj : JSONObject
-- fileData : FileWriter
-+ SaveJSON(root : Component)
-- inputData(component : Component)
++ SaveJson(root : Component)
 + visitProject(project : Project)
+- inputData(component : Component)
 + visitTask(task : Task)
 + visitInterval(interval : Interval)
 }
@@ -49,22 +44,21 @@ class Task extends Component{
 - stopped : boolean
 + Task(name : String, father : Project)
 + Task(name : String, father : Project, elapsedTime : Duration, startDate : LocalDateTime, finalDate : LocalDateTime)
-+ getComponentList() : List<Component>
++ addInterval(interval : Interval)
 + start()
 + stopIntervals()
 + stop()
 + accept(v : Visitor)
-+ getIntervals() : ArrayList<Interval>
++ getIntervals() : List<Interval>
 + getIntervalPos(pos : int) : Interval
 + updateDates()
 + isStopped() : boolean
-+ toString() : String
 }
 
 class Project extends Component {
 - componentList : List<Components>
-+ Project(name : String)
 + Project(name : String, father : Project)
++ Project(name : String)
 + Project(name : String, father : Project, elapsedTime : Duration,
         startDate : LocalDateTime, finalDate : LocalDateTime)
 + updateElapsedTime()
@@ -72,7 +66,6 @@ class Project extends Component {
 + getComponentList() : List<Component>
 + getIntervals() : List<Interval>
 + accept(v : Visitor)
-+ toString() : String
 }
 
 package "Observer_Pattern" #DDDDDD{
@@ -95,36 +88,34 @@ class ClockTimer{
 - observers : List<Interval>
 - now : LocalDateTime
 - {static} instance : ClockTimer
-- {static} freq : double
 - ClockTimer()
 + startClock()
 + stopClock()
 + {static} getInstance() : ClockTimer
 + getNow() : LocalDateTime
-+ addObserver()
++ addObserver(o : Observer)
 + addInterval(inter : Interval)
 + getObservers() : List<Interval>
 + notifyObservers()
 }
 
 abstract class Component{
-# name : String
+- name : String
 # elapsedTime : Duration
-# startDate : LocalDateTime
-# finalDate : LocalDateTime
-# father : Project
+- startDate : LocalDateTime
+- finalDate : LocalDateTime
+- father : Project
 + Component(name : String)
 + Component(name : String, father : Project)
 + Component(name : String, father : Project, elapsedTime : Duration,
         startDate : LocalDateTime, finalDate : LocalDateTime)
-+ {abstract} getComponentList : List<Component>
 + {abstract} getIntervals : List<Interval>
 + getName() : String
 + getStartDate() : LocalDateTime
 + getFinalDate() : LocalDateTime
 + getElapsedTime() : Duration
 + getFather() : Project
-# setElapsedTime(elapsedTime : Duration)
+# setElapsedTime()
 # sumElapsedTime(elapsedTime : Duration)
 + setStartDate(startDate : LocalDateTime)
 + setFinalDate(finalDate : LocalDateTime)
@@ -138,14 +129,14 @@ class Interval {
 - end : LocalDateTime
 - father : Task
 - elapsedTime : Duration
-- actiu : boolean
+- active : boolean
 + Interval(father : Task)
 + Interval(name : String, father : Project, elapsedTime : Duration,
         startDate : LocalDateTime, finalDate : LocalDateTime)
 + update(o : Observable, arg : Object)
-+ update()
-+ getActiu() : boolean
++ getActive() : boolean
 + setNotActive()
++ updateDates()
 + getStart() : LocalDateTime
 + getEnd() : LocalDateTime
 + getFather() : Task
@@ -156,9 +147,10 @@ class Interval {
 + toString() : String
 }
 
-class ReadJSON {
+class ReadJson {
 - hierarchy : List<Component>
-+ ReadJSON()
++ ReadJson()
++ getRoot() : Component
 - createObject(component : Component, createdObjects : List<Component>) : List<Component>
 - searchFatherByName(name : String, componentList List<Component>) : Object
 }
