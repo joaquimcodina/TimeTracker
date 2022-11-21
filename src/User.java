@@ -165,6 +165,16 @@ public class User {
     root.accept(searchByTag);
     System.out.println(searchByTag.getResults());
 
+    System.out.println("Tag: python");
+    searchByTag = new SearchByTag("python");
+    root.accept(searchByTag);
+    System.out.println(searchByTag.getResults());
+
+    System.out.println("Tag: SQL");
+    searchByTag = new SearchByTag("SQL");
+    root.accept(searchByTag);
+    System.out.println(searchByTag.getResults());
+
     System.out.println("\nEnd of Test SearchByTag\n");
   }
 
