@@ -14,9 +14,12 @@ public class SearchByTag implements Visitor {
   }
 
   public void visitProject(Project project) {
-    if (project.getTagList().contains(this.tag)) {
-      this.results.add(project.getName());
+    for (int i = 0; i < project.getTagList().size(); i++) {
+      if (project.getTagList().get(i).equalsIgnoreCase(tag)) {
+        this.results.add(project.getName());
+      }
     }
+
     for (Component component : project.getComponentList()) {
       component.accept(this);
     }
@@ -26,8 +29,10 @@ public class SearchByTag implements Visitor {
   }
 
   public void visitTask(Task task) {
-    if (task.getTagList().contains(this.tag)) {
-      this.results.add(task.getName());
+    for (int i = 0; i < task.getTagList().size(); i++) {
+      if (task.getTagList().get(i).equalsIgnoreCase(tag)) {
+        this.results.add(task.getName());
+      }
     }
   }
 

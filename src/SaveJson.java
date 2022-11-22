@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -15,13 +17,14 @@ import org.json.JSONObject;
 // will be called "./data/data.json".
 public class SaveJson implements Visitor {
   private JSONArray jsonArray = new JSONArray();
+  static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   // This constructor directly initializes the saving process
   // of the application into a .JSON file by calling other methods of this class.
   public SaveJson(Component root) throws IOException {
     JSONObject obj;
     FileWriter fileData;
-    System.out.println("Saving data in a .json file...");
+    logger.info("Saving data in a .json file...");
     String path = "data/data.json";
     File file = new File(path);
     fileData = new FileWriter(file, false);
@@ -37,7 +40,7 @@ public class SaveJson implements Visitor {
     } catch (IOException err) {
       throw new RuntimeException(err);
     }
-    System.out.println(".json file successfully created!");
+    logger.info(".json file successfully created!");
   }
 
   @Override

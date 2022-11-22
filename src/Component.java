@@ -126,23 +126,23 @@ public abstract class Component {
     String stringProject;
     if (this.getFather() == null) {
       stringProject = this.getName()
-        + "\t\t\t\t\t\tchild of null\t\t\t";
+        + "\t\t\t\tchild of null\t";
     } else {
       stringProject = this.getName()
-        + "\t\t\t\t\t\tchild of \t\t\t"
-        + this.getFather().getName() + "\t\t\t";
+        + "\t\t\t\tchild of \t\t"
+        + this.getFather().getName() + "\t\t";
     }
     if (this.getStartDate() == null) {
-      stringProject += "null\t\t\t";
+      stringProject += "null\t\t";
     } else {
-      stringProject += this.getStartDate().format(format) + "\t\t\t";
+      stringProject += this.getStartDate().format(format) + "\t\t";
     }
     if (this.getFinalDate() == null) {
-      stringProject += "null\t\t\t" + this.getElapsedTime().getSeconds();
+      stringProject += "null\t\t" + this.getElapsedTime().getSeconds();
     } else {
       stringProject
         += this.getFinalDate().format(format)
-        + "\t\t\t"
+        + "\t\t"
         + this.getElapsedTime().getSeconds();
     }
     return stringProject;

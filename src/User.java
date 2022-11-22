@@ -18,7 +18,7 @@ public class User {
 
     Project root = new Project("root");
     new Project("Software Testing", root);
-    new Project("Database", root);
+    new Project("Databases", root);
     new Task("Transportation", root);
 
     Project softwareDesign = new Project("Software Design", root);
@@ -55,7 +55,7 @@ public class User {
 
     Project softwareDesign = new Project("Software Design", root);
     new Project("Software Testing", root);
-    new Project("Database", root);
+    new Project("Databases", root);
 
     Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
 
@@ -118,20 +118,19 @@ public class User {
 
   public static void testSearchByTag() {
 
-    System.out.println("\nBegin of Test SearchByTag\n");
-
-    Project root = new Project("root");
-
     List<String> tagList = new LinkedList<>();
+    tagList.add("c++");
     tagList.add("Java");
     tagList.add("python");
+
+    Project root = new Project("root");
     new Project("Software Testing", root, tagList);
 
     tagList = new LinkedList<>();
     tagList.add("SQL");
     tagList.add("python");
     tagList.add("C++");
-    new Project("Database", root, tagList);
+    new Project("Databases", root, tagList);
 
     new Task("Transportation", root);
 
@@ -160,22 +159,29 @@ public class User {
     tagList.add("IntelliJ");
     new Task("First Milestone", projectTimeTracker, tagList);
 
-    System.out.println("Tag: java");
+    System.out.println("\nBegin of Test SearchByTag");
+
     SearchByTag searchByTag = new SearchByTag("java");
     root.accept(searchByTag);
-    System.out.println(searchByTag.getResults());
+    System.out.println("Tag: java -> " + searchByTag.getResults());
 
-    System.out.println("Tag: python");
+    searchByTag = new SearchByTag("JAVA");
+    root.accept(searchByTag);
+    System.out.println("Tag: JAVA -> " + searchByTag.getResults());
+
+    searchByTag = new SearchByTag("intellij");
+    root.accept(searchByTag);
+    System.out.println("Tag: intellij -> " + searchByTag.getResults());
+
+    searchByTag = new SearchByTag("c++");
+    root.accept(searchByTag);
+    System.out.println("Tag: c++ -> " + searchByTag.getResults());
+
     searchByTag = new SearchByTag("python");
     root.accept(searchByTag);
-    System.out.println(searchByTag.getResults());
+    System.out.println("Tag: python -> " + searchByTag.getResults());
 
-    System.out.println("Tag: SQL");
-    searchByTag = new SearchByTag("SQL");
-    root.accept(searchByTag);
-    System.out.println(searchByTag.getResults());
-
-    System.out.println("\nEnd of Test SearchByTag\n");
+    System.out.println("\nEnd of Test SearchByTag");
   }
 
   public static void main(String[] args) throws InterruptedException, IOException {

@@ -9,6 +9,8 @@ import java.util.Objects;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -18,6 +20,7 @@ import org.json.JSONTokener;
 //Project in order to recover the data and maintain the persistence.
 public class ReadJson {
   private List<Component> hierarchy;
+  static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   public ReadJson() throws FileNotFoundException {
     // If you want to get the first element of the hierarchy, in order to use it for anything
@@ -26,7 +29,7 @@ public class ReadJson {
     // - Component comp = hierarchy.getRoot();
 
     String path = "./data/data.json";
-    System.out.println("Loading json file: from " + path);
+    logger.info("Loading json file: from " + path);
     InputStream is;
     is = new FileInputStream(path);
     JSONTokener token = new JSONTokener(is);
@@ -38,7 +41,7 @@ public class ReadJson {
       JSONObject jsonObject1 = components.getJSONObject(i);
       this.hierarchy = createObject(jsonObject1, componentList);
     }
-    System.out.println("File " + path + " successfully loaded \n");
+    logger.info("File " + path + " successfully loaded");
 
   }
 

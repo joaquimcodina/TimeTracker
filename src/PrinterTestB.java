@@ -1,6 +1,8 @@
 import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -10,7 +12,8 @@ import java.util.Observer;
 // It is used to print the hierarchy of the Time Tracker and its changes.
 public class PrinterTestB implements Visitor, Observer {
 
-  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   public PrinterTestB() {
 
@@ -18,8 +21,7 @@ public class PrinterTestB implements Visitor, Observer {
 
   @Override
   public void visitProject(Project project) {
-
-    System.out.println("activity: \t\t" + project.getName() + "\t\t\t\t"
+    logger.info("activity: \t\t" + project.getName() + "\t\t\t\t"
         + project.getStartDate().format(formatter)
         + "\t\t\t" + project.getActualDate().format(formatter) + "\t\t\t"
         + project.getActualElapsedTime().toSeconds());
@@ -27,16 +29,17 @@ public class PrinterTestB implements Visitor, Observer {
     if (project.getFather() != null) {
       project.getFather().accept(this);
     } else {
-      System.out.println();
+      logger.debug(null);
     }
   }
 
   @Override
   public void visitTask(Task task) {
-    System.out.println("activity: \t\t" + task.getName()
+    logger.info("activity: \t\t" + task.getName()
         + "\t\t\t" + task.getStartDate().format(formatter)
         + "\t\t\t" + task.getActualDate().format(formatter)
         + "\t\t\t" + task.getActualElapsedTime().toSeconds());
+
     if (task.getFather() != null) {
       task.getFather().accept(this);
     }
@@ -45,10 +48,10 @@ public class PrinterTestB implements Visitor, Observer {
   @Override
   public void visitInterval(Interval interval) {
     if (interval.getFather().isStopped()) {
-      System.out.print("");
+      logger.debug(null);
     }
 
-    System.out.println("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)
+    logger.info("interval:  \t\t\t\t\t\t\t" + interval.getStart().format(formatter)
         + "\t\t\t" + interval.getActualDate().format(formatter) + "\t\t\t\t"
         + interval.getActualElapsedTime().toSeconds());
 
