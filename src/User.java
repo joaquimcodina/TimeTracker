@@ -1,3 +1,6 @@
+import Fita1.*;
+import Fita2.*;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +26,7 @@ public class User {
 
     Project softwareDesign = new Project("Software Design", root);
     Project problems = new Project("Problems", softwareDesign);
-    Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project("Fita1.Project Time Tracker", softwareDesign);
 
     new Task("First List", problems);
     new Task("Second List", problems);
@@ -42,10 +45,10 @@ public class User {
   // This test is the second test we have, that corresponds
   // to the appendix "B".
   // The printing of the hierarchy is done through another
-  // Visitor class which is called "PrinterTestB.java".
+  // Fita1.Visitor class which is called "Fita1.PrinterTestB.java".
   // In order to do it correctly, the best option is to
   // modify on this method just the things related to the hierarchy, such as
-  // initializing a task Interval or stopping it.
+  // initializing a task Fita1.Interval or stopping it.
   // In other words, because we can analyse this as a
   // tree problem, it returns the root of the tree,
   // the node that does not have a single parent and
@@ -57,7 +60,7 @@ public class User {
     new Project("Software Testing", root);
     new Project("Databases", root);
 
-    Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project("Fita1.Project Time Tracker", softwareDesign);
 
     new Task("Read Handout", projectTimeTracker);
     new Task("First Milestone", projectTimeTracker);
@@ -150,7 +153,7 @@ public class User {
     tagList.add("Dart");
     new Task("Second List", problems, tagList);
 
-    Project projectTimeTracker = new Project("Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project("Fita1.Project Time Tracker", softwareDesign);
 
     new Task("Read Handout", projectTimeTracker);
 
@@ -159,7 +162,7 @@ public class User {
     tagList.add("IntelliJ");
     new Task("First Milestone", projectTimeTracker, tagList);
 
-    System.out.println("\nBegin of Test SearchByTag");
+    System.out.println("\nBegin of Test Fita2.SearchByTag");
 
     SearchByTag searchByTag = new SearchByTag("java");
     root.accept(searchByTag);
@@ -181,7 +184,7 @@ public class User {
     root.accept(searchByTag);
     System.out.println("Tag: python -> " + searchByTag.getResults());
 
-    System.out.println("\nEnd of Test SearchByTag");
+    System.out.println("\nEnd of Test Fita2.SearchByTag");
   }
 
   public static void main(String[] args) throws InterruptedException, IOException {
@@ -189,7 +192,7 @@ public class User {
     Component root = testB();
 
     // Calls too to another methods in other class in order to test them, such as saving in an .JSON
-    // file the hierarchy (SaveJson.java) and restoring it into the program (ReadJson.java).
+    // file the hierarchy (Fita1.SaveJson.java) and restoring it into the program (Fita1.ReadJson.java).
     // After saving the hierarchy in a .JSON file, you will be able to see it in the file:
     // "./data/data.json".
     new SaveJson(root);

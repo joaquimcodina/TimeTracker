@@ -171,7 +171,7 @@ class ReadJson {
 }
 
 User .right.> Component : creates
-'Project "1"-left-"0..*" Project
+'Fita1.Project "1"-left-"0..*" Fita1.Project
 Project "1" o-- "*" Component
 Visitor <.right. User : creates
 Task "1"--"0..*" Interval

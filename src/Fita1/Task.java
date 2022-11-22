@@ -1,3 +1,7 @@
+package Fita1;
+
+import Fita1.*;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -33,10 +37,10 @@ public class Task extends Component {
     this.stopped = false;
   }
 
-  // This Constructor is used by the ReadJson.java class in
+  // This Constructor is used by the Fita1.ReadJson.java class in
   // order to rebuild the hierarchy. It will be not be
   // able to the Users. It basically initializes every single
-  // attribute a Task (and Component) has.
+  // attribute a Fita1.Task (and Fita1.Component) has.
   public Task(String name, Project father, Duration elapsedTime,
               LocalDateTime startDate, LocalDateTime finalDate) {
     super(name, father, elapsedTime, startDate, finalDate);
@@ -71,7 +75,7 @@ public class Task extends Component {
     }
   }
 
-  // This method stops every Interval of a Task and
+  // This method stops every Fita1.Interval of a Fita1.Task and
   // updates the attributes of its own, such as:
   // - initialDate
   // - finalDate

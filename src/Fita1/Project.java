@@ -1,3 +1,5 @@
+package Fita1;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -7,14 +9,14 @@ import java.util.List;
 // rights reserved.
 // Released under the terms of the GNU General Public License version 2 or later.
 
-// This class is a subclass of a Component (Component.java) class, and, therefore, it implements
+// This class is a subclass of a Fita1.Component (Fita1.Component.java) class, and, therefore, it implements
 // what the superclass forces to implement.
 public class Project extends Component {
   private List<Component> componentList = new LinkedList<>();
 
   private List<String> tagList = new LinkedList<>();
 
-  Project(String name, Project father) {
+  public Project(String name, Project father) {
     super(name, father);
 
     //we notify the father (that cannot be null) of this object's creation in order
@@ -22,7 +24,7 @@ public class Project extends Component {
     father.addComponent(this);
   }
 
-  Project(String name, Project father, List<String> tagList) {
+  public Project(String name, Project father, List<String> tagList) {
     super(name, father);
     this.tagList = tagList;
 
@@ -35,7 +37,7 @@ public class Project extends Component {
   // and, finally, forces the
   // father to be null, which means that this node is the root (or one of the roots)
   // of the hierarchy.
-  Project(String name) {
+  public Project(String name) {
     super(name);
   }
 

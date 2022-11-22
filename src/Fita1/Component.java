@@ -1,3 +1,7 @@
+package Fita1;
+
+import Fita1.Visitor;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -114,7 +118,7 @@ public abstract class Component {
     return Duration.ofSeconds(duration.toSeconds());
   }
 
-  abstract void accept(Visitor v);
+  public abstract void accept(Visitor v);
 
   public String getFatherName() {
     assert this.father != null;

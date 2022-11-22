@@ -1,3 +1,7 @@
+package Fita2;
+
+import Fita1.*;
+
 import java.util.LinkedList;
 import java.util.List;
 

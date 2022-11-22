@@ -1,3 +1,8 @@
+package Fita1;
+
+import Fita1.ClockTimer;
+import Fita1.Visitor;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
@@ -7,7 +12,7 @@ import java.util.Observer;
 // rights reserved.
 // Released under the terms of the GNU General Public License version 2 or later.
 
-// This class Implements the Observer Design Pattern and, it is connected to the ClockTimer.
+// This class Implements the Observer Design Pattern and, it is connected to the Fita1.ClockTimer.
 public class Interval implements Observer {
   private LocalDateTime start;
   private LocalDateTime end;
@@ -43,7 +48,7 @@ public class Interval implements Observer {
     this.active = false;
   }
 
-  // This method expands the inner changes into the father Task, and then,
+  // This method expands the inner changes into the father Fita1.Task, and then,
   // if exists, recursively into the upper nodes.
   public void updateDates() {
     this.father.updateDates();
@@ -79,7 +84,7 @@ public class Interval implements Observer {
 
   @Override
   public String toString() {
-    return "Interval \t\t\t\t\t child of " + getFather().getName() + "\t\t\t"
+    return "Fita1.Interval \t\t\t\t\t child of " + getFather().getName() + "\t\t\t"
         + getStart() + "\t\t\t" + getEnd() + "\t\t\t" + getElapsedTime().getSeconds();
   }
 }
