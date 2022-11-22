@@ -23,17 +23,22 @@ public class Task extends Component {
 
     // we notify the father (that cannot be null) of this object's creation in order
     // to this object be in its descendents.
-    father.addComponent(this);
+    if (father != null) {
+      father.addComponent(this);
+    }
     this.stopped = false;
   }
 
   public Task(String name, Project father, List<String> tagList) {
     super(name, father);
+    assert tagList != null;
     this.tagList = tagList;
 
     // we notify the father (that cannot be null) of this object's creation in order
     // to this object be in its descendents.
-    father.addComponent(this);
+    if (father != null) {
+      father.addComponent(this);
+    }
     this.stopped = false;
   }
 
@@ -51,6 +56,7 @@ public class Task extends Component {
   }
 
   public void addInterval(Interval interval) {
+    assert interval != null;
     this.intervals.add(interval);
   }
 
@@ -90,6 +96,7 @@ public class Task extends Component {
   }
 
   public void accept(Visitor v) {
+    assert v != null;
     v.visitTask(this);
   }
 
@@ -99,11 +106,12 @@ public class Task extends Component {
   }
 
   public Interval getIntervalPos(int pos) {
+    assert pos >= 0 && pos <= this.intervals.size() - 1;
     return this.intervals.get(pos);
   }
 
   public List<String> getTagList() {
-    return tagList;
+    return this.tagList;
   }
 
 

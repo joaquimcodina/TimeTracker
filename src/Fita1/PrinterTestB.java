@@ -27,6 +27,7 @@ public class PrinterTestB implements Visitor, Observer {
 
   @Override
   public void visitProject(Project project) {
+    assert project != null;
     logger.info("activity: \t\t" + project.getName() + "\t\t\t\t"
         + project.getStartDate().format(formatter)
         + "\t\t\t" + project.getActualDate().format(formatter) + "\t\t\t"
@@ -41,6 +42,7 @@ public class PrinterTestB implements Visitor, Observer {
 
   @Override
   public void visitTask(Task task) {
+    assert task != null;
     logger.info("activity: \t\t" + task.getName()
         + "\t\t\t" + task.getStartDate().format(formatter)
         + "\t\t\t" + task.getActualDate().format(formatter)
@@ -53,6 +55,7 @@ public class PrinterTestB implements Visitor, Observer {
 
   @Override
   public void visitInterval(Interval interval) {
+    assert interval != null;
     if (interval.getFather().isStopped()) {
       logger.debug(null);
     }

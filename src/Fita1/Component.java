@@ -19,6 +19,8 @@ public abstract class Component {
   private Project father;
 
   public Component(String name) {
+    assert name != null;
+
     this.name = name;
     this.father = null;
     this.elapsedTime = Duration.ZERO;
@@ -27,6 +29,8 @@ public abstract class Component {
   }
 
   public Component(String name, Project father) {
+    assert name != null;
+
     this.name = name;
     this.father = father;
     this.elapsedTime = Duration.ZERO;
@@ -36,6 +40,9 @@ public abstract class Component {
 
   public Component(String name, Project father, Duration elapsedTime,
                    LocalDateTime startDate, LocalDateTime finalDate) {
+    assert name != null;
+    assert elapsedTime != null;
+
     this.name = name;
     this.father = father;
     this.elapsedTime = elapsedTime;
@@ -46,20 +53,20 @@ public abstract class Component {
   public abstract List<Interval> getIntervals();
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public LocalDateTime getStartDate() {
-    return startDate;
+    return this.startDate;
   }
 
   //initialDate
   public LocalDateTime getFinalDate() {
-    return finalDate;
+    return this.finalDate;
   }
 
   public Duration getElapsedTime() {
-    return elapsedTime;
+    return this.elapsedTime;
   }
 
   public Project getFather() {
@@ -71,28 +78,36 @@ public abstract class Component {
   }
 
   protected void sumElapsedTime(Duration elapsedTime) {
+    Duration assertTest = this.elapsedTime;
+
     this.elapsedTime = this.elapsedTime.plus(elapsedTime);
+
+    assert assertTest.compareTo(this.elapsedTime) <= 0;
   }
 
   // This function updates its own startDate and expands recursively the inner changes to the
   // upper nodes in the hierarchy, if exists.
   public void setStartDate(LocalDateTime startDate) {
-    if (this.getStartDate() == null) {
+    assert startDate != null;
+
+    if (this.startDate == null) {
       this.startDate = startDate;
     }
     if (this.father != null) {
-      father.setStartDate(startDate);
+      this.father.setStartDate(startDate);
     }
   }
 
   // This function updates its own finalDate and expands recursively the inner changes to the
   // upper nodes in the hierarchy, if exists.
   public void setFinalDate(LocalDateTime finalDate) {
+    assert finalDate != null;
+
     if (this.finalDate == null || this.finalDate.compareTo(finalDate) < 0) {
       this.finalDate = finalDate;
     }
-    if (father != null) {
-      father.setFinalDate(finalDate);
+    if (this.father != null) {
+      this.father.setFinalDate(finalDate);
     }
   }
 

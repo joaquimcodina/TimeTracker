@@ -1,8 +1,5 @@
 package Fita1;
 
-import Fita1.Component;
-import Fita1.Interval;
-import Fita1.Visitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +13,8 @@ public class PrinterTestA implements Visitor {
   static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   public void visitProject(Project project) {
+    assert project != null;
+
     logger.info("Fita1.Project " + project);
     for (Component component : project.getComponentList()) {
       component.accept(this);
@@ -26,6 +25,7 @@ public class PrinterTestA implements Visitor {
   }
 
   public void visitTask(Task task) {
+    assert task != null;
     logger.info("Fita1.Task " + task);
     if (task.getIntervals().size() != 0) {
       for (int pos = 0; pos < task.getIntervals().size(); pos++) {
@@ -35,6 +35,7 @@ public class PrinterTestA implements Visitor {
   }
 
   public void visitInterval(Interval interval) {
+    assert interval != null;
     logger.debug(null);
   }
 }

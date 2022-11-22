@@ -53,15 +53,17 @@ public class ClockTimer extends Observable {
 
   @Override
   public synchronized void addObserver(Observer o) {
+    assert o != null;
     super.addObserver(o);
   }
 
   public void addInterval(Interval inter) {
-    observers.add(inter);
+    assert  inter != null;
+    this.observers.add(inter);
   }
 
   public List<Interval> getObservers() {
-    return observers;
+    return this.observers;
   }
 
   @Override

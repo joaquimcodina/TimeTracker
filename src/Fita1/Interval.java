@@ -1,8 +1,5 @@
 package Fita1;
 
-import Fita1.ClockTimer;
-import Fita1.Visitor;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
@@ -21,11 +18,15 @@ public class Interval implements Observer {
   private boolean active = true;
 
   public Interval(Task father) {
+    assert father != null;
+
     this.start = LocalDateTime.now();
     this.father = father;
   }
 
   public Interval(LocalDateTime start, LocalDateTime end, Task father, Duration elapsedTime) {
+    assert father != null;
+
     this.start = start;
     this.end = end;
     this.father = father;
@@ -41,7 +42,7 @@ public class Interval implements Observer {
   }
 
   public boolean getActive() {
-    return active;
+    return this.active;
   }
 
   public void setNotActive() {
@@ -79,6 +80,7 @@ public class Interval implements Observer {
   }
 
   public void accept(Visitor v) {
+    assert v != null;
     v.visitInterval(this);
   }
 

@@ -21,16 +21,22 @@ public class Project extends Component {
 
     //we notify the father (that cannot be null) of this object's creation in order
     //to this object be in its descendents.
-    father.addComponent(this);
+    if (father != null) {
+      father.addComponent(this);
+    }
   }
 
   public Project(String name, Project father, List<String> tagList) {
     super(name, father);
+    assert tagList != null;
+
     this.tagList = tagList;
 
     //we notify the father (that cannot be null) of this object's creation in order
     //to this object be in its descendents.
-    father.addComponent(this);
+    if (father != null) {
+      father.addComponent(this);
+    }
   }
 
   // This Constructor calls to the superclass constructor (super statement),
@@ -62,6 +68,7 @@ public class Project extends Component {
   }
 
   protected void addComponent(Component comp) {
+    assert comp != null;
     this.componentList.add(comp);
   }
 
@@ -79,6 +86,7 @@ public class Project extends Component {
   }
 
   public void accept(Visitor v) {
+    assert v != null;
     v.visitProject(this);
   }
 }
