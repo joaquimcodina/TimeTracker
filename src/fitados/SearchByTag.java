@@ -30,9 +30,6 @@ public class SearchByTag implements Visitor {
     for (Component component : project.getComponentList()) {
       component.accept(this);
     }
-    if (project.getName().equals("root")) {
-      System.out.println();
-    }
   }
 
   public void visitTask(Task task) {
@@ -44,6 +41,6 @@ public class SearchByTag implements Visitor {
   }
 
   public void visitInterval(Interval interval) {
-    System.out.print("");
+
   }
 }

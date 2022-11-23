@@ -3,6 +3,7 @@ package fitaun;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
@@ -15,6 +16,8 @@ public abstract class Component {
   private LocalDateTime startDate;
   private LocalDateTime finalDate;
   private Project father;
+
+  protected List<String> tagList = new LinkedList<>();
 
   public Component(String name) {
     assert name != null;

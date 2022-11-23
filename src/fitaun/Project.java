@@ -14,8 +14,6 @@ import java.util.List;
 public class Project extends Component {
   private List<Component> componentList = new LinkedList<>();
 
-  private List<String> tagList = new LinkedList<>();
-
   public Project(String name, Project father) {
     super(name, father);
 

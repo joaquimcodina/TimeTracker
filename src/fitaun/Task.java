@@ -11,8 +11,6 @@ import java.util.List;
 
 public class Task extends Component {
   private List<Interval> intervals = new LinkedList<>();
-
-  private List<String> tagList = new LinkedList<>();
   private boolean stopped;
 
 
