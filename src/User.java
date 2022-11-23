@@ -1,6 +1,12 @@
-import Fita1.*;
-import Fita2.*;
-
+import fitados.SearchByTag;
+import fitaun.ClockTimer;
+import fitaun.Component;
+import fitaun.PrinterTestA;
+import fitaun.PrinterTestB;
+import fitaun.Project;
+import fitaun.ReadJson;
+import fitaun.SaveJson;
+import fitaun.Task;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +32,7 @@ public class User {
 
     Project softwareDesign = new Project("Software Design", root);
     Project problems = new Project("Problems", softwareDesign);
-    Project projectTimeTracker = new Project("Fita1.Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project("fitaun.Project Time Tracker", softwareDesign);
 
     new Task("First List", problems);
     new Task("Second List", problems);
@@ -45,10 +51,10 @@ public class User {
   // This test is the second test we have, that corresponds
   // to the appendix "B".
   // The printing of the hierarchy is done through another
-  // Fita1.Visitor class which is called "Fita1.PrinterTestB.java".
+  // fitaun.Visitor class which is called "fitaun.PrinterTestB.java".
   // In order to do it correctly, the best option is to
   // modify on this method just the things related to the hierarchy, such as
-  // initializing a task Fita1.Interval or stopping it.
+  // initializing a task fitaun.Interval or stopping it.
   // In other words, because we can analyse this as a
   // tree problem, it returns the root of the tree,
   // the node that does not have a single parent and
@@ -60,7 +66,7 @@ public class User {
     new Project("Software Testing", root);
     new Project("Databases", root);
 
-    Project projectTimeTracker = new Project("Fita1.Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project("fitaun.Project Time Tracker", softwareDesign);
 
     new Task("Read Handout", projectTimeTracker);
     new Task("First Milestone", projectTimeTracker);
@@ -153,7 +159,7 @@ public class User {
     tagList.add("Dart");
     new Task("Second List", problems, tagList);
 
-    Project projectTimeTracker = new Project("Fita1.Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project("fitaun.Project Time Tracker", softwareDesign);
 
     new Task("Read Handout", projectTimeTracker);
 
@@ -192,7 +198,7 @@ public class User {
     Component root = testB();
 
     // Calls too to another methods in other class in order to test them, such as saving in an .JSON
-    // file the hierarchy (Fita1.SaveJson.java) and restoring it into the program (Fita1.ReadJson.java).
+    // file the hierarchy (fitaun.SaveJson.java) and restoring it into the program (fitaun.ReadJson.java).
     // After saving the hierarchy in a .JSON file, you will be able to see it in the file:
     // "./data/data.json".
     new SaveJson(root);

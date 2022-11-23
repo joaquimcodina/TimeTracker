@@ -1,7 +1,10 @@
-package Fita2;
+package fitados;
 
-import Fita1.*;
-
+import fitaun.Component;
+import fitaun.Project;
+import fitaun.Task;
+import fitaun.Visitor;
+import fitaun.Interval;
 import java.util.LinkedList;
 import java.util.List;
 

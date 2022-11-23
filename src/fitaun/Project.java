@@ -1,4 +1,4 @@
-package Fita1;
+package fitaun;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ import java.util.List;
 // rights reserved.
 // Released under the terms of the GNU General Public License version 2 or later.
 
-// This class is a subclass of a Fita1.Component (Fita1.Component.java) class, and, therefore, it implements
+// This class is a subclass of a fitaun.Component (fitaun.Component.java) class, and, therefore, it implements
 // what the superclass forces to implement.
 public class Project extends Component {
   private List<Component> componentList = new LinkedList<>();

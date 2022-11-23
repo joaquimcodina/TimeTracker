@@ -1,6 +1,4 @@
-package Fita1;
-
-import Fita1.Visitor;
+package fitaun;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -1,12 +1,9 @@
-package Fita1;
+package fitaun;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
-import Fita1.ClockTimer;
-import Fita1.Interval;
-import Fita1.Visitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +11,7 @@ import org.slf4j.LoggerFactory;
 // rights reserved.
 // Released under the terms of the GNU General Public License version 2 or later.
 
-// This class implements the Fita1.Visitor Design Pattern and the Observer Design Pattern.
+// This class implements the fitaun.Visitor Design Pattern and the Observer Design Pattern.
 // It is used to print the hierarchy of the Time Tracker and its changes.
 public class PrinterTestB implements Visitor, Observer {
 

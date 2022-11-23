@@ -1,4 +1,4 @@
-package Fita1;
+package fitaun;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 // Released under the terms of the GNU General Public License version 2 or later.
 
 //This class reads a .JSON file, parses its information and saves it into the
-//Fita1.Project in order to recover the data and maintain the persistence.
+//fitaun.Project in order to recover the data and maintain the persistence.
 public class ReadJson {
   private List<Component> hierarchy;
   static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
@@ -28,7 +28,7 @@ public class ReadJson {
     // If you want to get the first element of the hierarchy, in order to use it for anything
     // (like printing it into console):
     // - ReadJSON hierarchy = new ReadJSON();
-    // - Fita1.Component comp = hierarchy.getRoot();
+    // - fitaun.Component comp = hierarchy.getRoot();
 
     String path = "./data/data.json";
     logger.info("Loading json file: from " + path);
@@ -66,14 +66,14 @@ public class ReadJson {
     }
     Duration elapsedTime = Duration.parse(component.getString("elapsed_time"));
 
-    if (type.equals("Fita1.Interval")) {
+    if (type.equals("fitaun.Interval")) {
       new Interval(startDate, finalDate,
           (Task) Objects.requireNonNull(searchFatherByName(fatherName,
           createdObjects)), elapsedTime);
     } else {
       String name = component.getString("name");
 
-      if (type.equals("Fita1.Project")) {
+      if (type.equals("fitaun.Project")) {
         Project project = new Project(name,
             (Project) searchFatherByName(fatherName, createdObjects),
             elapsedTime, startDate, finalDate);
@@ -91,8 +91,8 @@ public class ReadJson {
   }
 
 
-  // This method searches the componentList parameter for the name of a Fita1.Component,
-  // starting from its parent Fita1.Component.
+  // This method searches the componentList parameter for the name of a fitaun.Component,
+  // starting from its parent fitaun.Component.
   private Object searchFatherByName(String name, List<Component> componentList) {
     for (Component component : componentList) {
       String nameVar = component.getName();

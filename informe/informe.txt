@@ -20,7 +20,7 @@
 
 - Sense prolemes d'acoblament, cohesió ni responsabilitats: Tots
 
-- Utilitzar els patrons mínims (Observer, Fita1.Visitor, Singleton, Composite): Tots
+- Utilitzar els patrons mínims (Observer, fitaun.Visitor, Singleton, Composite): Tots
 
 - Pasa el test de l'apendíx B i mostrar dates i duracions correctes en temps real: Tots
 

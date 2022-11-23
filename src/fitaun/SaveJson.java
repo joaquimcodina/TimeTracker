@@ -1,10 +1,9 @@
-package Fita1;
+package fitaun;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import Fita1.Visitor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -14,8 +13,8 @@ import org.slf4j.LoggerFactory;
 // rights reserved.
 // Released under the terms of the GNU General Public License version 2 or later.
 
-// This class implements the Fita1.Visitor (Fita1.Visitor.java) class,
-// which implements the Fita1.Visitor Design Pattern.
+// This class implements the fitaun.Visitor (fitaun.Visitor.java) class,
+// which implements the fitaun.Visitor Design Pattern.
 // It is used to create a file and save the Time Tracker
 // application's data into a .JSON file, which
 // will be called "./data/data.json".
