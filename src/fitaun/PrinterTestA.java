@@ -29,6 +29,7 @@ public class PrinterTestA implements Visitor {
     logger.info("fitaun.Task " + task);
     if (task.getIntervals().size() != 0) {
       for (int pos = 0; pos < task.getIntervals().size(); pos++) {
+        assert task.getIntervalPos(pos) !=  null;
         logger.info("   " + task.getIntervalPos(pos));
       }
     }

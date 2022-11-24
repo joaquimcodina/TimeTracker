@@ -118,6 +118,7 @@ public abstract class Component {
 
   public Duration getActualElapsedTime() {
     Duration duration = this.elapsedTime;
+    assert duration != null;
 
     if (this.getIntervals() == null) {
       return Duration.ofSeconds(Duration.between(this.startDate, LocalDateTime.now()).toSeconds());

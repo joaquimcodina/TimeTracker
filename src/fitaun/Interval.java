@@ -37,8 +37,13 @@ public class Interval implements Observer {
 
   // This method updates the elapsedTime every time it receives an update of Observable.
   public void update(Observable o, Object arg) {
+    assert this.start != null;
+    assert this.end == null;
     this.elapsedTime = Duration.ofSeconds(
         Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
+
+    assert this.elapsedTime != null;
+    assert this.elapsedTime.getSeconds() >= Duration.ZERO.getSeconds();
   }
 
   public boolean getActive() {

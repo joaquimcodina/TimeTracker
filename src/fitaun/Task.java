@@ -13,7 +13,6 @@ public class Task extends Component {
   private List<Interval> intervals = new LinkedList<>();
   private boolean stopped;
 
-
   public Task(String name, Project father) {
     super(name, father);
 
@@ -70,6 +69,7 @@ public class Task extends Component {
   }
 
   private void stopIntervals() {
+    assert this.intervals != null;
     for (Interval interval : this.intervals) {
       interval.updateDates();
       interval.setNotActive();
