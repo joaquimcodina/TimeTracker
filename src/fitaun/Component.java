@@ -24,6 +24,7 @@ public abstract class Component {
 
   public Component(String name) {
     assert name != null;
+    assert !name.equals("");
 
     this.name = name;
     this.father = null;
@@ -34,6 +35,7 @@ public abstract class Component {
 
   public Component(String name, Project father) {
     assert name != null;
+    assert !name.equals("");
 
     this.name = name;
     this.father = father;
@@ -45,6 +47,7 @@ public abstract class Component {
   public Component(String name, Project father, Duration elapsedTime,
                    LocalDateTime startDate, LocalDateTime finalDate) {
     assert name != null;
+    assert !name.equals("");
     assert elapsedTime != null;
 
     this.name = name;

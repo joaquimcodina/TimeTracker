@@ -58,11 +58,14 @@ public class Task extends Component {
 
   public void addInterval(Interval interval) {
     assert interval != null;
+    final int size = this.intervals.size();
     this.intervals.add(interval);
+    assert size == this.intervals.size() - 1;
   }
 
   // This method is set to be called from a User class by the User or in tests.
   public void start() {
+    final int size = this.intervals.size();
     Interval interval = new Interval(this);
     ClockTimer.getInstance().addObserver(interval);
     ClockTimer.getInstance().addInterval(interval);
@@ -73,6 +76,7 @@ public class Task extends Component {
     this.setStartDate(interval.getStart());
     this.stopped = false;
     this.intervals.add(interval);
+    assert this.intervals.size() == size + 1;
   }
 
   private void stopIntervals() {

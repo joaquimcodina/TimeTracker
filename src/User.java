@@ -195,6 +195,10 @@ public class User {
     System.out.println("\nEnd of Test Fita2.SearchByTag");
   }
 
+  public static String testC() {
+    return "https://f1fa-158-109-31-4.eu.ngrok.io";
+  }
+
   public static void main(String[] args) throws InterruptedException, IOException {
     testA();
     Component root = testB();
@@ -212,5 +216,8 @@ public class User {
     newRoot.accept(printerTestA);
 
     testSearchByTag();
+    System.out.println();
+    System.out.println("Test C: ");
+    System.out.println(testC());
   }
 }

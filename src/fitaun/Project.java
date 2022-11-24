@@ -61,6 +61,7 @@ public class Project extends Component {
   }
 
   public void updateElapsedTime() {
+    final Duration elapsed = this.elapsedTime;
     this.setElapsedTime();
 
     for (Component component : this.componentList) {
@@ -71,12 +72,15 @@ public class Project extends Component {
     if (this.getFather() != null) {
       this.getFather().updateElapsedTime();
     }
+    assert elapsed.compareTo(this.elapsedTime) <= 0;
   }
 
   protected void addComponent(Component comp) {
     assert comp != null;
+    final int size = this.componentList.size();
     logger.trace("Project " + this.getName() + " adding a component to its ComponentList");
     this.componentList.add(comp);
+    assert size == this.componentList.size() - 1;
   }
 
   public List<Component> getComponentList() {
