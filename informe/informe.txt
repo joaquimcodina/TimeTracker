@@ -16,9 +16,9 @@
 
 - Diagrama de Classes en format plantUML: Tots
 
-- Crea la jerarquia de projectes i tasques del apéndix A i mostrar les seves dates i duració en temps real: Tots
+- Crea la jerarquia de projectes i tasques de l'apéndix A i mostrar les seves dates i duració en temps real: Tots
 
-- Sense prolemes d'acoblament, cohesió ni responsabilitats: Tots
+- Sense problemes d'acoblament, cohesió ni responsabilitats: Tots
 
 - Utilitzar els patrons mínims (Observer, fitaun.Visitor, Singleton, Composite): Tots
 

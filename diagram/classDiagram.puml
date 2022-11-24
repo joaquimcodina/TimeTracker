@@ -1,5 +1,5 @@
 @startuml
-skinparam classAttributeIconSize 0
+skinparam classAttributeIconSize 12
 
 title "Time Tracker"
 
@@ -17,6 +17,7 @@ visitInterval(interval : Interval)
 }
 
 class PrinterTestA implements Visitor{
+- {static} logger : Logger
 + visitProject(project : Project)
 + visitTask(task : Task)
 + visitInterval(interval : Interval)
@@ -24,6 +25,7 @@ class PrinterTestA implements Visitor{
 
 class PrinterTestB implements Visitor, Observer{
 - formatter : DateTimeFormatter
+- {static} logger : Logger
 + PrinterTestB()
 + visitProject(project : Project)
 + visitTask(task : Task)
@@ -34,7 +36,8 @@ class PrinterTestB implements Visitor, Observer{
 class SearchByTag implements Visitor{
 - tag : String
 - results : List<String>
-+ SearchByTag()
+- {static} logger : Logger
++ SearchByTag(tag : String)
 + getResults() : List<String>
 + visitProject(project : Project)
 + visitTask(task : Task)
@@ -43,6 +46,7 @@ class SearchByTag implements Visitor{
 
 class SaveJson implements Visitor{
 - jsonArray : JSONArray
+- {static} logger : Logger
 + SaveJson(root : Component)
 + visitProject(project : Project)
 - inputData(component : Component)
@@ -53,6 +57,7 @@ class SaveJson implements Visitor{
 class Task extends Component{
 - intervals : List<Interval>
 - stopped : boolean
+- {static} logger : Logger
 + Task(name : String, father : Project)
 + Task(name : String, father : Project, tagList : List<String>)
 + Task(name : String, father : Project, elapsedTime : Duration, startDate : LocalDateTime, finalDate : LocalDateTime)
@@ -70,9 +75,10 @@ class Task extends Component{
 
 class Project extends Component {
 - componentList : List<Components>
+- {static} logger : Logger
++ Project(name : String)
 + Project(name : String, father : Project)
 + Project(name : String, father : Project, tagList : List<String>)
-+ Project(name : String)
 + Project(name : String, father : Project, elapsedTime : Duration,
         startDate : LocalDateTime, finalDate : LocalDateTime)
 + updateElapsedTime()
@@ -102,6 +108,7 @@ class ClockTimer{
 - timer : Timer
 - observers : List<Interval>
 - now : LocalDateTime
+- {static} logger : Logger
 - {static} instance : ClockTimer
 - ClockTimer()
 + startClock()
@@ -120,6 +127,7 @@ abstract class Component{
 - startDate : LocalDateTime
 - finalDate : LocalDateTime
 - father : Project
+- {static} logger : Logger
 + Component(name : String)
 + Component(name : String, father : Project)
 + Component(name : String, father : Project, elapsedTime : Duration,
@@ -145,6 +153,7 @@ class Interval {
 - father : Task
 - elapsedTime : Duration
 - active : boolean
+- {static} logger : Logger
 + Interval(father : Task)
 + Interval(name : String, father : Project, elapsedTime : Duration,
         startDate : LocalDateTime, finalDate : LocalDateTime)
@@ -164,6 +173,7 @@ class Interval {
 
 class ReadJson {
 - hierarchy : List<Component>
+- {static} logger : Logger
 + ReadJson()
 + getRoot() : Component
 - createObject(component : Component, createdObjects : List<Component>) : List<Component>

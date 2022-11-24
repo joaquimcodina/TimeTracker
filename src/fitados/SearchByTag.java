@@ -1,9 +1,7 @@
 package fitados;
 
-import fitaun.Component;
-import fitaun.Project;
-import fitaun.Task;
-import fitaun.Visitor;
+import fitaun.*;
+
 import java.util.LinkedList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -45,5 +43,8 @@ public class SearchByTag implements Visitor {
   }
 
   public void visitInterval(Interval interval) {
+    assert interval != null;
+    logger.debug(null);
   }
+
 }

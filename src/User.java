@@ -23,8 +23,6 @@ public class User {
   // It is called by the main method in this class too.
   public static void testA() {
 
-    //int ieqeqw = 0;
-    //assert ieqeqw == 2;
     System.out.println("\nBegin of Test A\n");
 
     Project root = new Project("root");
