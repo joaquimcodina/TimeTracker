@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -16,9 +18,11 @@ public class Interval implements Observer {
   private Task father;
   private Duration elapsedTime = Duration.ZERO;
   private boolean active = true;
+  private static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   public Interval(Task father) {
     assert father != null;
+    logger.info("New Interval Created");
 
     this.start = LocalDateTime.now();
     this.father = father;
@@ -39,6 +43,8 @@ public class Interval implements Observer {
   public void update(Observable o, Object arg) {
     assert this.start != null;
     assert this.end == null;
+
+    logger.trace("Updating Elapsed Time of an Interval");
     this.elapsedTime = Duration.ofSeconds(
         Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
 
@@ -57,6 +63,7 @@ public class Interval implements Observer {
   // This method expands the inner changes into the father fitaun.Task, and then,
   // if exists, recursively into the upper nodes.
   public void updateDates() {
+    logger.trace("Interval updating recursively its fathers");
     this.father.updateDates();
   }
 

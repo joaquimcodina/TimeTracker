@@ -200,7 +200,8 @@ public class User {
     Component root = testB();
 
     // Calls too to another methods in other class in order to test them, such as saving in an .JSON
-    // file the hierarchy (fitaun.SaveJson.java) and restoring it into the program (fitaun.ReadJson.java).
+    // file the hierarchy (fitaun.SaveJson.java) and restoring it into the program
+    // (fitaun.ReadJson.java).
     // After saving the hierarchy in a .JSON file, you will be able to see it in the file:
     // "./data/data.json".
     new SaveJson(root);

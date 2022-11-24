@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -16,6 +18,7 @@ public abstract class Component {
   private LocalDateTime startDate;
   private LocalDateTime finalDate;
   private Project father;
+  private static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   protected List<String> tagList = new LinkedList<>();
 
@@ -78,7 +81,16 @@ public abstract class Component {
     this.elapsedTime = Duration.ZERO;
   }
 
+  // This function increments its own elapsed time with the duration
+  // of a task that has recently finished.
   protected void sumElapsedTime(Duration elapsedTime) {
+    assert !elapsedTime.isNegative();
+    if (elapsedTime.toSeconds() == Long.MAX_VALUE) {
+      logger.warn("Duration is bigger than MAX_VALUE. It may cause an Overflow");
+    } else {
+      logger.trace("Sum Elapsed Time");
+    }
+
     Duration assertTest = this.elapsedTime;
 
     this.elapsedTime = this.elapsedTime.plus(elapsedTime);
@@ -90,6 +102,7 @@ public abstract class Component {
   // upper nodes in the hierarchy, if exists.
   public void setStartDate(LocalDateTime startDate) {
     assert startDate != null;
+    logger.trace("Setting Start Date");
 
     if (this.startDate == null) {
       this.startDate = startDate;
@@ -103,6 +116,7 @@ public abstract class Component {
   // upper nodes in the hierarchy, if exists.
   public void setFinalDate(LocalDateTime finalDate) {
     assert finalDate != null;
+    logger.trace("Setting Final Date");
 
     if (this.finalDate == null || this.finalDate.compareTo(finalDate) < 0) {
       this.finalDate = finalDate;
@@ -119,6 +133,7 @@ public abstract class Component {
   public Duration getActualElapsedTime() {
     Duration duration = this.elapsedTime;
     assert duration != null;
+    logger.trace("Updating Elapsed Time");
 
     if (this.getIntervals() == null) {
       return Duration.ofSeconds(Duration.between(this.startDate, LocalDateTime.now()).toSeconds());

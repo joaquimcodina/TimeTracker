@@ -1,11 +1,6 @@
 <configuration>
     <!-- CONSOLE -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
         <encoder>
             <pattern>
                 %d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
@@ -15,11 +10,6 @@
 
     <!-- HTML -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ch.qos.logback.classic.html.HTMLLayout">
                 <pattern>%relative%thread%mdc%level%logger%msg</pattern>
@@ -28,29 +18,20 @@
         <file>test.html</file>
     </appender>
 
-    <!-- Loggers FITA 1-->
-    <root name="time.tracker.fita1" level="INFO">
+    <!--ROOT IMPRIMEIX ELS LOGS DE LES DUES FITES -->
+    <root level="TRACE">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE"/>
     </root>
 
-    <root name="time.tracker.fita1" level="WARNING">
+    <!-- Logger FITA 1 -->
+    <!--<logger name="time.tracker.fita1" level="TRACE">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE" />
-    </root>
+    </logger>-->
 
-    <root name="time.tracker.fita1" level="DEBUG">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE" />
-    </root>
-
-    <!-- Loggers FITA 2-->
-    <logger name="time.tracker.fita2" level="info">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE" />
-    </logger>
-
-    <logger name="time.tracker.fita2" level="warnings">
+    <!-- Logger FITA 2 -->
+    <!--<logger name="time.tracker.fita2" level="TRACE">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE" />
     </logger>

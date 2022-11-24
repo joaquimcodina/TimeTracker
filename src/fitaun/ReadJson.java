@@ -30,6 +30,7 @@ public class ReadJson {
     // - ReadJSON hierarchy = new ReadJSON();
     // - fitaun.Component comp = hierarchy.getRoot();
 
+    logger.trace("New ReadJSON instance created");
     String path = "./data/data.json";
     logger.info("Loading json file: from " + path);
     InputStream is;

@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -13,9 +15,11 @@ import java.util.List;
 // what the superclass forces to implement.
 public class Project extends Component {
   private List<Component> componentList = new LinkedList<>();
+  private static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   public Project(String name, Project father) {
     super(name, father);
+    logger.trace("New Project Created");
 
     //we notify the father (that cannot be null) of this object's creation in order
     //to this object be in its descendents.
@@ -29,6 +33,7 @@ public class Project extends Component {
     assert tagList != null;
 
     this.tagList = tagList;
+    logger.trace("New Project " + this.getName() + " Created");
 
     //we notify the father (that cannot be null) of this object's creation in order
     //to this object be in its descendents.
@@ -43,11 +48,13 @@ public class Project extends Component {
   // of the hierarchy.
   public Project(String name) {
     super(name);
+    logger.trace("New Project " + this.getName() + " Created");
   }
 
   public Project(String name, Project father, Duration elapsedTime,
                  LocalDateTime startDate, LocalDateTime finalDate) {
     super(name, father, elapsedTime, startDate, finalDate);
+    logger.trace("New Project " + this.getName() + " Created");
     if (father != null) {
       father.addComponent(this);
     }
@@ -59,6 +66,7 @@ public class Project extends Component {
     for (Component component : this.componentList) {
       this.sumElapsedTime(component.getElapsedTime());
     }
+    logger.trace("Project " + this.getName() + " updating its and fathers elapsed time");
 
     if (this.getFather() != null) {
       this.getFather().updateElapsedTime();
@@ -67,6 +75,7 @@ public class Project extends Component {
 
   protected void addComponent(Component comp) {
     assert comp != null;
+    logger.trace("Project " + this.getName() + " adding a component to its ComponentList");
     this.componentList.add(comp);
   }
 

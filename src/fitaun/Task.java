@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -12,9 +14,11 @@ import java.util.List;
 public class Task extends Component {
   private List<Interval> intervals = new LinkedList<>();
   private boolean stopped;
+  private static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
   public Task(String name, Project father) {
     super(name, father);
+    logger.trace("New Task Created");
 
     // we notify the father (that cannot be null) of this object's creation in order
     // to this object be in its descendents.
@@ -26,6 +30,7 @@ public class Task extends Component {
 
   public Task(String name, Project father, List<String> tagList) {
     super(name, father);
+    logger.trace("New Task created");
     assert tagList != null;
     this.tagList = tagList;
 
@@ -44,6 +49,7 @@ public class Task extends Component {
   public Task(String name, Project father, Duration elapsedTime,
               LocalDateTime startDate, LocalDateTime finalDate) {
     super(name, father, elapsedTime, startDate, finalDate);
+    logger.trace("New Task Created");
     this.stopped = false;
     if (father != null) {
       father.addComponent(this);
@@ -60,6 +66,7 @@ public class Task extends Component {
     Interval interval = new Interval(this);
     ClockTimer.getInstance().addObserver(interval);
     ClockTimer.getInstance().addInterval(interval);
+    logger.trace("Task" + this.getName() + " Started a new Interval");
 
     // Updates the start date of the task,
     // if it is the first Range that is created (which means the oldest Date).
@@ -85,6 +92,7 @@ public class Task extends Component {
   // After updating this attributes, it expands the changes to every node above him
   // in the hierarchy.
   public void stop() {
+    logger.trace("Task " + this.getName() + " Stopped every Interval");
     stopIntervals();
     this.updateDates();
     this.stopped = true;
@@ -115,6 +123,8 @@ public class Task extends Component {
   // initialDate, finalDate and elapsedTime.
   public void updateDates() {
     this.elapsedTime = Duration.ZERO;
+    logger.trace("Task " + this.getName() + " Updating its dates and elapsed time");
+    logger.trace("Task " + this.getName() + " Updating recursively its father duration and dates.");
 
     for (Interval interval : this.intervals) {
       LocalDateTime finalDate = interval.getEnd();

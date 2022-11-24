@@ -35,12 +35,17 @@ public class SaveJson implements Visitor {
       root.accept(this); // recursive method
     }
     try {
+      logger.debug("Creating JSON object");
       obj = new JSONObject();
+      logger.debug("Putting information into JSON object");
       obj.put("components", jsonArray);
+      logger.debug("Writing JSON object into datafile");
       fileData.write(obj.toString());
+      logger.debug("Closing datafile");
       fileData.close();
 
     } catch (IOException err) {
+      logger.warn("Error saving the .json file");
       throw new RuntimeException(err);
     }
     logger.info(".json file successfully created!");
