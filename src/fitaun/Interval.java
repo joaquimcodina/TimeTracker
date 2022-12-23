@@ -2,8 +2,10 @@ package fitaun;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 // This class Implements the Observer Design Pattern and, it is connected to the fitaun.ClockTimer.
 public class Interval implements Observer {
+  private int id;
   private LocalDateTime start;
   private LocalDateTime end;
   private Task father;
@@ -20,17 +23,17 @@ public class Interval implements Observer {
   private boolean active = true;
   private static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
-  public Interval(Task father) {
+  public Interval(int id, Task father) {
     assert father != null;
     logger.info("New Interval Created");
-
+    this.id = id;
     this.start = LocalDateTime.now();
     this.father = father;
   }
 
-  public Interval(LocalDateTime start, LocalDateTime end, Task father, Duration elapsedTime) {
+  public Interval(int id, LocalDateTime start, LocalDateTime end, Task father, Duration elapsedTime) {
     assert father != null;
-
+    this.id = id;
     this.start = start;
     this.end = end;
     this.father = father;
@@ -44,9 +47,10 @@ public class Interval implements Observer {
     assert this.start != null;
     assert this.end == null;
 
-    logger.trace("Updating Elapsed Time of an Interval");
-    this.elapsedTime = Duration.ofSeconds(
-        Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
+    if (this.start != null && this.end == null) {
+      logger.trace("Updating Elapsed Time of an Interval");
+      this.elapsedTime = Duration.ofSeconds(Duration.between(this.start, ClockTimer.getInstance().getNow()).toSeconds());
+    }
 
     assert this.elapsedTime != null;
     assert this.elapsedTime.getSeconds() >= Duration.ZERO.getSeconds();
@@ -58,6 +62,9 @@ public class Interval implements Observer {
 
   public void setNotActive() {
     this.active = false;
+    if (this.end == null) {
+      this.end = LocalDateTime.now();
+    }
   }
 
   // This method expands the inner changes into the father fitaun.Task, and then,
@@ -99,6 +106,19 @@ public class Interval implements Observer {
   @Override
   public String toString() {
     return "fitaun.Interval \t\t\t\t\t child of " + getFather().getName() + "\t\t\t"
-        + getStart() + "\t\t\t" + getEnd() + "\t\t\t" + getElapsedTime().getSeconds();
+      + getStart() + "\t\t\t" + getEnd() + "\t\t\t" + getElapsedTime().getSeconds();
+  }
+
+  protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+  public JSONObject toJson() {
+    JSONObject json = new JSONObject();
+    json.put("class", "interval");
+    json.put("id", id);
+    json.put("initialDate", start == null ? JSONObject.NULL : formatter.format(start));
+    json.put("finalDate", end == null ? JSONObject.NULL : formatter.format(end));
+    json.put("duration", elapsedTime.toSeconds());
+    json.put("active", active);
+    return json;
   }
 }

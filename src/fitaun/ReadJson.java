@@ -53,6 +53,7 @@ public class ReadJson {
   }
 
   //This method creates a certain object depending on the parsed information of the .JSON file.
+  @SuppressWarnings("checkstyle:Indentation")
   private List<Component> createObject(JSONObject component, List<Component> createdObjects) {
     LocalDateTime startDate = null;
     LocalDateTime finalDate = null;
@@ -68,21 +69,20 @@ public class ReadJson {
     Duration elapsedTime = Duration.parse(component.getString("elapsed_time"));
 
     if (type.equals("fitaun.Interval")) {
-      new Interval(startDate, finalDate,
-          (Task) Objects.requireNonNull(searchFatherByName(fatherName,
+      new Interval(12, startDate, finalDate,
+        (Task) Objects.requireNonNull(searchFatherByName(fatherName,
           createdObjects)), elapsedTime);
     } else {
       String name = component.getString("name");
 
       if (type.equals("fitaun.Project")) {
-        Project project = new Project(name,
-            (Project) searchFatherByName(fatherName, createdObjects),
-            elapsedTime, startDate, finalDate);
+        Project project = new Project(13, name,
+          (Project) searchFatherByName(fatherName, createdObjects), elapsedTime, startDate, finalDate);
         createdObjects.add(project);
       } else {
-        Task task = new Task(name,
-            (Project) searchFatherByName(fatherName, createdObjects),
-            elapsedTime, startDate, finalDate);
+        Task task = new Task(14, name,
+          (Project) searchFatherByName(fatherName, createdObjects),
+          elapsedTime, startDate, finalDate);
         createdObjects.add(task);
       }
     }

@@ -23,22 +23,24 @@ public class User {
   // It is called by the main method in this class too.
   public static void testA() {
 
+    //int ieqeqw = 0;
+    //assert ieqeqw == 2;
     System.out.println("\nBegin of Test A\n");
 
-    Project root = new Project("root");
-    new Project("Software Testing", root);
-    new Project("Databases", root);
-    new Task("Transportation", root);
+    Project root = new Project(1, "root");
+    new Project(2, "Software Testing", root);
+    new Project(3, "Databases", root);
+    new Task(4, "Transportation", root);
 
-    Project softwareDesign = new Project("Software Design", root);
-    Project problems = new Project("Problems", softwareDesign);
-    Project projectTimeTracker = new Project("fitaun.Project Time Tracker", softwareDesign);
+    Project softwareDesign = new Project(5, "Software Design", root);
+    Project problems = new Project(6, "Problems", softwareDesign);
+    Project projectTimeTracker = new Project(7, "Project Time Tracker", softwareDesign);
 
-    new Task("First List", problems);
-    new Task("Second List", problems);
+    new Task(8, "First List", problems);
+    new Task(9, "Second List", problems);
 
-    new Task("Read Handout", projectTimeTracker);
-    new Task("First Milestone", projectTimeTracker);
+    new Task(10, "Read Handout", projectTimeTracker);
+    new Task(11, "First Milestone", projectTimeTracker);
 
     PrinterTestA printerTestA = new PrinterTestA();
     root.accept(printerTestA);
@@ -60,16 +62,16 @@ public class User {
   // the node that does not have a single parent and
   // have 0 or more descendents.
   public static Component testB() throws InterruptedException {
-    Project root = new Project("root");
+    Project root = new Project(1, "root");
 
-    Project softwareDesign = new Project("Software Design", root);
-    new Project("Software Testing", root);
-    new Project("Databases", root);
+    Project softwareDesign = new Project(5, "Software Design", root);
+    new Project(2, "Software Testing", root);
+    new Project(3, "Databases", root);
 
-    Project projectTimeTracker = new Project("fitaun.Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project(7, "Project Time Tracker", softwareDesign);
 
-    new Task("Read Handout", projectTimeTracker);
-    new Task("First Milestone", projectTimeTracker);
+    new Task(6, "Read Handout", projectTimeTracker);
+    new Task(7, "First Milestone", projectTimeTracker);
     System.out.println("\nBegin of Test B\n");
 
     Thread.sleep(1500L);
@@ -78,7 +80,7 @@ public class User {
     System.out.println("Start test");
     System.out.println("transportation starts");
 
-    Task transportation = new Task("Transportation", root);
+    Task transportation = new Task(4, "Transportation", root);
     transportation.start();
 
     PrinterTestB printertestB = new PrinterTestB();
@@ -89,14 +91,14 @@ public class User {
 
     Thread.sleep(2000L);
 
-    Project problems = new Project("Problems", softwareDesign);
-    Task task1 = new Task("First List", problems);
+    Project problems = new Project(6, "Problems", softwareDesign);
+    Task task1 = new Task(8, "First List", problems);
 
     System.out.println("first list starts");
     task1.start();
     Thread.sleep(6000L);
 
-    Task task2 = new Task("Second List", problems);
+    Task task2 = new Task(9, "Second List", problems);
 
     System.out.println("second list starts");
     task2.start();
@@ -132,41 +134,41 @@ public class User {
     tagList.add("Java");
     tagList.add("python");
 
-    Project root = new Project("root");
-    new Project("Software Testing", root, tagList);
+    Project root = new Project(1, "root");
+    new Project(2, "Software Testing", root, tagList);
 
     tagList = new LinkedList<>();
     tagList.add("SQL");
     tagList.add("python");
     tagList.add("C++");
-    new Project("Databases", root, tagList);
+    new Project(3, "Databases", root, tagList);
 
-    new Task("Transportation", root);
+    new Task(4, "Transportation", root);
 
     tagList = new LinkedList<>();
     tagList.add("java");
     tagList.add("flutter");
-    Project softwareDesign = new Project("Software Design", root, tagList);
+    Project softwareDesign = new Project(5, "Software Design", root, tagList);
 
-    Project problems = new Project("Problems", softwareDesign);
+    Project problems = new Project(6, "Problems", softwareDesign);
 
     tagList = new LinkedList<>();
     tagList.add("java");
-    new Task("First List", problems, tagList);
+    new Task(8, "First List", problems, tagList);
 
 
     tagList = new LinkedList<>();
     tagList.add("Dart");
-    new Task("Second List", problems, tagList);
+    new Task(9, "Second List", problems, tagList);
 
-    Project projectTimeTracker = new Project("fitaun.Project Time Tracker", softwareDesign);
+    Project projectTimeTracker = new Project(7, "Project Time Tracker", softwareDesign);
 
-    new Task("Read Handout", projectTimeTracker);
+    new Task(6, "Read Handout", projectTimeTracker);
 
     tagList = new LinkedList<>();
     tagList.add("Java");
     tagList.add("IntelliJ");
-    new Task("First Milestone", projectTimeTracker, tagList);
+    new Task(7, "First Milestone", projectTimeTracker, tagList);
 
     System.out.println("\nBegin of Test Fita2.SearchByTag");
 

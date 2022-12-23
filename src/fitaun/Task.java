@@ -4,6 +4,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +20,8 @@ public class Task extends Component {
   private boolean stopped;
   private static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
-  public Task(String name, Project father) {
-    super(name, father);
+  public Task(int id, String name, Project father) {
+    super(id, name, father);
     logger.trace("New Task Created");
 
     // we notify the father (that cannot be null) of this object's creation in order
@@ -28,8 +32,8 @@ public class Task extends Component {
     this.stopped = false;
   }
 
-  public Task(String name, Project father, List<String> tagList) {
-    super(name, father);
+  public Task(int id, String name, Project father, List<String> tagList) {
+    super(id, name, father);
     logger.trace("New Task created");
     assert tagList != null;
     this.tagList = tagList;
@@ -46,9 +50,9 @@ public class Task extends Component {
   // order to rebuild the hierarchy. It will be not be
   // able to the Users. It basically initializes every single
   // attribute a fitaun.Task (and fitaun.Component) has.
-  public Task(String name, Project father, Duration elapsedTime,
+  public Task(int id, String name, Project father, Duration elapsedTime,
               LocalDateTime startDate, LocalDateTime finalDate) {
-    super(name, father, elapsedTime, startDate, finalDate);
+    super(id, name, father, elapsedTime, startDate, finalDate);
     logger.trace("New Task Created");
     this.stopped = false;
     if (father != null) {
@@ -66,7 +70,8 @@ public class Task extends Component {
   // This method is set to be called from a User class by the User or in tests.
   public void start() {
     final int size = this.intervals.size();
-    Interval interval = new Interval(this);
+
+    Interval interval = new Interval(new Random().nextInt(999999999) + 1, this);
     ClockTimer.getInstance().addObserver(interval);
     ClockTimer.getInstance().addInterval(interval);
     logger.trace("Task" + this.getName() + " Started a new Interval");
@@ -143,6 +148,24 @@ public class Task extends Component {
     if (this.getFather() != null) {
       this.getFather().updateElapsedTime();
     }
+  }
+
+  public JSONObject toJson(int depth) {
+    // depth not used here
+    JSONObject json = new JSONObject();
+    json.put("class", "task");
+    super.toJson(json);
+    json.put("active", stopped);
+    if (depth > 0) {
+      JSONArray jsonIntervals = new JSONArray();
+      for (Interval interval : intervals) {
+        jsonIntervals.put(interval.toJson());
+      }
+      json.put("intervals", jsonIntervals);
+    } else {
+      json.put("intervals", new JSONArray());
+    }
+    return json;
   }
 
   public boolean isStopped() {

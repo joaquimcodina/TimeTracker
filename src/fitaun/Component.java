@@ -7,12 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.json.JSONObject;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
 // Released under the terms of the GNU General Public License version 2 or later.
 
 public abstract class Component {
+  private int id;
   private String name;
   protected Duration elapsedTime;
   private LocalDateTime startDate;
@@ -20,12 +22,15 @@ public abstract class Component {
   private Project father;
   private static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
 
+  private List<Component> componentList = new LinkedList<>();
+
   protected List<String> tagList = new LinkedList<>();
 
-  public Component(String name) {
+  public Component(int id, String name) {
     assert name != null;
     assert !name.equals("");
 
+    this.id = id;
     this.name = name;
     this.father = null;
     this.elapsedTime = Duration.ZERO;
@@ -33,10 +38,11 @@ public abstract class Component {
     this.finalDate = null;
   }
 
-  public Component(String name, Project father) {
+  public Component(int id, String name, Project father) {
     assert name != null;
     assert !name.equals("");
 
+    this.id = id;
     this.name = name;
     this.father = father;
     this.elapsedTime = Duration.ZERO;
@@ -44,12 +50,13 @@ public abstract class Component {
     this.finalDate = null;
   }
 
-  public Component(String name, Project father, Duration elapsedTime,
+  public Component(int id, String name, Project father, Duration elapsedTime,
                    LocalDateTime startDate, LocalDateTime finalDate) {
     assert name != null;
     assert !name.equals("");
     assert elapsedTime != null;
 
+    this.id = id;
     this.name = name;
     this.father = father;
     this.elapsedTime = elapsedTime;
@@ -82,6 +89,10 @@ public abstract class Component {
 
   protected void setElapsedTime() {
     this.elapsedTime = Duration.ZERO;
+  }
+
+  public List<Component> getComponentList() {
+    return this.componentList;
   }
 
   // This function increments its own elapsed time with the duration
@@ -160,6 +171,18 @@ public abstract class Component {
     return this.father.getName();
   }
 
+  protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+  public abstract JSONObject toJson(int depth); // added 16-dec-2022
+
+  protected void toJson(JSONObject json) {
+    json.put("id", id);
+    json.put("name", name);
+    json.put("initialDate", startDate == null ? JSONObject.NULL : formatter.format(startDate));
+    json.put("finalDate", finalDate == null ? JSONObject.NULL : formatter.format(finalDate));
+    json.put("duration", elapsedTime.toSeconds());
+  }
+
   public String toString() {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String stringProject;
@@ -185,5 +208,18 @@ public abstract class Component {
         + this.getElapsedTime().getSeconds();
     }
     return stringProject;
+  }
+
+  public Component findActivityById(int id) {
+    if (this.id == id) {
+      return this;
+    }
+    for (Component component : this.componentList) {
+      Component aux = component.findActivityById(id);
+      if (aux != null) {
+        return aux;
+      }
+    }
+    return null;
   }
 }
