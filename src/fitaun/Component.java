@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.json.JSONObject;
@@ -178,6 +180,12 @@ public abstract class Component {
   protected void toJson(JSONObject json) {
     json.put("id", id);
     json.put("name", name);
+    JSONArray jsonTags = new JSONArray();
+    for (String tag : tagList) {
+      jsonTags.put(tag);
+      // important: decrement depth
+    }
+    json.put("tags", jsonTags);
     json.put("initialDate", startDate == null ? JSONObject.NULL : formatter.format(startDate));
     json.put("finalDate", finalDate == null ? JSONObject.NULL : formatter.format(finalDate));
     json.put("duration", elapsedTime.toSeconds());
