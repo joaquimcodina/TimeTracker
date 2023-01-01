@@ -2,6 +2,7 @@ package fitaun;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
 
 // Copyright (C) 2003, 2004, 2005 by Object Mentor, Inc. All
 // rights reserved.
@@ -10,7 +11,14 @@ import org.slf4j.LoggerFactory;
 // This class implements the fitaun.Visitor Design Pattern.
 // It is used to print the hierarchy of the Time Tracker.
 public class PrinterTestA implements Visitor {
+  private final Component root;
+  private ArrayList<Component> projectList;
   static Logger logger = LoggerFactory.getLogger("time.tracker.fita1");
+
+  public PrinterTestA(Component root) {
+    this.root = root;
+    this.projectList = new ArrayList<>();
+  }
 
   public void visitProject(Project project) {
     assert project != null;

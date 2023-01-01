@@ -230,4 +230,12 @@ public abstract class Component {
     }
     return null;
   }
+
+  public List<String> getTagList() {
+    return tagList;
+  }
+
+  public void addTag(String tag) {
+    this.tagList.add(tag);
+  }
 }

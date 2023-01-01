@@ -1,6 +1,5 @@
 package webserver;
-import fitaun.Component;
-import fitaun.Task;
+import fitaun.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -111,7 +110,7 @@ public class WebServer {
     private String makeBodyAnswer(String[] tokens) {
       String body = "";
       switch (tokens[0]) {
-        case "get_tree" : {
+        case "get_tree": {
           int id = Integer.parseInt(tokens[1]);
           Component activity = findActivityById(id);
           assert (activity != null);
@@ -137,6 +136,36 @@ public class WebServer {
           break;
         }
         // TODO: add new task, project
+        case "add": {
+          int idActivity = Integer.parseInt(tokens[5]);
+          String name = tokens[1];
+          int fatherId = Integer.parseInt(tokens[2]);
+          String type = tokens[3];
+          String tags1 = tokens[4].replaceAll("%5B", "");
+          String tags2 = tags1.replaceAll("%5D", "");
+          String tags = tags2.replaceAll("%20", "");
+
+          Component parentActivity = findActivityById(fatherId);
+          Component newActivity = null;
+
+          if (type.equals("Project")) {
+            newActivity = new Project(idActivity, name, (Project) parentActivity);
+          } else if (type.equals("Task")) {
+            newActivity = new Task(idActivity, name, (Project) parentActivity);
+          }
+
+          if (newActivity != null) {
+            String[] tagsList = tags.split(",");
+            for (String tag : tagsList) {
+              newActivity.addTag(tag);
+            }
+
+            body = "{}";
+          } else {
+            body = "{\"error\": \"Type must be Activity\"}";
+          }
+          break;
+        }
         // TODO: edit task, project properties
         default:
           assert false;

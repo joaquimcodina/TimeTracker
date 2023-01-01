@@ -42,7 +42,7 @@ public class User {
     new Task(10, "Read Handout", projectTimeTracker);
     new Task(11, "First Milestone", projectTimeTracker);
 
-    PrinterTestA printerTestA = new PrinterTestA();
+    PrinterTestA printerTestA = new PrinterTestA(root);
     root.accept(printerTestA);
     System.out.println("\nEnd of Test A\n");
   }
@@ -211,7 +211,7 @@ public class User {
     new SaveJson(root);
     ReadJson a = new ReadJson();
     Component newRoot = a.getRoot();
-    PrinterTestA printerTestA = new PrinterTestA();
+    PrinterTestA printerTestA = new PrinterTestA(root);
     System.out.println("Printing tree loaded from json file: \n");
     newRoot.accept(printerTestA);
 

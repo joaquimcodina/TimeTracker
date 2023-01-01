@@ -122,12 +122,6 @@ public class Task extends Component {
     assert pos >= 0 && pos <= this.intervals.size() - 1;
     return this.intervals.get(pos);
   }
-
-  public List<String> getTagList() {
-    return this.tagList;
-  }
-
-
   // This method is used to update its own attributes
   // initialDate, finalDate and elapsedTime.
   public void updateDates() {

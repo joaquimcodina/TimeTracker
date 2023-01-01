@@ -89,11 +89,6 @@ public class Project extends Component {
   public List<Interval> getIntervals() {
     return null;
   }
-
-  public List<String> getTagList() {
-    return tagList;
-  }
-
   public void accept(Visitor v) {
     assert v != null;
     v.visitProject(this);
