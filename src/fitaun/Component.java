@@ -185,6 +185,7 @@ public abstract class Component {
       jsonTags.put(tag);
       // important: decrement depth
     }
+    json.put("father", father);
     json.put("tags", jsonTags);
     json.put("initialDate", startDate == null ? JSONObject.NULL : formatter.format(startDate));
     json.put("finalDate", finalDate == null ? JSONObject.NULL : formatter.format(finalDate));
