@@ -29,7 +29,7 @@ public class Task extends Component {
     if (father != null) {
       father.addComponent(this);
     }
-    this.stopped = false;
+    this.stopped = true;
   }
 
   public Task(int id, String name, Project father, List<String> tagList) {
@@ -43,7 +43,7 @@ public class Task extends Component {
     if (father != null) {
       father.addComponent(this);
     }
-    this.stopped = false;
+    this.stopped = true;
   }
 
   // This Constructor is used by the fitaun.ReadJson.java class in
@@ -54,7 +54,7 @@ public class Task extends Component {
               LocalDateTime startDate, LocalDateTime finalDate) {
     super(id, name, father, elapsedTime, startDate, finalDate);
     logger.trace("New Task Created");
-    this.stopped = false;
+    this.stopped = true;
     if (father != null) {
       father.addComponent(this);
     }
@@ -149,7 +149,7 @@ public class Task extends Component {
     JSONObject json = new JSONObject();
     json.put("class", "task");
     super.toJson(json);
-    json.put("active", stopped);
+    json.put("active", !stopped);
     if (depth > 0) {
       JSONArray jsonIntervals = new JSONArray();
       for (Interval interval : intervals) {
