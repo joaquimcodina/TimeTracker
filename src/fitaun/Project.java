@@ -94,6 +94,7 @@ public class Project extends Component {
     v.visitProject(this);
   }
 
+  @Override
     public boolean isActive() {
     for (Component component : this.getComponentList()) {
       if (component.isActive())
