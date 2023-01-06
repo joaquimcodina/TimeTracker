@@ -1,4 +1,6 @@
 package webserver;
+
+import fitados.*;
 import fitaun.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 // Based on
@@ -13,7 +17,7 @@ import java.util.StringTokenizer;
 // http://www.jcgonzalez.com/java-socket-mini-server-http-example
 
 public class WebServer {
-  private static final int PORT = 8080; // port to listen to
+  private static final int PORT = 80; // port to listen to
 
   private Component currentActivity;
   private final Component root;
@@ -38,6 +42,18 @@ public class WebServer {
 
   private Component findActivityById(int id) {
     return root.findActivityById(id);
+  }
+
+  private Component searchByTag(String tag) {
+    SearchByTag search = new SearchByTag(tag);
+    this.root.accept(search);
+    List<Integer> componentList_ID = search.getResultsID();
+    Project returnRoot = new Project(1, "root"); //Serà el root a partir del qual es mostraran les dades.
+
+    for(int id : componentList_ID) {
+      returnRoot.addComponent(findActivityById(id));
+    }
+    return returnRoot;
   }
 
   private class SocketThread extends Thread {
@@ -166,6 +182,12 @@ public class WebServer {
           }
           break;
         }
+        case "searchByTag":
+          String tag = tokens[1].replaceAll("%20", " ");
+          Component rootSearchByTag = searchByTag(tag);
+          assert rootSearchByTag != null;
+          body = rootSearchByTag.toJson(1).toString(); //profunditat desitjada de l'arbre
+          break;
         // TODO: edit task, project properties
         default:
           assert false;
