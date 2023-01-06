@@ -94,10 +94,19 @@ public class Project extends Component {
     v.visitProject(this);
   }
 
+    public boolean isActive() {
+    for (Component component : this.getComponentList()) {
+      if (component.isActive())
+        return true;
+    }
+    return false;
+  }
+
   public JSONObject toJson(int depth) {
     JSONObject json = new JSONObject();
     json.put("class", "project");
     super.toJson(json);
+    json.put("active", isActive());
     if (depth > 0) {
       JSONArray jsonActivities = new JSONArray();
       for (Component activity : getComponentList()) {
