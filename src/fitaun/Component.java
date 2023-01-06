@@ -28,6 +28,8 @@ public abstract class Component {
 
   protected List<String> tagList = new LinkedList<>();
 
+  public int getID() { return this.id; }
+
   public Component(int id, String name) {
     assert name != null;
     assert !name.equals("");
