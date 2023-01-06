@@ -144,6 +144,7 @@ public class Task extends Component {
     }
   }
   
+  @Override  
   public boolean isActive() {
     return !this.stopped;
   }
