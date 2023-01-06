@@ -138,7 +138,7 @@ public class WebServer {
         // TODO: add new task, project
         case "add": {
           int idActivity = Integer.parseInt(tokens[5]);
-          String name = tokens[1];
+          String name = tokens[1].replaceAll("%20", " ");
           int fatherId = Integer.parseInt(tokens[2]);
           String type = tokens[3];
           String tags1 = tokens[4].replaceAll("%5B", "");
