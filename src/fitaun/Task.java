@@ -143,6 +143,10 @@ public class Task extends Component {
       this.getFather().updateElapsedTime();
     }
   }
+  
+  public boolean isActive() {
+    return !this.stopped;
+  }
 
   public JSONObject toJson(int depth) {
     // depth not used here
