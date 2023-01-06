@@ -235,6 +235,8 @@ public abstract class Component {
   public List<String> getTagList() {
     return tagList;
   }
+  
+  public abstract boolean isActive();
 
   public void addTag(String tag) {
     this.tagList.add(tag);
