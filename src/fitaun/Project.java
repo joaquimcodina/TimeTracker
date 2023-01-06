@@ -77,7 +77,7 @@ public class Project extends Component {
     assert elapsed.compareTo(this.elapsedTime) <= 0;
   }
 
-  protected void addComponent(Component comp) {
+  public void addComponent(Component comp) {
     assert comp != null;
     final int size = this.getComponentList().size();
     logger.trace("Project " + this.getName() + " adding a component to its ComponentList");
