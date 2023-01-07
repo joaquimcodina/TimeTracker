@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 // http://www.jcgonzalez.com/java-socket-mini-server-http-example
 
 public class WebServer {
-  private static final int PORT = 80; // port to listen to
+  private static final int PORT = 8080; // port to listen to
 
   private Component currentActivity;
   private final Component root;
