@@ -3,6 +3,7 @@ package fitaun;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -242,5 +243,11 @@ public abstract class Component {
 
   public void addTag(String tag) {
     this.tagList.add(tag);
+  }
+
+  // This function sorts the components list of the component it is called from
+  // added 06-jan-2023
+  public void sortComponentsList(){
+    componentList.sort(Comparator.comparing(Component::getName));
   }
 }
