@@ -110,6 +110,7 @@ public class Project extends Component {
     json.put("active", isActive());
     if (depth > 0) {
       JSONArray jsonActivities = new JSONArray();
+      this.sortComponentsList();
       for (Component activity : getComponentList()) {
         jsonActivities.put(activity.toJson(depth - 1));
         // important: decrement depth
